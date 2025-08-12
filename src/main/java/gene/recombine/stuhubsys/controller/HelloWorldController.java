@@ -28,7 +28,6 @@ public class HelloWorldController {
         redisTemplate.opsForValue().set("Token::" + token, token + "保存的用户信息", 2000, TimeUnit.SECONDS);
         return "helloWorld";
     }
-
     /**
      * 第二个接口
      * @return 保存的token值
