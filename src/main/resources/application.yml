@@ -1,0 +1,30 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: SpringBoot-School
+  # MySQL
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Rosmontis.7.6
+    url: jdbc:mysql://1.117.59.169:3306/school_spring?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+  # Redis
+  data:
+    redis:
+      host: 1.117.59.169
+      port: 6379
+      password: 654321sideR
+      database: 0
+      timeout: 1800000
+      lettuce:
+        pool:
+          max-active: 20
+          max-wait: -1
+          max-idle: 5
+          min-idle: 1
+# Logging Config
+logging:
+  level:
+    gene.recombine.springboot: DEBUG
+  config: classpath:logback-spring.xml
