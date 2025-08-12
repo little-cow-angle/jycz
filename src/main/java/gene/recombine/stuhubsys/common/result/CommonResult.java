@@ -3,6 +3,7 @@ package gene.recombine.stuhubsys.common.result;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import gene.recombine.stuhubsys.common.enums.GlobalErrorCodeConstants;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.util.Assert;
 
@@ -16,6 +17,7 @@ import java.util.Objects;
  * @param <T> 数据泛型
  */
 @Data
+@Schema(description = "通用响应结果")
 public class CommonResult<T> implements Serializable {
 
     /**
@@ -23,22 +25,30 @@ public class CommonResult<T> implements Serializable {
      *
      * @see ErrorCode#getCode()
      */
+
+    @Schema(description = "状态码", example = "200")
     private Integer code;
     /**
      * 返回数据
      */
+
+    @Schema(description = "返回数据")
     private T data;
 
 
     /**
      * 返回总数
      */
+
+    @Schema(description = "返回总数", example = "1")
     private Long total;
     /**
      * 错误提示，用户可阅读
      *
      * @see ErrorCode#getMsg() ()
      */
+
+    @Schema(description = "提示信息", example = "操作成功")
     private String msg;
 
     /**

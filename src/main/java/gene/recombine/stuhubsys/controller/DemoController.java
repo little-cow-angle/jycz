@@ -3,7 +3,7 @@ package gene.recombine.stuhubsys.controller;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.DynamicParameter;
 import com.github.xiaoymin.knife4j.annotations.DynamicParameters;
-import gene.recombine.stuhubsys.DTO.UserDto;
+import gene.recombine.stuhubsys.dto.UserDTO;
 import gene.recombine.stuhubsys.common.result.CommonResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -36,8 +36,8 @@ public class DemoController {
             )
     )
     @Operation(summary = "post方法模版")
-    public CommonResult<Object> PostDemo(@RequestBody UserDto userDto) {
-        log.info(String.valueOf(userDto.getId()));
-        return CommonResult.success("Get模版");
+    public CommonResult<Object> PostDemo(@RequestBody UserDTO userDTO) {
+        log.info(String.valueOf(userDTO.getUsername()));
+        return CommonResult.success("POST模版");
     }
 }
