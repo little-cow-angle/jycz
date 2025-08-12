@@ -8,6 +8,6 @@ import java.util.ArrayList;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class teacher extends person{
+public class Teacher extends Person {
     private ArrayList<Integer> classList;
 }

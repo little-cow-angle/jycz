@@ -12,6 +12,6 @@ import java.util.ArrayList;
 public class Class {
     private Integer id;
     private String name;
-    private ArrayList<person> studentList;
-    private ArrayList<person> teacherList;
+    private ArrayList<Person> studentList;
+    private ArrayList<Person> teacherList;
 }

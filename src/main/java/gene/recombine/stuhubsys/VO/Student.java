@@ -9,8 +9,8 @@ import java.util.ArrayList;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class student extends person{
-    private Integer id;
+public class Student extends Person {
+    private String id;
     private Integer classId;
     private String signUpCode;
     private ArrayList<Integer> signUpRecordId;
