@@ -22,9 +22,6 @@ public class EnrollmentPlanController {
     @Autowired
     private EnrollmentPlanService enrollmentPlanService;
 
-    /**
-     * TODO: 查询
-     */
     @GetMapping("{id}")
     @Operation(summary = "查询招生计划(单条)")
     @Parameter(name="id", description = "要查询的招生计划id")
@@ -32,9 +29,6 @@ public class EnrollmentPlanController {
         return CommonResult.success(enrollmentPlanService.getById(id));
     }
 
-    /**
-     * TODO：新增数据业务
-     */
     @PostMapping("add")
     @Operation(summary = "新增招生计划")
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
@@ -44,22 +38,21 @@ public class EnrollmentPlanController {
             schema = @Schema(implementation = EnrollmentPlanCreateDTO.class)
         )
     )
-    public CommonResult<EnrollmentPlan> addPlan(@RequestBody EnrollmentPlan plan) {
-        log.info(plan.toString());
-        return CommonResult.success(plan);
+    public CommonResult addPlan(@RequestBody EnrollmentPlan plan) {
+        return CommonResult.success(enrollmentPlanService.save(plan));
     }
 
     @PutMapping("update")
     @Operation(summary = "修改招生计划")
-    public CommonResult<EnrollmentPlan> updatePlan(@RequestBody EnrollmentPlan plan) {
-        return CommonResult.success(plan);
+    public CommonResult updatePlan(@RequestBody EnrollmentPlan plan) {
+        return CommonResult.success(enrollmentPlanService.updateById(plan));
     }
 
     @DeleteMapping("{id}")
     @Operation(summary = "删除招生计划")
     @Parameter(name="id", description = "要删除的招生计划id")
     public CommonResult deletePlan(@PathVariable("id") Integer id) {
-        return CommonResult.success(id);
+        return CommonResult.success(enrollmentPlanService.removeById(id));
     }
 
     /**

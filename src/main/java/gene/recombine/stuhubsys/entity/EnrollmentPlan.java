@@ -16,7 +16,7 @@ import lombok.Data;
 public class EnrollmentPlan {
 
     @TableId(type = IdType.AUTO)
-    @Schema(description = "招生计划id")
+    @Schema(description = "招生计划id", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long id;
     @Schema(description = "招生省份", example = "四川省")
     private String province;
