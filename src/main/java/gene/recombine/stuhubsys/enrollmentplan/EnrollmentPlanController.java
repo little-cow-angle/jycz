@@ -2,7 +2,7 @@ package gene.recombine.stuhubsys.enrollmentplan;
 
 import gene.recombine.stuhubsys.entity.EnrollmentPlan;
 import gene.recombine.stuhubsys.common.result.CommonResult;
-import gene.recombine.stuhubsys.dto.EnrollmentPlanCreateDTO;
+import gene.recombine.stuhubsys.dto.EnrollmentPlanAddDTO;
 import gene.recombine.stuhubsys.dto.EnrollmentPlanDTO;
 import gene.recombine.stuhubsys.service.EnrollmentPlanService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,7 +35,7 @@ public class EnrollmentPlanController {
         required = true,
         content = @Content(
             mediaType = "application/json",
-            schema = @Schema(implementation = EnrollmentPlanCreateDTO.class)
+            schema = @Schema(implementation = EnrollmentPlanAddDTO.class)
         )
     )
     public CommonResult addPlan(@RequestBody EnrollmentPlan plan) {

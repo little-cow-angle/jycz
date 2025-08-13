@@ -26,6 +26,8 @@ public class EnrollmentPlan {
     private Integer majorId;
     @Schema(description = "招生年份", example = "2077")
     private Integer year;
+    @Schema(description = "计划人数", example = "10")
+    private Integer count;
 
     @Override
     public boolean equals(Object that) {
@@ -55,6 +57,7 @@ public class EnrollmentPlan {
         result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
         result = prime * result + ((getMajorId() == null) ? 0 : getMajorId().hashCode());
         result = prime * result + ((getYear() == null) ? 0 : getYear().hashCode());
+        result = prime * result + ((getCount() == null) ? 0 : getCount().hashCode());
         return result;
     }
 
@@ -69,6 +72,7 @@ public class EnrollmentPlan {
         sb.append(", price=").append(price);
         sb.append(", majorId=").append(majorId);
         sb.append(", year=").append(year);
+        sb.append(", count=").append(count);
         sb.append("]");
         return sb.toString();
     }

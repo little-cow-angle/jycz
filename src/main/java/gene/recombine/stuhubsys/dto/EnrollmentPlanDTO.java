@@ -22,4 +22,10 @@ public class EnrollmentPlanDTO extends EnrollmentPlan {
     public Long getId() {
         return super.getId();
     }
+
+    @Override
+    @Schema(hidden = true)
+    public Integer getCount() {
+        return super.getCount();
+    }
 }
