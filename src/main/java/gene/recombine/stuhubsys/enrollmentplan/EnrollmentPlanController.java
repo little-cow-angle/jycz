@@ -1,10 +1,16 @@
 package gene.recombine.stuhubsys.enrollmentplan;
 
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.DynamicParameter;
+import com.github.xiaoymin.knife4j.annotations.DynamicParameters;
 import gene.recombine.stuhubsys.VO.EnrollmentPlan;
 import gene.recombine.stuhubsys.common.result.CommonResult;
+import gene.recombine.stuhubsys.dto.EnrollmentPlanCreateDTO;
 import gene.recombine.stuhubsys.dto.EnrollmentPlanDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +37,14 @@ public class EnrollmentPlanController {
      * TODO：新增数据业务
      */
     @PostMapping("add")
+    @Operation(summary = "新增招生计划")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+        required = true,
+        content = @Content(
+            mediaType = "application/json",
+            schema = @Schema(implementation = EnrollmentPlanCreateDTO.class)
+        )
+    )
     public CommonResult<EnrollmentPlan> addPlan(@RequestBody EnrollmentPlan plan) {
         log.info(plan.toString());
         return CommonResult.success(plan);

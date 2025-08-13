@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class EnrollmentPlan {
     @Schema(description = "招生计划id")
     Integer id;
-    @Schema(description = "招生专业id", example = "102", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "招生专业id", example = "102")
     Integer majorId;
     @Schema(description = "招生年份", example = "2077")
     Integer year;
