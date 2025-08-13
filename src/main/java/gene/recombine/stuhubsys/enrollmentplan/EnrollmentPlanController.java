@@ -1,18 +1,17 @@
 package gene.recombine.stuhubsys.enrollmentplan;
 
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.DynamicParameter;
-import com.github.xiaoymin.knife4j.annotations.DynamicParameters;
-import gene.recombine.stuhubsys.VO.EnrollmentPlan;
+import gene.recombine.stuhubsys.entity.EnrollmentPlan;
 import gene.recombine.stuhubsys.common.result.CommonResult;
 import gene.recombine.stuhubsys.dto.EnrollmentPlanCreateDTO;
 import gene.recombine.stuhubsys.dto.EnrollmentPlanDTO;
+import gene.recombine.stuhubsys.service.EnrollmentPlanService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name="招生计划")
 @Slf4j
 public class EnrollmentPlanController {
+    @Autowired
+    private EnrollmentPlanService enrollmentPlanService;
 
     /**
      * TODO: 查询
@@ -28,9 +29,7 @@ public class EnrollmentPlanController {
     @Operation(summary = "查询招生计划(单条)")
     @Parameter(name="id", description = "要查询的招生计划id")
     public CommonResult<EnrollmentPlan> getEnrollmentPlanList(@PathVariable("id") Integer id) {
-        EnrollmentPlan enrollmentPlan = new EnrollmentPlan();
-        log.info(id.toString());
-        return CommonResult.success(enrollmentPlan);
+        return CommonResult.success(enrollmentPlanService.getById(id));
     }
 
     /**

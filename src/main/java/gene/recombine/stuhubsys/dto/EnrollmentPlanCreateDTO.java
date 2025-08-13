@@ -1,6 +1,6 @@
 package gene.recombine.stuhubsys.dto;
 
-import gene.recombine.stuhubsys.VO.EnrollmentPlan;
+import gene.recombine.stuhubsys.entity.EnrollmentPlan;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
