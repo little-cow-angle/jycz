@@ -35,7 +35,7 @@ public class ReportController {
      *  ]
      */
     @GetMapping("registration")
-    @Operation(description = "按条件查询报名数据")
+    @Operation(summary = "按条件查询报名数据")
     @Parameter(name = "groupBy", description = "分组条件", example = "province",required = true)
     public CommonResult<List<ReportVO>> registrationStats(@RequestParam(value = "groupBy", defaultValue = "province") String groupBy) {
         List<ReportVO> list = new ArrayList<>();
@@ -45,8 +45,8 @@ public class ReportController {
     /**
      * 获取录取学生名单，前端用表格展示 ?
      */
-    @PostMapping("admissions")
-    @Operation(description = "获取录取学生名单")
+    @PostMapping("admission")
+    @Operation(summary = "获取录取学生名单")
     public CommonResult<List<AdmissionRecordVO>> admissionStats(@RequestBody AdmissionRecordDTO admissionRecordDTO) {
         List<AdmissionRecordVO> admissionRecordVOS = new ArrayList<>();
         return CommonResult.success(admissionRecordVOS);

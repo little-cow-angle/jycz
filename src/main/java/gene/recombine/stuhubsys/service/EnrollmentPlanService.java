@@ -1,5 +1,7 @@
 package gene.recombine.stuhubsys.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import gene.recombine.stuhubsys.dto.EnrollmentPlanDTO;
 import gene.recombine.stuhubsys.entity.EnrollmentPlan;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -9,5 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2025-08-13 10:16:27
 */
 public interface EnrollmentPlanService extends IService<EnrollmentPlan> {
-
+    IPage<EnrollmentPlan> getEnrollmentPlanPages(EnrollmentPlanDTO enrollmentPlanDTO);
 }

@@ -62,7 +62,7 @@ public class EnrollmentPlanController {
      */
     @PostMapping("plan-list")
     @Operation(summary = "查询招生计划(条件)")
-    public CommonResult<EnrollmentPlan> planList(@RequestBody EnrollmentPlanDTO enrollmentPlanDTO) {
-        return CommonResult.success(enrollmentPlanDTO);
+    public CommonResult planList(@RequestBody EnrollmentPlanDTO enrollmentPlanDTO) {
+        return CommonResult.success(enrollmentPlanService.getEnrollmentPlanPages(enrollmentPlanDTO));
     }
 }
