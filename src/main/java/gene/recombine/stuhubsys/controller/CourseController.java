@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("management/course")
+@RequestMapping("course")
 @Tag(name = "课程管理")
 public class CourseController {
     @Autowired

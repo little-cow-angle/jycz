@@ -24,23 +24,26 @@ public class Course {
     @Schema(description = "课程名", example = "高等数学", requiredMode = Schema.RequiredMode.REQUIRED)
     private String courseName;
 
-    @Schema(description = "教师id", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "教师id", example = "1001", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer teacherId;
 
-    @Schema(description = "课时数", example = "48", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "课时数", example = "48")
     private Integer courseLength;
 
-    @Schema(description = "上课教室", example = "E1202")
+    @Schema(description = "上课教室", example = "E1A202")
     private String courseClassroom;
 
     @Schema(description = "上课时间", example = "周一-周五1、2节")
     private String courseTime;
 
-    @Schema(description = "培养方案id", example = "T001", hidden = true)
-    private Integer trainingPlanId;
+    @Schema(description = "专业id", example = "100", requiredMode = Schema.RequiredMode.REQUIRED)
+    private Long majorId;
 
     @Schema(description = "课程类型", example = "必修")
     private String courseType;
+
+    @Schema(description = "教材id")
+    private Long textbookId;
 
     @Override
     public boolean equals(Object that) {
@@ -60,8 +63,9 @@ public class Course {
             && (this.getCourseLength() == null ? other.getCourseLength() == null : this.getCourseLength().equals(other.getCourseLength()))
             && (this.getCourseClassroom() == null ? other.getCourseClassroom() == null : this.getCourseClassroom().equals(other.getCourseClassroom()))
             && (this.getCourseTime() == null ? other.getCourseTime() == null : this.getCourseTime().equals(other.getCourseTime()))
-            && (this.getTrainingPlanId() == null ? other.getTrainingPlanId() == null : this.getTrainingPlanId().equals(other.getTrainingPlanId()))
-            && (this.getCourseType() == null ? other.getCourseType() == null : this.getCourseType().equals(other.getCourseType()));
+            && (this.getMajorId() == null ? other.getMajorId() == null : this.getMajorId().equals(other.getMajorId()))
+            && (this.getCourseType() == null ? other.getCourseType() == null : this.getCourseType().equals(other.getCourseType()))
+            && (this.getTextbookId() == null ? other.getTextbookId() == null : this.getTextbookId().equals(other.getTextbookId()));
     }
 
     @Override
@@ -74,8 +78,9 @@ public class Course {
         result = prime * result + ((getCourseLength() == null) ? 0 : getCourseLength().hashCode());
         result = prime * result + ((getCourseClassroom() == null) ? 0 : getCourseClassroom().hashCode());
         result = prime * result + ((getCourseTime() == null) ? 0 : getCourseTime().hashCode());
-        result = prime * result + ((getTrainingPlanId() == null) ? 0 : getTrainingPlanId().hashCode());
+        result = prime * result + ((getMajorId() == null) ? 0 : getMajorId().hashCode());
         result = prime * result + ((getCourseType() == null) ? 0 : getCourseType().hashCode());
+        result = prime * result + ((getTextbookId() == null) ? 0 : getTextbookId().hashCode());
         return result;
     }
 
@@ -91,8 +96,9 @@ public class Course {
         sb.append(", courseLength=").append(courseLength);
         sb.append(", courseClassroom=").append(courseClassroom);
         sb.append(", courseTime=").append(courseTime);
-        sb.append(", trainingPlanId=").append(trainingPlanId);
+        sb.append(", majorId=").append(majorId);
         sb.append(", courseType=").append(courseType);
+        sb.append(", textbookId=").append(textbookId);
         sb.append("]");
         return sb.toString();
     }

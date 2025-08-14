@@ -8,4 +8,6 @@ import lombok.Data;
 public class CourseVO extends Course {
     @Schema(description = "教师名")
     private String teacherName;
+    @Schema(description = "专业名")
+    private String majorName;
 }

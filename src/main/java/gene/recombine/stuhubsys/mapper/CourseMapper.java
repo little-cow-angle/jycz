@@ -1,6 +1,6 @@
 package gene.recombine.stuhubsys.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import gene.recombine.stuhubsys.entity.Course;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -14,8 +14,8 @@ import org.apache.ibatis.annotations.Param;
 * @Entity gene.recombine.stuhubsys.entity.Course
 */
 public interface CourseMapper extends BaseMapper<Course> {
-    CourseVO selectCourseWithTeacher(long id);
-    IPage<CourseVO> getCourseListPage(IPage<CourseVO> page, @Param("ew")LambdaQueryWrapper<CourseVO> queryWrapper);
+    CourseVO selectCourseById(long id);
+    IPage<CourseVO> getCourseListPage(IPage<CourseVO> page, @Param("ew") QueryWrapper<Course> queryWrapper);
 }
 
 

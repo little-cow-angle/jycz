@@ -11,7 +11,7 @@
             <result property="courseLength" column="course_length" />
             <result property="courseClassroom" column="course_classroom" />
             <result property="courseTime" column="course_time" />
-            <result property="trainingPlanId" column="training_plan_id" />
+            <result property="majorId" column="major_id" />
             <result property="courseType" column="course_type" />
     </resultMap>
 
@@ -22,27 +22,30 @@
         <result property="courseLength" column="course_length" />
         <result property="courseClassroom" column="course_classroom" />
         <result property="courseTime" column="course_time" />
-        <result property="trainingPlanId" column="training_plan_id" />
+        <result property="majorId" column="major_id" />
         <result property="courseType" column="course_type" />
         <result property="teacherName" column="teacher_name" />
+        <result property="majorName" column="major_name" />
     </resultMap>
 
     <sql id="Base_Column_List">
         course_id,course_name,teacher_id,course_length,course_classroom,course_time,
-        training_plan_id,course_type
+        major_id,course_type,textbook_id
     </sql>
 
-    <select id="selectCourseWithTeacher" resultMap="CourseVOMap">
-        SELECT c.*, t.name AS teacher_name
+    <select id="selectCourseById" resultMap="CourseVOMap">
+        SELECT c.*, t.name AS teacher_name, m.major_name AS major_name
         FROM course c
         LEFT JOIN teacher t ON c.teacher_id = t.teacher_id
+        LEFT JOIN major m ON c.major_id = m.major_id
         WHERE c.course_id = #{id}
     </select>
 
     <select id="getCourseListPage" resultMap="CourseVOMap">
-        SELECT c.*, t.name AS teacher_name
+        SELECT c.*, t.name AS teacher_name, m.major_name AS major_name
         FROM course c
         LEFT JOIN teacher t ON c.teacher_id = t.teacher_id
+        LEFT JOIN major m ON c.major_id = m.major_id
         <where>
             ${ew.sqlSegment}
         </where>
