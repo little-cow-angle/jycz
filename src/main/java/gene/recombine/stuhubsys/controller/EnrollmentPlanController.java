@@ -1,5 +1,6 @@
 package gene.recombine.stuhubsys.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import gene.recombine.stuhubsys.entity.EnrollmentPlan;
 import gene.recombine.stuhubsys.common.result.CommonResult;
 import gene.recombine.stuhubsys.dto.EnrollmentPlanAddDTO;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("enrollment-plan")
-@Tag(name="招生计划")
+@Tag(name="招生计划管理")
 @Slf4j
 public class EnrollmentPlanController {
     @Autowired
@@ -62,7 +63,7 @@ public class EnrollmentPlanController {
      */
     @PostMapping("plan-list")
     @Operation(summary = "查询招生计划(条件)")
-    public CommonResult planList(@RequestBody EnrollmentPlanDTO enrollmentPlanDTO) {
+    public CommonResult<IPage<EnrollmentPlan>> planList(@RequestBody EnrollmentPlanDTO enrollmentPlanDTO) {
         return CommonResult.success(enrollmentPlanService.getEnrollmentPlanPages(enrollmentPlanDTO));
     }
 }
