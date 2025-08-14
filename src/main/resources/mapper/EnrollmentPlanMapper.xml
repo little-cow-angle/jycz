@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gene.recombine.stuhubsys.mapper.EnrollmentPlanMapper">
+
+    <resultMap id="BaseResultMap" type="gene.recombine.stuhubsys.entity.EnrollmentPlan">
+            <id property="id" column="id" />
+            <result property="province" column="province" />
+            <result property="price" column="price" />
+            <result property="majorId" column="major_id" />
+            <result property="year" column="year" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,province,price,major_id,year
+    </sql>
+</mapper>

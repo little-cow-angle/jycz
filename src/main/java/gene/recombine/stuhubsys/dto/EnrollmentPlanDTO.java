@@ -1,6 +1,6 @@
 package gene.recombine.stuhubsys.dto;
 
-import gene.recombine.stuhubsys.VO.EnrollmentPlan;
+import gene.recombine.stuhubsys.entity.EnrollmentPlan;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -10,4 +10,22 @@ public class EnrollmentPlanDTO extends EnrollmentPlan {
     private int pageNo;
     @Schema(description = "分页大小", example = "10")
     private int pageSize;
+
+    @Override
+    @Schema(hidden = true)
+    public Integer getPrice() {
+        return super.getPrice();
+    }
+
+    @Override
+    @Schema(hidden = true)
+    public Long getId() {
+        return super.getId();
+    }
+
+    @Override
+    @Schema(hidden = true)
+    public Integer getCount() {
+        return super.getCount();
+    }
 }

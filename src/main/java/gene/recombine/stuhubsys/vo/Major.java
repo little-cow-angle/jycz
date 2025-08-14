@@ -1,4 +1,4 @@
-package gene.recombine.stuhubsys.VO;
+package gene.recombine.stuhubsys.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

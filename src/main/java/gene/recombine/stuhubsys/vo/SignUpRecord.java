@@ -1,4 +1,4 @@
-package gene.recombine.stuhubsys.VO;
+package gene.recombine.stuhubsys.vo;
 
 import gene.recombine.stuhubsys.common.enums.SIGNUPRECORDSTATUS;
 import lombok.AllArgsConstructor;
