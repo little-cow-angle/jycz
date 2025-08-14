@@ -11,9 +11,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Person {
-    @Schema(description = "专业id")
-    private Integer majorId;
-    private String id;
     @Schema(description = "姓名")
     private String name;
     @Schema(description = "电话")
