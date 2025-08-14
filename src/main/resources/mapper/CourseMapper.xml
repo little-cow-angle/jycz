@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gene.recombine.stuhubsys.mapper.CourseMapper">
+
+    <resultMap id="BaseResultMap" type="gene.recombine.stuhubsys.entity.Course">
+            <id property="courseId" column="course_id" />
+            <result property="courseName" column="course_name" />
+            <result property="teacherId" column="teacher_id" />
+            <result property="courseLength" column="course_length" />
+            <result property="courseClassroom" column="course_classroom" />
+            <result property="courseTime" column="course_time" />
+            <result property="trainingPlanId" column="training_plan_id" />
+            <result property="courseType" column="course_type" />
+    </resultMap>
+
+    <resultMap id="CourseVOMap" type="gene.recombine.stuhubsys.vo.CourseVO">
+        <id property="courseId" column="course_id" />
+        <result property="courseName" column="course_name" />
+        <result property="teacherId" column="teacher_id" />
+        <result property="courseLength" column="course_length" />
+        <result property="courseClassroom" column="course_classroom" />
+        <result property="courseTime" column="course_time" />
+        <result property="trainingPlanId" column="training_plan_id" />
+        <result property="courseType" column="course_type" />
+        <result property="teacherName" column="teacher_name" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        course_id,course_name,teacher_id,course_length,course_classroom,course_time,
+        training_plan_id,course_type
+    </sql>
+
+    <select id="selectCourseWithTeacher" resultMap="CourseVOMap">
+        SELECT c.*, t.name AS teacher_name
+        FROM course c
+        LEFT JOIN teacher t ON c.teacher_id = t.teacher_id
+        WHERE c.course_id = #{id}
+    </select>
+
+    <select id="getCourseListPage" resultMap="CourseVOMap">
+        SELECT c.*, t.name AS teacher_name
+        FROM course c
+        LEFT JOIN teacher t ON c.teacher_id = t.teacher_id
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+</mapper>
