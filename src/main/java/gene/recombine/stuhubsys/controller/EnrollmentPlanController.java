@@ -1,4 +1,4 @@
-package gene.recombine.stuhubsys.enrollmentplan;
+package gene.recombine.stuhubsys.controller;
 
 import gene.recombine.stuhubsys.entity.EnrollmentPlan;
 import gene.recombine.stuhubsys.common.result.CommonResult;

@@ -1,10 +1,9 @@
-package gene.recombine.stuhubsys.VO;
+package gene.recombine.stuhubsys.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Data
 public class AdmissionRecordVO extends Student {

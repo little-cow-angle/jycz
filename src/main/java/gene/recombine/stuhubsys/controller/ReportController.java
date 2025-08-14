@@ -1,12 +1,11 @@
-package gene.recombine.stuhubsys.enrollmentplan;
+package gene.recombine.stuhubsys.controller;
 
-import gene.recombine.stuhubsys.VO.AdmissionRecordVO;
-import gene.recombine.stuhubsys.VO.ReportVO;
+import gene.recombine.stuhubsys.vo.AdmissionRecordVO;
+import gene.recombine.stuhubsys.vo.ReportVO;
 import gene.recombine.stuhubsys.common.result.CommonResult;
 import gene.recombine.stuhubsys.dto.AdmissionRecordDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
