@@ -13,11 +13,6 @@ import gene.recombine.stuhubsys.vo.CourseVO;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-/**
-* @author ShiRyant
-* @description 针对表【course】的数据库操作Service实现
-* @createDate 2025-08-14 10:28:02
-*/
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
     implements CourseService{
@@ -37,9 +32,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
             .like(StringUtils.isNotBlank(courseDTO.getCourseName()), "course_name", courseDTO.getCourseName())
             .like(StringUtils.isNotBlank(courseDTO.getTeacherName()), "t.name", courseDTO.getTeacherName())
             .like(StringUtils.isNotBlank(courseDTO.getMajorName()), "m.major_name", courseDTO.getMajorName())
-            .eq(null != courseDTO.getCourseType(), "course_type", courseDTO.getCourseType());
+            .eq(null != courseDTO.getCourseType(), "course_type", courseDTO.getCourseType())
+            .eq(null != courseDTO.getMajorId(), "m.major_id", courseDTO.getMajorId());
         return baseMapper.getCourseListPage(page, wrapper);
     }
+
 }
 
 

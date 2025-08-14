@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 public class EnrollmentPlanDTO extends EnrollmentPlan {
     @Schema(description = "当前页码", example = "1")
-    private int pageNo;
+    private int pageNo = 1;
     @Schema(description = "分页大小", example = "10")
-    private int pageSize;
+    private int pageSize = 10;
 
     @Override
     @Schema(hidden = true)
