@@ -11,6 +11,8 @@ public class ScoreVO {
     private Long studentId;
     @Schema(description = "学生姓名")
     private String studentName;
+    @Schema(description = "课程id")
+    private Long courseId;
     @Schema(description = "课程名", example = "高等数学")
     private String courseName;
     @Schema(description = "教师名")

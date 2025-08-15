@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class Course {
 
     @TableId(type = IdType.AUTO)
-    @Schema(description = "课程id", hidden = true)
+    @Schema(description = "课程id")
     private Long courseId;
 
     @Schema(description = "课程名", example = "高等数学", requiredMode = Schema.RequiredMode.REQUIRED)
