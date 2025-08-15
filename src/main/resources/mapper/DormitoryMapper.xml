@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gene.recombine.stuhubsys.mapper.DormitoryMapper">
+
+    <resultMap id="BaseResultMap" type="gene.recombine.stuhubsys.entity.Dormitory">
+            <id property="dormId" column="dorm_id" />
+            <result property="park" column="park" />
+            <result property="building" column="building" />
+            <result property="floor" column="floor" />
+            <result property="dormNumber" column="dorm_number" />
+            <result property="currentNum" column="current_num" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        dorm_id,park,building,floor,dorm_number,current_num
+    </sql>
+
+    <select id="getDormitoryList" resultType="gene.recombine.stuhubsys.vo.DormitoryVO">
+        SELECT dorm_id, CONCAT(park, building, floor, '楼', dorm_number, '号') AS dormInfo
+        FROM dormitory
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="getParkList" resultType="java.lang.String">
+        SELECT DISTINCT park FROM dormitory
+    </select>
+
+    <select id="getBuildingList" resultType="java.lang.String">
+        SELECT DISTINCT building FROM dormitory WHERE park = #{park}
+    </select>
+
+    <select id="getFloorList" resultType="java.lang.Integer">
+        SELECT DISTINCT floor FROM dormitory WHERE park = #{park} AND building = #{building}
+    </select>
+
+</mapper>
