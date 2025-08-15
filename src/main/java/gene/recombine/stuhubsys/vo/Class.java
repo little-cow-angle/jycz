@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Class {
-    private Integer id;
+    private Long id;
     private String name;
     private ArrayList<Person> studentList;
     private ArrayList<Person> teacherList;

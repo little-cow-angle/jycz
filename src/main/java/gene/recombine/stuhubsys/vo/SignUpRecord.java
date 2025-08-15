@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SignUpRecord {
-    private Integer enrollmentPlanId;
+    private Long enrollmentPlanId;
     private String studentId;
     private LocalDateTime createTime;
     private String data;

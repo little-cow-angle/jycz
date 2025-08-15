@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EnrollmentPlan {
     @Schema(description = "招生计划id")
-    Integer id;
+    Long id;
     @Schema(description = "招生专业id", example = "102")
-    Integer majorId;
+    Long majorId;
     @Schema(description = "招生年份", example = "2077")
     Integer year;
     @Schema(description = "招生省份", example = "四川省")

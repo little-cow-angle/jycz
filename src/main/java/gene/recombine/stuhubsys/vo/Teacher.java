@@ -11,6 +11,6 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class Teacher extends Person {
     @Schema(description = "教师id")
-    private int teacherId;
+    private Long teacherId;
     //private ArrayList<Integer> classList;
 }

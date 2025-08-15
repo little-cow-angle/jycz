@@ -38,4 +38,10 @@ public class ScoreController {
     public CommonResult<IPage<ScoreVO>> getScoreList(@RequestBody ScoreDTO scoreDTO) {
         return CommonResult.success(scoreService.getSelectedCourses(scoreDTO));
     }
+
+    @PostMapping("available")
+    @Operation(summary = "获取可选课程列表(未选课程)")
+    public CommonResult<IPage<ScoreVO>> getAvailableCourses(@RequestBody ScoreDTO scoreDTO) {
+        return CommonResult.success(scoreService.getAvailableCourses(scoreDTO));
+    }
 }

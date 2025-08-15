@@ -8,4 +8,5 @@ import gene.recombine.stuhubsys.vo.ScoreVO;
 
 public interface ScoreService extends IService<Score> {
     IPage<ScoreVO> getSelectedCourses(ScoreDTO scoreDTO);
+    IPage<ScoreVO> getAvailableCourses(ScoreDTO scoreDTO);
 }

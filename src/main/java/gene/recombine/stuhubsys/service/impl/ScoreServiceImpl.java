@@ -11,6 +11,8 @@ import gene.recombine.stuhubsys.vo.ScoreVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score>
     implements ScoreService{
@@ -22,6 +24,13 @@ public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score>
     public IPage<ScoreVO> getSelectedCourses(ScoreDTO scoreDTO) {
         IPage<ScoreVO> page = new Page<>(scoreDTO.getPageNo(), scoreDTO.getPageSize());
         return scoreMapper.getSelectedCourseList(page, scoreDTO.getStudentId());
+    }
+
+    @Override
+    public IPage<ScoreVO> getAvailableCourses(ScoreDTO scoreDTO) {
+        List<Long> selectedCourseIds = scoreMapper.getCourseIdsByStudentId(scoreDTO.getStudentId());
+        IPage<ScoreVO> page = new Page<>(scoreDTO.getPageNo(), scoreDTO.getPageSize());
+        return scoreMapper.getAvailableCourseList(page, scoreDTO.getStudentId(), selectedCourseIds);
     }
 }
 
