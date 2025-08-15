@@ -1,6 +1,6 @@
 package gene.recombine.stuhubsys.vo;
 
-import gene.recombine.stuhubsys.common.enums.SIGNUPRECORDSTATUS;
+import gene.recombine.stuhubsys.common.enums.SIGN_UP_RECORD_STATUS;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +15,5 @@ public class SignUpRecord {
     private String studentId;
     private LocalDateTime createTime;
     private String data;
-    private SIGNUPRECORDSTATUS status;
+    private SIGN_UP_RECORD_STATUS status;
 }

@@ -2,7 +2,9 @@ package gene.recombine.stuhubsys.common.result;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import gene.recombine.stuhubsys.common.enums.GlobalErrorCodeConstants;
+import gene.recombine.stuhubsys.common.exception.AppException;
+import gene.recombine.stuhubsys.common.exception.AppExceptionMsg;
+import gene.recombine.stuhubsys.common.exception.AppSuccessMsg;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.util.Assert;
@@ -23,7 +25,7 @@ public class CommonResult<T> implements Serializable {
     /**
      * 错误码
      *
-     * @see ErrorCode#getCode()
+     * @see AppExceptionMsg#getCode()
      */
 
     @Schema(description = "状态码", example = "200")
@@ -45,7 +47,7 @@ public class CommonResult<T> implements Serializable {
     /**
      * 错误提示，用户可阅读
      *
-     * @see ErrorCode#getMsg() ()
+     * @see AppExceptionMsg#getMsg()
      */
 
     @Schema(description = "提示信息", example = "操作成功")
@@ -64,20 +66,22 @@ public class CommonResult<T> implements Serializable {
     }
 
     public static <T> CommonResult<T> error(Integer code, String message) {
-        Assert.isTrue(!GlobalErrorCodeConstants.SUCCESS.getCode().equals(code), "code 必须是错误的！");
+        if(code==null){
+            throw new NullPointerException();
+        }
+        Assert.isTrue(!(AppSuccessMsg.SUCCESS_MSG.getCode()== code), "code 必须是错误的！");
         CommonResult<T> result = new CommonResult<>();
         result.code = code;
         result.msg = message;
         return result;
     }
-
-    public static <T> CommonResult<T> error(ErrorCode errorCode) {
-        return error(errorCode.getCode(), errorCode.getMsg());
+    public static <T> CommonResult<T> error(AppException error) {
+        return error(error.getCode(), error.getMsg());
     }
 
     public static <T> CommonResult<List<T>> successPageData(IPage<T> page) {
         CommonResult<List<T>> result = new CommonResult<>();
-        result.code = GlobalErrorCodeConstants.SUCCESS.getCode();
+        result.code = AppSuccessMsg.SUCCESS_MSG.getCode();
         result.data = page.getRecords();
         result.total = page.getTotal();
         result.msg = "";
@@ -86,7 +90,7 @@ public class CommonResult<T> implements Serializable {
 
     public static <T> CommonResult<T> success(T data) {
         CommonResult<T> result = new CommonResult<>();
-        result.code = GlobalErrorCodeConstants.SUCCESS.getCode();
+        result.code = AppSuccessMsg.SUCCESS_MSG.getCode();
         result.data = data;
         result.msg = "";
         return result;
@@ -95,7 +99,7 @@ public class CommonResult<T> implements Serializable {
 
     public static <T> CommonResult<T> success() {
         CommonResult<T> result = new CommonResult<>();
-        result.code = GlobalErrorCodeConstants.SUCCESS.getCode();
+        result.code = AppSuccessMsg.SUCCESS_MSG.getCode();
         result.data = null;
         result.msg = "";
         return result;
@@ -103,7 +107,7 @@ public class CommonResult<T> implements Serializable {
 
 
     public static boolean isSuccess(Integer code) {
-        return Objects.equals(code, GlobalErrorCodeConstants.SUCCESS.getCode());
+        return Objects.equals(code, AppSuccessMsg.SUCCESS_MSG.getCode());
     }
 
     @JsonIgnore // 避免 jackson 序列化

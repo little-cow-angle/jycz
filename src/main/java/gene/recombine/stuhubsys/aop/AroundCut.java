@@ -1,16 +1,9 @@
 package gene.recombine.stuhubsys.aop;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import gene.recombine.stuhubsys.common.enums.GlobalErrorCodeConstants;
-import gene.recombine.stuhubsys.common.result.CommonResult;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 
 @Component

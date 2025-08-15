@@ -1,5 +1,7 @@
 package gene.recombine.stuhubsys.common.config;
 
+import gene.recombine.stuhubsys.filter.LoginRegisterFilter;
+import gene.recombine.stuhubsys.filter.MyFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -32,8 +34,25 @@ public class WebConfig implements WebMvcConfigurer {
         source.registerCorsConfiguration("/**", config); // 对接口配置跨域设置
         // 创建并返回 FilterRegistrationBean 对象
         FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
-        bean.setOrder(99999); // 设置过滤器顺序
+        bean.setOrder(0); // 设置过滤器顺序
         return bean;
+    }
+
+    @Bean
+    public FilterRegistrationBean<LoginRegisterFilter> LoginFilterRegistration(LoginRegisterFilter filter) {
+        FilterRegistrationBean<LoginRegisterFilter> registration = new FilterRegistrationBean<>();
+        registration.setFilter(filter);
+        registration.addUrlPatterns("/*");
+        registration.setOrder(1); // 设置顺序
+        return registration;
+    }
+    @Bean
+    public FilterRegistrationBean<MyFilter> AuthFilterRegistration(MyFilter filter) {
+        FilterRegistrationBean<MyFilter> registration = new FilterRegistrationBean<>();
+        registration.setFilter(filter);
+        registration.addUrlPatterns("/*");
+        registration.setOrder(2); // 设置顺序
+        return registration;
     }
 
     @Override
