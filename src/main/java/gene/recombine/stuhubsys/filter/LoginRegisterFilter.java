@@ -35,11 +35,10 @@ public class LoginRegisterFilter implements Filter {
         String url= request.getRequestURI();
         log.info("url:{}",url);
         if(
-//                url.toLowerCase().contains("doc")||
-//                url.toLowerCase().contains("favicon")||
-//                url.toLowerCase().contains("login")||
-//                url.toLowerCase().contains("webjars")
-                true
+                url.toLowerCase().contains("doc")||
+                url.toLowerCase().contains("favicon")||
+                url.toLowerCase().contains("login")||
+                url.toLowerCase().contains("webjars")
                 ){
             log.info("登录或注册请求请求，放行");
             filterChain.doFilter(request, response);
@@ -53,7 +52,6 @@ public class LoginRegisterFilter implements Filter {
             return;
         }
         try {
-            //TODO 将token中的用户信息存到ThreadLocal中
             Claims claims = JWTUtils.ParseJWT(jwt);
             if(claims==null){
                 log.info("令牌不合法");
@@ -63,13 +61,9 @@ public class LoginRegisterFilter implements Filter {
             }
             log.info("解析成功");
             String username=claims.get("username",String.class);
-            Integer userId=claims.get("userId",Integer.class);
-            Integer character=claims.get("character",Integer.class);
-            log.info("username:{},userId:{},character:{}",username,userId,character);
+            String userId=claims.get("userId",String.class);
             UserContext.set("username",username);
             UserContext.set("userId",userId);
-            UserContext.set("character",character);
-
         }catch (Exception e){
             log.info("令牌不合法");
             CommonResult err=CommonResult.error(new AppException(AppExceptionMsg.AUTH_NOT_LOGIN));
