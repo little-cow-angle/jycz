@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public enum AppExceptionMsg {
     //权限相关
-    AUTH_PASSWORD_ERROR(600,"密码错误"),
+    AUTH_PASSWORD_ERROR(600,"账号或密码错误"),
     AUTH_ADMIN_NOT_MATCHED(601,"账号类型不匹配"),
     AUTH_NOT_LOGIN(602,"未登录"),
     //填报志愿

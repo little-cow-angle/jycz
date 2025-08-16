@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public interface AuthMapper {
-
     Map<String, String> login(String ID, String password);
     @Select("select teacher_id from teacher where teacher_id=#{id} and name=#{name};")
     Teacher getAdmin(String id, String name);

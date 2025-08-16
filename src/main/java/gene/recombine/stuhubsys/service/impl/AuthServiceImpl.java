@@ -28,21 +28,25 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+
     public String login(AuthLoginDTO auth) {
         Map<String, String> result=authMapper.login(auth.getId(),auth.getPassword());
-        if(result.size()!=1){
+
+        if (result == null||result.size() != 1) {
             throw new AppException(AppExceptionMsg.AUTH_PASSWORD_ERROR);
         }
+
         String[] info = new String[0];
         for (String s : result.keySet()) {
-             info=result.get(s).split(":");
+             info = result.get(s).split(":");
         }
-        HashMap<String,Object> map= new HashMap<>();
+
+        HashMap<String, Object> map = new HashMap<>();
         map.put("userId", info[0]);
-        map.put("username",info[1]);
-        log.info("登陆成功");
-        String token=JWTUtils.GenerateJWTCode(map);
-        return token;
+        map.put("username", info[1]);
+        map.put("character", info[2]);
+        log.info("登录成功");
+        return JWTUtils.GenerateJWTCode(map);
     }
 
     @Override

@@ -31,22 +31,22 @@ public class AuthorityFilter implements MyFilter {
         log.info("我是权限控制过滤器");
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+
         String url= request.getRequestURI();
         log.info("url:{}",url);
         String method=request.getMethod();
         //TODO 在这里添加老师相关的方法接口的路径
-        if(url.toLowerCase().contains("test/auth")
-
-
-        ){
+        if( url.toLowerCase().contains("/course") ||
+            url.toLowerCase().contains("/dormitory") ||
+            url.toLowerCase().contains("/enrollment")) {
             log.info("管理员方法");
-            if(isAdmin()){
+            if(isAdmin()) {
                 filterChain.doFilter(request, response);
                 log.info("放行");
                 return;
             }
             log.info("权限不足");
-            CommonResult err= CommonResult.error(new AppException(AppExceptionMsg.AUTH_ADMIN_NOT_MATCHED));
+            CommonResult err = CommonResult.error(new AppException(AppExceptionMsg.AUTH_ADMIN_NOT_MATCHED));
             response.getWriter().write(JSONObject.toJSONString(err));
             return;
         }
