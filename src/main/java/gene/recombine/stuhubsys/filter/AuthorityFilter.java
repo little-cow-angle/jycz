@@ -30,8 +30,8 @@ public class AuthorityFilter implements MyFilter {
         log.info("我是权限控制过滤器");
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        String url= request.getRequestURI();
-        log.info("url:{}",url);
+        String url = request.getRequestURI();
+        log.info("url:{}", url);
         String method = request.getMethod();
         if( url.toLowerCase().contains("/course") ||
             url.toLowerCase().contains("/dormitory") ||
@@ -43,7 +43,7 @@ public class AuthorityFilter implements MyFilter {
                 return;
             }
             log.info("权限不足");
-            CommonResult err= CommonResult.error(new AppException(AppExceptionMsg.AUTH_ADMIN_NOT_MATCHED));
+            CommonResult err = CommonResult.error(new AppException(AppExceptionMsg.AUTH_ADMIN_NOT_MATCHED));
             response.getWriter().write(JSONObject.toJSONString(err));
             return;
         }

@@ -32,7 +32,7 @@ public class LoginRegisterFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        String url= request.getRequestURI();
+        String url = request.getRequestURI();
         log.info("url:{}",url);
         if( url.toLowerCase().contains("doc")||
             url.toLowerCase().contains("favicon")||
@@ -67,7 +67,7 @@ public class LoginRegisterFilter implements Filter {
             log.info("解析成功");
             String username = claims.get("username",String.class);
             String userId = claims.get("userId",String.class);
-            Integer character = claims.get("character",Integer.class);
+            String character = claims.get("character",String.class);
             log.info("username:{},userId:{},character:{}",username,userId,character);
             UserContext.set("username",username);
             UserContext.set("userId",userId);

@@ -45,7 +45,8 @@ public class AuthServiceImpl implements AuthService {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("userId", info[0]);
-        map.put("username",info[1]);
+        map.put("username", info[1]);
+        map.put("character", info[2]);
         log.info("登录成功");
         return JWTUtils.GenerateJWTCode(map);
     }
