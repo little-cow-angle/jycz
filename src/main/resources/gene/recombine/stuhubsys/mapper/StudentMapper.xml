@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gene.recombine.stuhubsys.mapper.StudentMapper">
+
+    <resultMap id="BaseResultMap" type="gene.recombine.stuhubsys.entity.Student">
+            <id property="studentId" column="student_id" />
+            <result property="studentName" column="student_name" />
+            <result property="studentBirth" column="student_birth" />
+            <result property="studentAddress" column="student_address" />
+            <result property="studentNo" column="student_no" />
+            <result property="classId" column="class_id" />
+            <result property="studentAge" column="student_age" />
+            <result property="majorId" column="major_id" />
+            <result property="email" column="email" />
+            <result property="sex" column="sex" />
+            <result property="signUpCode" column="sign_up_code" />
+            <result property="dormId" column="dorm_id" />
+            <result property="bedNumber" column="bed_number" />
+            <result property="password" column="password" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        student_id,student_name,student_birth,student_address,student_no,grade_id,
+        student_age,major_id,email,sex,sign_up_code,
+        dorm_id,bed_number,password
+    </sql>
+</mapper>
