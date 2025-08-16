@@ -34,45 +34,47 @@ public class LoginRegisterFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String url= request.getRequestURI();
         log.info("url:{}",url);
-        if(
-//                url.toLowerCase().contains("doc")||
-//                url.toLowerCase().contains("favicon")||
-//                url.toLowerCase().contains("login")||
-//                url.toLowerCase().contains("webjars")
-                true
-                ){
+        if( url.toLowerCase().contains("doc")||
+            url.toLowerCase().contains("favicon")||
+            url.toLowerCase().contains("login")||
+            url.toLowerCase().contains("webjars")
+        ) {
             log.info("登录或注册请求请求，放行");
             filterChain.doFilter(request, response);
             return;
         }
-        String jwt=request.getHeader("token");
-        if(!StringUtils.hasLength(jwt)){
+
+        String jwt = request.getHeader("token");
+        if(!StringUtils.hasLength(jwt)) {
             log.info("令牌不存在");
-            CommonResult err= CommonResult.error(new AppException(AppExceptionMsg.AUTH_NOT_LOGIN));
+            CommonResult err = CommonResult.error(new AppException(AppExceptionMsg.AUTH_NOT_LOGIN));
+            response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(JSONObject.toJSONString(err));
             return;
         }
         try {
             //TODO 将token中的用户信息存到ThreadLocal中
             Claims claims = JWTUtils.ParseJWT(jwt);
-            if(claims==null){
+            if(claims == null){
                 log.info("令牌不合法");
-                CommonResult err=CommonResult.error(new AppException(AppExceptionMsg.AUTH_NOT_LOGIN));
+                CommonResult err = CommonResult.error(new AppException(AppExceptionMsg.AUTH_NOT_LOGIN));
+                response.setContentType("application/json;charset=utf-8");
                 response.getWriter().write(JSONObject.toJSONString(err));
                 return;
             }
             log.info("解析成功");
-            String username=claims.get("username",String.class);
-            Integer userId=claims.get("userId",Integer.class);
-            Integer character=claims.get("character",Integer.class);
+            String username = claims.get("username",String.class);
+            Integer userId = claims.get("userId",Integer.class);
+            Integer character = claims.get("character",Integer.class);
             log.info("username:{},userId:{},character:{}",username,userId,character);
             UserContext.set("username",username);
             UserContext.set("userId",userId);
             UserContext.set("character",character);
 
-        }catch (Exception e){
+        } catch (Exception e){
             log.info("令牌不合法");
-            CommonResult err=CommonResult.error(new AppException(AppExceptionMsg.AUTH_NOT_LOGIN));
+            CommonResult err = CommonResult.error(new AppException(AppExceptionMsg.AUTH_NOT_LOGIN));
+            response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(JSONObject.toJSONString(err));
             return;
         }

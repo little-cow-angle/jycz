@@ -29,9 +29,6 @@ public class DormitoryController {
         return CommonResult.success(dormitoryService.save(dormitory));
     }
 
-    /**
-     * TODO: 删除宿舍前将关联学生的dormId字段清除
-     */
     @DeleteMapping("delete/{id}")
     @Operation(summary = "删除宿舍信息")
     public CommonResult deleteDormitory(@PathVariable("id") Long id) {

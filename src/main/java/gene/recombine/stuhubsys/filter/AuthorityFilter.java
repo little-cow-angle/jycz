@@ -32,10 +32,12 @@ public class AuthorityFilter implements MyFilter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String url= request.getRequestURI();
         log.info("url:{}",url);
-        String method=request.getMethod();
-        if(false){
+        String method = request.getMethod();
+        if( url.toLowerCase().contains("/course") ||
+            url.toLowerCase().contains("/dormitory") ||
+            url.toLowerCase().contains("/enrollment")) {
             log.info("管理员方法");
-            if(isAdmin()){
+            if(isAdmin()) {
                 filterChain.doFilter(request, response);
                 log.info("放行");
                 return;
