@@ -35,7 +35,7 @@ public class DormitoryController {
     @DeleteMapping("delete/{id}")
     @Operation(summary = "删除宿舍信息")
     public CommonResult deleteDormitory(@PathVariable("id") Long id) {
-        return CommonResult.success(dormitoryService.removeById(id));
+        return CommonResult.success(dormitoryService.deleteDormitory(id));
     }
 
     @PostMapping("query")

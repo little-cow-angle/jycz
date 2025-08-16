@@ -6,11 +6,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import gene.recombine.stuhubsys.dto.DormitoryDTO;
 import gene.recombine.stuhubsys.entity.Dormitory;
+import gene.recombine.stuhubsys.mapper.StudentMapper;
 import gene.recombine.stuhubsys.service.DormitoryService;
 import gene.recombine.stuhubsys.mapper.DormitoryMapper;
 import gene.recombine.stuhubsys.vo.DormitoryVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class DormitoryServiceImpl extends ServiceImpl<DormitoryMapper, Dormitory
 
     @Autowired
     private DormitoryMapper dormitoryMapper;
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Override
     public List<String> getParkList() {
@@ -34,6 +38,17 @@ public class DormitoryServiceImpl extends ServiceImpl<DormitoryMapper, Dormitory
     @Override
     public List<Integer> getFloorList(String park, String building) {
         return dormitoryMapper.getFloorList(park, building);
+    }
+
+    @Override
+    @Transactional
+    public int deleteDormitory(Long dormId) {
+        studentMapper.updateStudentDormToNull(dormId);
+        int deleteRows = dormitoryMapper.deleteById(dormId);
+        if (deleteRows == 0) {
+            throw new RuntimeException("宿舍不存在，删除失败");
+        }
+        return deleteRows;
     }
 
     @Override

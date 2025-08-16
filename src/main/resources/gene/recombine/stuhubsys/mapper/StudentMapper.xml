@@ -26,4 +26,8 @@
         student_age,major_id,email,sex,sign_up_code,
         dorm_id,bed_number,password
     </sql>
+
+    <update id="updateStudentDormToNull">
+        UPDATE student SET dorm_id = 0 WHERE dorm_id = #{dormId}
+    </update>
 </mapper>
