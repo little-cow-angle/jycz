@@ -55,23 +55,25 @@ public class LoginRegisterFilter implements Filter {
         try {
             //TODO 将token中的用户信息存到ThreadLocal中
             Claims claims = JWTUtils.ParseJWT(jwt);
-            if(claims == null){
-                log.info("令牌不合法");
+            log.info("claims: {}", claims);
+            if(claims == null) {
+                log.info("令牌不合法(为空)");
                 CommonResult err = CommonResult.error(new AppException(AppExceptionMsg.AUTH_NOT_LOGIN));
                 response.setContentType("application/json;charset=utf-8");
                 response.getWriter().write(JSONObject.toJSONString(err));
                 return;
             }
+
             log.info("解析成功");
             String username = claims.get("username",String.class);
-            Integer userId = claims.get("userId",Integer.class);
+            String userId = claims.get("userId",String.class);
             Integer character = claims.get("character",Integer.class);
             log.info("username:{},userId:{},character:{}",username,userId,character);
             UserContext.set("username",username);
             UserContext.set("userId",userId);
             UserContext.set("character",character);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             log.info("令牌不合法");
             CommonResult err = CommonResult.error(new AppException(AppExceptionMsg.AUTH_NOT_LOGIN));
             response.setContentType("application/json;charset=utf-8");

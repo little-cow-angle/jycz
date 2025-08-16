@@ -13,16 +13,16 @@ public class JWTUtils {
     public static String GenerateJWTCode(HashMap<String,Object> value){
         return Jwts.builder()
                 .addClaims(value)
-                .signWith(SignatureAlgorithm.HS256, secretKey)//设置秘钥
-                .setExpiration(new Date(System.currentTimeMillis()+1000*60*60*2))//有效期两天
+                .signWith(SignatureAlgorithm.HS256, secretKey) //设置秘钥
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 2))
                 .compact();
     }
 
     public static Claims ParseJWT(String Jwt){
-        Claims value=null;
+        Claims value;
         try {
-           value= Jwts.parser().setSigningKey(secretKey).parseClaimsJws(Jwt).getBody();
-        }catch (Exception e){
+           value = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(Jwt).getBody();
+        } catch (Exception e){
             return null;
         }
         return value;
