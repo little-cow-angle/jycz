@@ -25,4 +25,6 @@ public class Person {
     private String email;
     @Schema(description = "地址")
     private String address;
+    @Schema(description = "所属学院")
+    private Integer collegeId;
 }

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthLoginDto {
+public class AuthLoginDTO {
     @Schema(description = "用户身份证号")
     private String id;
     @Schema(description = "密码")

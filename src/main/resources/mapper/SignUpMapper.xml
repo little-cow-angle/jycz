@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gene.recombine.stuhubsys.mapper.SignUpMapper">
+
+    <select id="selectSignUpPage" resultType="gene.recombine.stuhubsys.dto.SignUpRecordDTO">
+        SELECT * FROM sign_up_record
+        WHERE ep_id = #{epId}
+    </select>
+</mapper>

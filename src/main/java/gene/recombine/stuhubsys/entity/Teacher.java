@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -54,6 +56,9 @@ public class Teacher {
      * 
      */
     private String address;
+
+
+    private String position;
 
     @Override
     public boolean equals(Object that) {
