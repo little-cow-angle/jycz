@@ -19,7 +19,7 @@
         <collection property="studentList" ofType="gene.recombine.stuhubsys.entity.Student">
             <result property="studentId" column="student_id" />
             <result property="studentName" column="student_name" />
-            <result property="studentBirth" column="student_birth" />
+            <result property="birth" column="student_birth" />
             <result property="studentAddress" column="student_address" />
             <result property="classId" column="class_id" />
             <result property="studentAge" column="student_age" />

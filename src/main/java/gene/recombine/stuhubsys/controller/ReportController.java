@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("reports")
-@Tag(name = "报表数据")
+@Tag(name = "录取数据")
 public class ReportController {
     /**
      * 报名统计

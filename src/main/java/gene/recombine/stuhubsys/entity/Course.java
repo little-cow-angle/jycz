@@ -45,6 +45,9 @@ public class Course {
     @Schema(description = "教材id")
     private Long textbookId;
 
+    @Schema(description = "学分")
+    private float credit;
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {

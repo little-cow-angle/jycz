@@ -23,6 +23,7 @@
         <result property="courseType" column="course_type" />
         <result property="teacherName" column="teacher_name" />
         <result property="textbookId" column="textbook_id" />
+        <result property="credit" column="credit" />
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -31,7 +32,7 @@
 
     <select id="getSelectedCourseList" resultMap="SelectedCourseVOMap">
         SELECT c.course_id, c.course_name, t.name AS teacher_name, c.course_length, c.course_classroom,
-               c.course_time, c.course_type, c.textbook_id, s.student_id, s.student_name, sc.score_id
+               c.course_time, c.course_type, c.textbook_id, c.credit, s.student_id, s.student_name, sc.score_id
         FROM score sc
         LEFT JOIN course c ON sc.course_id = c.course_id
         LEFT JOIN teacher t ON c.teacher_id = t.teacher_id
@@ -46,7 +47,7 @@
 
     <select id="getAvailableCourseList" resultMap="SelectedCourseVOMap">
         SELECT c.course_id, c.course_name, t.name AS teacher_name, c.course_length, c.course_classroom,
-               c.course_time, c.course_type, s.student_id, s.student_name
+               c.course_time, c.course_type, c.textbook_id, c.credit, s.student_id, s.student_name
         FROM course c
         LEFT JOIN teacher t ON c.teacher_id = t.teacher_id
         LEFT JOIN student s ON s.student_id = #{studentId} AND s.major_id = c.major_id

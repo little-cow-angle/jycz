@@ -27,4 +27,6 @@ public class ScoreVO {
     private String courseType;
     @Schema(description = "教材id")
     private Long textbookId;
+    @Schema(description = "学分")
+    private float credit;
 }
