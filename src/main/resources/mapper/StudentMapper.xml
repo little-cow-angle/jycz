@@ -73,7 +73,7 @@
         s.major_id           AS majorId,
         m.major_name         AS majorName,
         s.college_id         AS collegeId,
-        c.name               AS collegeName,
+        c.name               AS collegeName
         FROM student s
         LEFT JOIN major m   ON s.major_id = m.major_id
         LEFT JOIN college c ON s.college_id = c.id

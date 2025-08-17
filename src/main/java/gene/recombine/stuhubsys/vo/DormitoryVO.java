@@ -14,5 +14,5 @@ public class DormitoryVO {
     @Schema(description = "宿舍详情", example = "XX园X栋X楼XXX号")
     private String dormInfo;
     @Schema(description = "住宿学生名单")
-    private List<Student> studentList;
+    private List<StudentDormVO> studentList;
 }

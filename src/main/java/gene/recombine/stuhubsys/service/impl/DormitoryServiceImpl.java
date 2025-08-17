@@ -8,19 +8,16 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import gene.recombine.stuhubsys.dto.DormitoryDTO;
 import gene.recombine.stuhubsys.entity.Dormitory;
 import gene.recombine.stuhubsys.entity.Student;
-import gene.recombine.stuhubsys.mapper.CollegeMapper;
-import gene.recombine.stuhubsys.mapper.MajorMapper;
 import gene.recombine.stuhubsys.mapper.StudentMapper;
 import gene.recombine.stuhubsys.service.DormitoryService;
 import gene.recombine.stuhubsys.mapper.DormitoryMapper;
 import gene.recombine.stuhubsys.vo.DormitoryVO;
+import gene.recombine.stuhubsys.vo.StudentDormVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,10 +28,6 @@ public class DormitoryServiceImpl extends ServiceImpl<DormitoryMapper, Dormitory
     private DormitoryMapper dormitoryMapper;
     @Autowired
     private StudentMapper studentMapper;
-    @Autowired
-    private CollegeMapper collegeMapper;
-    @Autowired
-    private MajorMapper majorMapper;
 
     @Override
     public List<String> getParkList() {
@@ -65,47 +58,73 @@ public class DormitoryServiceImpl extends ServiceImpl<DormitoryMapper, Dormitory
     @Override
     public IPage<DormitoryVO> getDormitoryList(DormitoryDTO dormitoryDTO) {
         IPage<DormitoryVO> page = new Page<>(dormitoryDTO.getPageNo(), dormitoryDTO.getPageSize());
+
         QueryWrapper<Dormitory> queryWrapper = new QueryWrapper<>();
         queryWrapper
-            .eq(null != dormitoryDTO.getPark(), "d.park", dormitoryDTO.getPark())
-            .eq(null != dormitoryDTO.getBuilding(), "d.building", dormitoryDTO.getBuilding())
-            .eq(null != dormitoryDTO.getFloor(), "d.floor", dormitoryDTO.getFloor())
-            .eq(null != dormitoryDTO.getDormNumber(), "d.dorm_number", dormitoryDTO.getDormNumber());
+            .eq(dormitoryDTO.getPark() != null, "d.park", dormitoryDTO.getPark())
+            .eq(dormitoryDTO.getBuilding() != null, "d.building", dormitoryDTO.getBuilding())
+            .eq(dormitoryDTO.getFloor() != null, "d.floor", dormitoryDTO.getFloor())
+            .eq(dormitoryDTO.getDormNumber() != null, "d.dorm_number", dormitoryDTO.getDormNumber());
 
-        // 判断是否有学生相关的查询条件，无则直接查询
         boolean needStudentFilter = StringUtils.isNotBlank(dormitoryDTO.getStudentName())
-            || (dormitoryDTO.getMajorId() != null)
-            || (dormitoryDTO.getCollegeId() != null);
+            || dormitoryDTO.getMajorId() != null
+            || dormitoryDTO.getCollegeId() != null;
 
-        if (!needStudentFilter) {
-            return dormitoryMapper.getDormitoryList(page, queryWrapper);
+        if (needStudentFilter) {
+            QueryWrapper<Student> stuQueryWrapper = new QueryWrapper<>();
+            stuQueryWrapper
+                .select("distinct dorm_id")
+                .isNotNull("dorm_id")
+                .like(StringUtils.isNotBlank(dormitoryDTO.getStudentName()), "student_name", dormitoryDTO.getStudentName())
+                .eq(dormitoryDTO.getMajorId() != null, "major_id", dormitoryDTO.getMajorId())
+                .eq(dormitoryDTO.getCollegeId() != null, "college_id", dormitoryDTO.getCollegeId());
+
+            List<Object> dormIdObjs = studentMapper.selectObjs(stuQueryWrapper);
+            if (dormIdObjs == null || dormIdObjs.isEmpty()) {
+                // 没有匹配到学生则返回空页面（保留分页信息）
+                page.setRecords(Collections.emptyList());
+                page.setTotal(0);
+                return page;
+            }
+
+            List<Long> dormIds = dormIdObjs.stream()
+                .filter(Objects::nonNull)
+                .map(o -> Long.valueOf(o.toString()))
+                .distinct()
+                .collect(Collectors.toList());
+
+            queryWrapper.in(!dormIds.isEmpty(), "d.dorm_id", dormIds);
         }
 
-        QueryWrapper<Student> stuQueryWrapper = new QueryWrapper<>();
-        stuQueryWrapper
-            .select("distinct dorm_id").isNotNull("dorm_id")
-            .like(StringUtils.isNotBlank(dormitoryDTO.getStudentName()), "student_name", dormitoryDTO.getStudentName())
-            .eq(null != dormitoryDTO.getCollegeId(), "college_id", dormitoryDTO.getCollegeId())
-            .eq(null != dormitoryDTO.getMajorId(), "major_id", dormitoryDTO.getMajorId());
+        page = dormitoryMapper.getDormitoryList(page, queryWrapper);
 
-        List<Object> dormIdObjs = studentMapper.selectObjs(stuQueryWrapper);
-
-        if (dormIdObjs == null || dormIdObjs.isEmpty()) {
-            return new Page<>(0, 0);
+        List<DormitoryVO> dorms = page.getRecords();
+        if (dorms == null || dorms.isEmpty()) {
+            return page;
         }
 
-        List<Long> dormIds = dormIdObjs.stream()
+        List<Long> resultDormIds = dorms.stream()
+            .map(DormitoryVO::getDormId)
             .filter(Objects::nonNull)
-            .map(o -> Long.valueOf(o.toString()))
             .distinct()
-            .toList();
+            .collect(Collectors.toList());
 
-        queryWrapper.in("d.dorm_id", dormIds);
+        if (!resultDormIds.isEmpty()) {
+            List<StudentDormVO> students = studentMapper.selectStudentsByDormIds(resultDormIds);
 
-        return dormitoryMapper.getDormitoryList(page, queryWrapper);
+            Map<Long, List<StudentDormVO>> stuMap = students.stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.groupingBy(StudentDormVO::getDormId));
+
+            for (DormitoryVO dvo : dorms) {
+                List<StudentDormVO> list = stuMap.getOrDefault(dvo.getDormId(), Collections.emptyList());
+                dvo.setStudentList(list);
+            }
+        } else {
+            dorms.forEach(d -> d.setStudentList(Collections.emptyList()));
+        }
+
+        page.setRecords(dorms);
+        return page;
     }
 }
-
-
-
-
