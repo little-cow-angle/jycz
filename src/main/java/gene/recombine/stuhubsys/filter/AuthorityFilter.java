@@ -38,7 +38,8 @@ public class AuthorityFilter implements MyFilter {
         //TODO 在这里添加老师相关的方法接口的路径
         if( url.toLowerCase().contains("/course") ||
             url.toLowerCase().contains("/dormitory") ||
-            url.toLowerCase().contains("/enrollment")) {
+            url.toLowerCase().contains("/enrollment") ||
+            url.toLowerCase().contains("/textbook/teacher")) {
             log.info("管理员方法");
             if(isAdmin()) {
                 filterChain.doFilter(request, response);
@@ -56,9 +57,9 @@ public class AuthorityFilter implements MyFilter {
     }
 
     private boolean isAdmin() {
-        String id=(String) UserContext.get("userId");
-        String name=(String) UserContext.get("username");
-        Teacher admin=authMapper.getAdmin(id,name);
+        String id = (String) UserContext.get("userId");
+        String name = (String) UserContext.get("username");
+        Teacher admin = authMapper.getAdmin(id,name);
         return admin != null;
     }
 }

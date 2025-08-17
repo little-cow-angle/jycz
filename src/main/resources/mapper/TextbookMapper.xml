@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gene.recombine.stuhubsys.mapper.TextbookMapper">
+
+    <resultMap id="BaseResultMap" type="gene.recombine.stuhubsys.entity.Textbook">
+            <id property="textbookId" column="textbook_id" />
+            <result property="textbookName" column="textbook_name" />
+            <result property="author" column="author" />
+            <result property="publisher" column="publisher" />
+            <result property="price" column="price" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        textbook_id,textbook_name,author,publish,price
+    </sql>
+
+    <select id="getTextbookListByStudentId" resultType="gene.recombine.stuhubsys.vo.TextbookVO">
+        SELECT t.*, c.course_id, c.course_name
+        FROM textbook t
+        JOIN course c ON c.textbook_id = t.textbook_id
+        WHERE t.textbook_id IN
+            <foreach collection="textbookDTOList" item="dto" open="(" separator="," close=")">
+                #{dto.textbookId}
+            </foreach>
+    </select>
+
+    <select id="getAllTextbooks" resultType="gene.recombine.stuhubsys.vo.TextbookVO">
+        SELECT t.*, c.course_id, c.course_name
+        FROM textbook t
+        LEFT JOIN course c ON c.textbook_id = t.textbook_id
+    </select>
+</mapper>

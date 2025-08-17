@@ -7,7 +7,7 @@
     <resultMap id="BaseResultMap" type="gene.recombine.stuhubsys.entity.Student">
             <id property="studentId" column="student_id" />
             <result property="studentName" column="student_name" />
-            <result property="studentBirth" column="student_birth" />
+            <result property="birth" column="student_birth" />
             <result property="studentAddress" column="student_address" />
             <result property="studentNo" column="student_no" />
             <result property="classId" column="class_id" />

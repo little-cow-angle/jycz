@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Select;
 import java.util.Collection;
 
 public interface CollegeMapper {
-    @Select("select *from college")
+    @Select("select * from college")
     Collection<College> list();
 }

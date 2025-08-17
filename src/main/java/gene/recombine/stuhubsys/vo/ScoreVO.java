@@ -25,4 +25,6 @@ public class ScoreVO {
     private String courseTime;
     @Schema(description = "课程类型", example = "必修")
     private String courseType;
+    @Schema(description = "教材id")
+    private Long textbookId;
 }

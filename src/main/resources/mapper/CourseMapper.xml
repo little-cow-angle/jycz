@@ -33,6 +33,12 @@
         major_id,course_type,textbook_id
     </sql>
 
+    <update id="updateCourseTextbookId">
+        UPDATE course
+        SET textbook_id = #{textbookId}
+        WHERE course_id = #{courseId}
+    </update>
+
     <select id="selectCourseById" resultMap="CourseVOMap">
         SELECT c.*, t.name AS teacher_name, m.major_name AS major_name
         FROM course c

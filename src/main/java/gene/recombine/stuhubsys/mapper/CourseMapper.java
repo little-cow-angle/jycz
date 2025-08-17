@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 public interface CourseMapper extends BaseMapper<Course> {
     CourseVO selectCourseById(long id);
     IPage<CourseVO> getCourseListPage(IPage<CourseVO> page, @Param("ew") QueryWrapper<Course> queryWrapper);
+    int updateCourseTextbookId(@Param("courseId") long courseId, @Param("textbookId") long textbookId);
 }
 
 
