@@ -2,6 +2,7 @@ package gene.recombine.stuhubsys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import gene.recombine.stuhubsys.common.result.CommonResult;
+import gene.recombine.stuhubsys.entity.EnrollLimit;
 import gene.recombine.stuhubsys.dto.EnrollmentPlanAddDTO;
 import gene.recombine.stuhubsys.dto.EnrollmentPlanDTO;
 import gene.recombine.stuhubsys.entity.EnrollmentPlan;
@@ -61,5 +62,11 @@ public class EnrollmentPlanController {
     @Operation(summary = "查询招生计划(条件)")
     public CommonResult<IPage<EnrollmentPlanVO>> planList(@RequestBody EnrollmentPlanDTO enrollmentPlanDTO) {
         return CommonResult.success(enrollmentPlanService.getEnrollmentPlanPages(enrollmentPlanDTO));
+    }
+
+    @PostMapping("set-limit")
+    @Operation(summary = "招生计划控制")
+    public CommonResult setEnrollLimit(@RequestBody EnrollLimit enrollLimit) {
+        return null;
     }
 }
