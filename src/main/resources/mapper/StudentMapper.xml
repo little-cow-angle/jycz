@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gene.recombine.stuhubsys.mapper.StudentMapper">
+
+    <resultMap id="BaseResultMap" type="gene.recombine.stuhubsys.entity.Student">
+            <id property="studentId" column="student_id" />
+            <result property="studentName" column="student_name" />
+            <result property="studentAddress" column="student_address" />
+            <result property="studentNo" column="student_no" />
+            <result property="classId" column="class_id" />
+            <result property="studentAge" column="student_age" />
+            <result property="majorId" column="major_id" />
+            <result property="email" column="email" />
+            <result property="sex" column="sex" />
+            <result property="signUpCode" column="sign_up_code" />
+            <result property="dormId" column="dorm_id" />
+            <result property="bedNumber" column="bed_number" />
+            <result property="password" column="password" />
+    </resultMap>
+
+    <resultMap id="StudentVOMap" type="gene.recombine.stuhubsys.vo.StudentVO">
+        <id property="studentId" column="student_id" />
+        <result property="studentName" column="student_name" />
+        <result property="birth" column="birth" />
+        <result property="studentAddress" column="student_address" />
+        <result property="studentNo" column="student_no" />
+        <result property="classId" column="class_id" />
+        <result property="studentAge" column="student_age" />
+        <result property="majorName" column="major_name" />
+        <result property="email" column="email" />
+        <result property="sex" column="sex" />
+        <result property="dormInfo" column="dorm_info" />
+        <result property="collegeName" column="college_name" />
+        <result property="gaoKao" column="gao_kao" />
+        <result property="politicalIdentity" column="political_identity" />
+        <result property="nationality" column="nationality" />
+        <result property="cityCountryside" column="city_countryside" />
+        <result property="entryDate" column="entry_date" />
+        <result property="phone" column="phone" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        student_id,student_name,birth,student_address,student_no,class_id,
+        student_age,major_id,email,sex,sign_up_code,dorm_id,bed_number,password,
+        college_id,phone,gao_kao,political_identity,entry_date,gao_kao_id,nationality,city_countryside
+    </sql>
+
+    <update id="updateStudentDormToNull">
+        UPDATE student SET dorm_id = 0 WHERE dorm_id = #{dormId}
+    </update>
+
+    <select id="getStudentPages" resultType="gene.recombine.stuhubsys.vo.StudentVO">
+        SELECT s.*, c.name AS college_name, m.major_name,
+               CONCAT(d.park, d.building, d.floor, '楼', d.dorm_number, '号') AS dorm_info
+        FROM student s
+        LEFT JOIN college c ON c.id = s.college_id
+        LEFT JOIN major m ON m.major_id = s.major_id
+        LEFT JOIN dormitory d ON d.dorm_id = s.dorm_id
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="selectStudentsByDormIds" resultType="gene.recombine.stuhubsys.vo.StudentDormVO">
+        SELECT
+        s.dorm_id            AS dormId,
+        s.student_id         AS studentId,
+        s.student_name       AS studentName,
+        s.bed_number         AS bedNumber,
+        s.major_id           AS majorId,
+        m.major_name         AS majorName,
+        s.college_id         AS collegeId,
+        c.name               AS collegeName
+        FROM student s
+        LEFT JOIN major m   ON s.major_id = m.major_id
+        LEFT JOIN college c ON s.college_id = c.id
+        WHERE s.dorm_id IN
+        <foreach collection="dormIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

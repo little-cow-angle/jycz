@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gene.recombine.stuhubsys.mapper.MajorMapper">
+
+    <resultMap id="BaseResultMap" type="gene.recombine.stuhubsys.entity.Major">
+            <id property="majorId" column="major_id" />
+            <result property="majorName" column="major_name" />
+            <result property="collegeId" column="college_id" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        major_id,major_name,college_id
+    </sql>
+
+    <select id="getMajorListByCollegeId" resultType="gene.recombine.stuhubsys.entity.Major">
+        SELECT * FROM major WHERE college_id = #{collegeId}
+    </select>
+
+    <select id="getMajorListByMajorName" resultType="gene.recombine.stuhubsys.entity.Major">
+        SELECT * FROM major WHERE major_name LIKE CONCAT('%',#{majorName},'%')
+    </select>
+</mapper>

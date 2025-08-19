@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gene.recombine.stuhubsys.mapper.EnrollmentPlanMapper">
+
+    <resultMap id="BaseResultMap" type="gene.recombine.stuhubsys.entity.EnrollmentPlan">
+            <id property="id" column="id" />
+            <result property="price" column="price" />
+            <result property="majorId" column="major_id" />
+            <result property="count" column="count" />
+            <result property="type" column="type" />
+            <result property="description" column="description" />
+    </resultMap>
+
+    <resultMap id="EnrollmentVOMap" type="gene.recombine.stuhubsys.vo.EnrollmentPlanVO">
+        <id property="id" column="id" />
+        <result property="price" column="price" />
+        <result property="count" column="count" />
+        <result property="type" column="type" />
+        <result property="description" column="description" />
+        <result property="majorName" column="major_name" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,price,major_id,count,type,description
+    </sql>
+
+    <select id="getEnrollmentPlans" resultMap="EnrollmentVOMap">
+        SELECT e.*, m.major_name
+        FROM enrollment_plan e
+        LEFT JOIN major m ON m.major_id = e.major_id
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+</mapper>

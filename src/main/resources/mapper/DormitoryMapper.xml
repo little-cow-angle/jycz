@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gene.recombine.stuhubsys.mapper.DormitoryMapper">
+
+    <resultMap id="BaseResultMap" type="gene.recombine.stuhubsys.entity.Dormitory">
+            <id property="dormId" column="dorm_id" />
+            <result property="park" column="park" />
+            <result property="building" column="building" />
+            <result property="floor" column="floor" />
+            <result property="dormNumber" column="dorm_number" />
+            <result property="currentNum" column="current_num" />
+    </resultMap>
+
+    <resultMap id="DormitoryResultMap" type="gene.recombine.stuhubsys.vo.DormitoryVO">
+        <id property="dormId" column="dorm_id" />
+        <result property="dormInfo" column="dorm_info"/>
+        <collection property="studentList" ofType="gene.recombine.stuhubsys.entity.Student">
+            <result property="studentId" column="student_id" />
+            <result property="studentName" column="student_name" />
+            <result property="birth" column="student_birth" />
+            <result property="studentAddress" column="student_address" />
+            <result property="classId" column="class_id" />
+            <result property="studentAge" column="student_age" />
+            <result property="majorId" column="major_id" />
+            <result property="email" column="email" />
+            <result property="sex" column="sex" />
+            <result property="signUpCode" column="sign_up_code" />
+            <result property="dormId" column="dorm_id" />
+            <result property="bedNumber" column="bed_number" />
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        dorm_id,park,building,floor,dorm_number,current_num
+    </sql>
+
+    <select id="getDormitoryList" resultMap="DormitoryResultMap">
+        SELECT s.*, d.dorm_id, CONCAT(park, building, floor, '楼', dorm_number, '号') AS dorm_info
+        FROM dormitory d
+        LEFT JOIN student s ON s.dorm_id = d.dorm_id
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="getParkList" resultType="java.lang.String">
+        SELECT DISTINCT park FROM dormitory
+    </select>
+
+    <select id="getBuildingList" resultType="java.lang.String">
+        SELECT DISTINCT building FROM dormitory WHERE park = #{park}
+    </select>
+
+    <select id="getFloorList" resultType="java.lang.Integer">
+        SELECT DISTINCT floor FROM dormitory WHERE park = #{park} AND building = #{building}
+    </select>
+
+</mapper>
