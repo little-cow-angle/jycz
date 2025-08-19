@@ -1,6 +1,6 @@
 package gene.recombine.stuhubsys.mapper;
 
-import gene.recombine.stuhubsys.vo.College;
+import gene.recombine.stuhubsys.entity.College;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.Collection;

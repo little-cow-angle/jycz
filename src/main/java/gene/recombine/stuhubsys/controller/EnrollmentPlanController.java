@@ -1,11 +1,12 @@
 package gene.recombine.stuhubsys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import gene.recombine.stuhubsys.entity.EnrollmentPlan;
 import gene.recombine.stuhubsys.common.result.CommonResult;
 import gene.recombine.stuhubsys.dto.EnrollmentPlanAddDTO;
 import gene.recombine.stuhubsys.dto.EnrollmentPlanDTO;
+import gene.recombine.stuhubsys.entity.EnrollmentPlan;
 import gene.recombine.stuhubsys.service.EnrollmentPlanService;
+import gene.recombine.stuhubsys.vo.EnrollmentPlanVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -56,14 +57,9 @@ public class EnrollmentPlanController {
         return CommonResult.success(enrollmentPlanService.removeById(id));
     }
 
-    /**
-     *
-     * @param enrollmentPlanDTO 分页查询参数
-     * @return IPage<EnrollmentPlan>
-     */
     @PostMapping("plan-list")
     @Operation(summary = "查询招生计划(条件)")
-    public CommonResult<IPage<EnrollmentPlan>> planList(@RequestBody EnrollmentPlanDTO enrollmentPlanDTO) {
+    public CommonResult<IPage<EnrollmentPlanVO>> planList(@RequestBody EnrollmentPlanDTO enrollmentPlanDTO) {
         return CommonResult.success(enrollmentPlanService.getEnrollmentPlanPages(enrollmentPlanDTO));
     }
 }

@@ -3,7 +3,7 @@ package gene.recombine.stuhubsys.service.impl;
 import gene.recombine.stuhubsys.mapper.CollegeMapper;
 import gene.recombine.stuhubsys.mapper.MajorMapper;
 import gene.recombine.stuhubsys.service.CollegeService;
-import gene.recombine.stuhubsys.vo.College;
+import gene.recombine.stuhubsys.entity.College;
 import gene.recombine.stuhubsys.entity.Major;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -20,8 +20,7 @@ public class CollegeServiceImpl implements CollegeService {
 
     @Override
     public Collection<College> list() {
-        Collection<College> list = mapper.list();
-        return list;
+        return mapper.list();
     }
 
     @Override

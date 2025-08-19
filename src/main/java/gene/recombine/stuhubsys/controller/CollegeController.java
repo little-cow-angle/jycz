@@ -2,7 +2,7 @@ package gene.recombine.stuhubsys.controller;
 
 import gene.recombine.stuhubsys.common.result.CommonResult;
 import gene.recombine.stuhubsys.service.CollegeService;
-import gene.recombine.stuhubsys.vo.College;
+import gene.recombine.stuhubsys.entity.College;
 import gene.recombine.stuhubsys.entity.Major;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -27,8 +27,7 @@ public class CollegeController {
     @Operation(summary = "获取学院信息")
     public CommonResult<Collection<College>> list() {
         Collection<College> list = collegeService.list();
-        CommonResult<Collection<College>> success = CommonResult.success(list);
-        return success;
+        return CommonResult.success(list);
     }
 
     @GetMapping("major")
