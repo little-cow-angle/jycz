@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("enrollment-plan")
+@RequestMapping("enrollment")
 @Tag(name="招生计划管理")
 @Slf4j
 public class EnrollmentPlanController {
@@ -65,13 +65,13 @@ public class EnrollmentPlanController {
     }
 
     @PostMapping("set-limit")
-    @Operation(summary = "设置招生计划限制")
+    @Operation(summary = "设置招生限制")
     public CommonResult<String> setEnrollLimit(@RequestBody EnrollLimit enrollLimit) {
         return CommonResult.success(enrollmentPlanService.setEnrollLimit(enrollLimit));
     }
 
     @GetMapping("get-limit")
-    @Operation(summary = "查询招生计划限制")
+    @Operation(summary = "获取招生限制")
     public CommonResult<EnrollLimit> getEnrollLimit() {
         return CommonResult.success(enrollmentPlanService.getEnrollLimit());
     }

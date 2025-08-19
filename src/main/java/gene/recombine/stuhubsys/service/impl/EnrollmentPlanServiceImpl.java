@@ -35,7 +35,6 @@ public class EnrollmentPlanServiceImpl extends ServiceImpl<EnrollmentPlanMapper,
 
         redisTemplate.opsForValue().set("enroll:startTime", startTime);
         redisTemplate.opsForValue().set("enroll:endTime", endTime);
-        redisTemplate.opsForValue().set("enroll:limitType", enrollLimit.getLimitType().toString());
         redisTemplate.opsForValue().set("enroll:limitNumber", enrollLimit.getLimitNumber().toString());
 
         return "设置限制成功";
@@ -52,10 +51,8 @@ public class EnrollmentPlanServiceImpl extends ServiceImpl<EnrollmentPlanMapper,
             throw new RuntimeException("系统异常");
         }
 
-        Integer limitType = Integer.parseInt(Objects.requireNonNull(redisTemplate.opsForValue().get("enroll:limitType")));
         Integer limitNumber = Integer.parseInt(Objects.requireNonNull(redisTemplate.opsForValue().get("enroll:limitNumber")));
-
-        return new EnrollLimit(startTime, endTime, limitType, limitNumber);
+        return new EnrollLimit(startTime, endTime, limitNumber);
     }
 
     @Override

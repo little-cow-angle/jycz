@@ -15,8 +15,6 @@ public class EnrollLimit {
     private Date startTime;
     @Schema(description = "结束时间")
     private Date endTime;
-    @Schema(description = "报名类型")
-    private Integer limitType;
     @Schema(description = "人数限制")
     private Integer limitNumber;
 }
