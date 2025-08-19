@@ -65,8 +65,14 @@ public class EnrollmentPlanController {
     }
 
     @PostMapping("set-limit")
-    @Operation(summary = "招生计划控制")
-    public CommonResult setEnrollLimit(@RequestBody EnrollLimit enrollLimit) {
-        return null;
+    @Operation(summary = "设置招生计划限制")
+    public CommonResult<String> setEnrollLimit(@RequestBody EnrollLimit enrollLimit) {
+        return CommonResult.success(enrollmentPlanService.setEnrollLimit(enrollLimit));
+    }
+
+    @GetMapping("get-limit")
+    @Operation(summary = "查询招生计划限制")
+    public CommonResult<EnrollLimit> getEnrollLimit() {
+        return CommonResult.success(enrollmentPlanService.getEnrollLimit());
     }
 }
