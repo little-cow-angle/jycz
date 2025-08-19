@@ -2,6 +2,7 @@ package gene.recombine.stuhubsys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import gene.recombine.stuhubsys.common.result.CommonResult;
+import gene.recombine.stuhubsys.dto.CourseAddDTO;
 import gene.recombine.stuhubsys.dto.CourseDTO;
 import gene.recombine.stuhubsys.entity.Course;
 import gene.recombine.stuhubsys.service.CourseService;
@@ -28,8 +29,8 @@ public class CourseController {
 
     @PostMapping("add")
     @Operation(summary = "新增课程")
-    public CommonResult addCourse(@RequestBody Course course) {
-        return CommonResult.success(courseService.save(course));
+    public CommonResult addCourse(@RequestBody CourseAddDTO courseAddDTO) {
+        return CommonResult.success(courseService.saveCourse(courseAddDTO));
     }
 
     @PutMapping("update")

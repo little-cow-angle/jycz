@@ -19,4 +19,8 @@
         teacher_id,name,sex,phone,birthday,age,
         email,address
     </sql>
+
+    <select id="selectTeacherByTeacherName" resultType="gene.recombine.stuhubsys.entity.Teacher">
+        SELECT * FROM teacher WHERE name LIKE CONCAT('%',#{teacherName},'%')
+    </select>
 </mapper>

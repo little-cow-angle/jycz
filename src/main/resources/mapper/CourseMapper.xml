@@ -35,6 +35,13 @@
         major_id,course_type,textbook_id,credit
     </sql>
 
+    <insert id="insertCourse" parameterType="gene.recombine.stuhubsys.dto.CourseAddDTO" useGeneratedKeys="true" keyProperty="courseId">
+        INSERT INTO course(course_name, teacher_id, course_length, course_classroom, course_time,
+                           major_id, course_type, textbook_id, credit)
+        VALUES (#{courseName},#{teacherId},#{courseLength},#{courseClassroom},#{courseTime},#{majorId},
+                #{courseType},#{textbook.textbookId},#{credit})
+    </insert>
+
     <update id="updateCourseTextbookId">
         UPDATE course
         SET textbook_id = #{textbookId}

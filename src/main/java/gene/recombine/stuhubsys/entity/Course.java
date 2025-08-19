@@ -16,35 +16,25 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Course {
-
     @TableId(type = IdType.AUTO)
     @Schema(description = "课程id")
     private Long courseId;
-
     @Schema(description = "课程名", example = "高等数学", requiredMode = Schema.RequiredMode.REQUIRED)
     private String courseName;
-
     @Schema(description = "教师id", example = "1001", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer teacherId;
-
     @Schema(description = "课时数", example = "48")
     private Integer courseLength;
-
     @Schema(description = "上课教室", example = "E1A202")
     private String courseClassroom;
-
     @Schema(description = "上课时间", example = "周一-周五1、2节")
     private String courseTime;
-
     @Schema(description = "专业id", example = "100", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long majorId;
-
     @Schema(description = "课程类型", example = "必修")
     private String courseType;
-
     @Schema(description = "教材id")
     private Long textbookId;
-
     @Schema(description = "学分")
     private float credit;
 

@@ -13,7 +13,12 @@
     <sql id="Base_Column_List">
         major_id,major_name,college_id
     </sql>
+
     <select id="getMajorListByCollegeId" resultType="gene.recombine.stuhubsys.entity.Major">
         SELECT * FROM major WHERE college_id = #{collegeId}
+    </select>
+
+    <select id="getMajorListByMajorName" resultType="gene.recombine.stuhubsys.entity.Major">
+        SELECT * FROM major WHERE major_name LIKE CONCAT('%',#{majorName},'%')
     </select>
 </mapper>

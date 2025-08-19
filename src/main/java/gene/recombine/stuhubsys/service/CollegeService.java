@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface CollegeService {
     Collection<College> list();
-    List<Major> listMajor(Long collegeId);
 }

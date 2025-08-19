@@ -5,13 +5,17 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import gene.recombine.stuhubsys.dto.CourseAddDTO;
 import gene.recombine.stuhubsys.dto.CourseDTO;
 import gene.recombine.stuhubsys.entity.Course;
+import gene.recombine.stuhubsys.entity.Textbook;
+import gene.recombine.stuhubsys.mapper.TextbookMapper;
 import gene.recombine.stuhubsys.service.CourseService;
 import gene.recombine.stuhubsys.mapper.CourseMapper;
 import gene.recombine.stuhubsys.vo.CourseVO;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
@@ -19,9 +23,29 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
 
     @Resource
     private CourseMapper courseMapper;
+    @Resource
+    private TextbookMapper textbookMapper;
+
     @Override
     public CourseVO findCourseById(long id) {
         return courseMapper.selectCourseById(id);
+    }
+
+    @Override
+    @Transactional
+    public int saveCourse(CourseAddDTO courseAddDTO) {
+        if (courseAddDTO.getTextbook() != null) {
+            textbookMapper.insert(courseAddDTO.getTextbook());
+        }
+        int affectedRows = courseMapper.insertCourse(courseAddDTO);
+        Long courseId = courseAddDTO.getCourseId();
+
+        if (courseId != null && courseAddDTO.getTextbook() != null) {
+            Textbook textbook = courseAddDTO.getTextbook();
+            textbook.setCourseId(courseId);
+            textbookMapper.updateById(textbook);
+        }
+        return affectedRows;
     }
 
     @Override

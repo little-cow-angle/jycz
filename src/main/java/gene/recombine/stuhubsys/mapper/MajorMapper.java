@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface MajorMapper extends BaseMapper<Major> {
     List<Major> getMajorListByCollegeId(Long collegeId);
+    List<Major> getMajorListByMajorName(String majorName);
 }
 
 
