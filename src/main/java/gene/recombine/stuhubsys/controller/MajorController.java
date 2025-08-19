@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("major")
-@Tag(name = "专业")
+@Tag(name = "专业数据")
 public class MajorController {
     @Autowired
     private MajorService majorService;

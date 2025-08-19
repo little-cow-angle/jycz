@@ -14,7 +14,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("College/")
-@Tag(name = "学院")
+@Tag(name = "学院数据")
 public class CollegeController {
     @Autowired
     CollegeService collegeService;

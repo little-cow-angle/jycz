@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("teacher")
-@Tag(name = "教师")
+@Tag(name = "教师数据")
 public class TeacherController {
     @Autowired
     private TeacherService teacherService;
