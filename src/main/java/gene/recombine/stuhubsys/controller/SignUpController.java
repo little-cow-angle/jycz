@@ -38,12 +38,13 @@ public class SignUpController {
         IPage<SignUpRecordDTO> sign=signUpService.list(epId,page,size);
         return CommonResult.success(sign);
     }
+
     @PutMapping("admin/operate")
-    @Operation(summary = "分页条件查询所有人的志愿")
+    @Operation(summary = "志愿操作")
     public CommonResult operate(
                              @Parameter(required = true,description = "志愿编号") Integer id,
                              @Parameter(required = true,description = "操作码(1,待审核）（2，录取）（3，驳回）（4，其他）") Integer operate) {
-        IPage<SignUpRecordDTO> sign=signUpService.operate(id,operate);
+        signUpService.operate(id,operate);
         return CommonResult.success();
     }
 }

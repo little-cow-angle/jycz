@@ -12,5 +12,5 @@ public interface SignUpService {
 
     IPage<SignUpRecordDTO> list(Integer epId, Integer page, Integer size);
 
-    IPage<SignUpRecordDTO> operate(Integer id, Integer operate);
+    void operate(Integer id, Integer operate);
 }

@@ -12,6 +12,7 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Objects;
 
 @Service
 public class SignUpServiceImpl implements SignUpService  {
@@ -25,13 +26,29 @@ public class SignUpServiceImpl implements SignUpService  {
         if(isStudent==0){
             throw new AppException(AppExceptionMsg.SIGN_UP_NOT_STUDENT);
         }
-        Integer count=signUpMapper.countByStudentId(studentId);
-        if(count>=3){
+        Collection<SignUpRecordDTO> sign = signUpMapper.countByStudentId(studentId);
+        if(sign.size()>=3){
             throw new AppException(AppExceptionMsg.SIGN_UP_RECORD_OUT_OF_MAX_3);
+        }
+        if(record.getOrder()==null){
+            throw new AppException(AppExceptionMsg.SIGN_UP_ORDER_IS_NULL);
+        }
+        Integer order=record.getOrder();
+        if(orderDUPLICATED(sign,order)){
+            throw new AppException(AppExceptionMsg.SIGN_UP_ORDER_IS_DUPLICATED);
         }
         record.setStudentId(studentId);
         signUpMapper.add(record);
         signUpMapper.addCount(record.getEpId());
+    }
+
+    private boolean orderDUPLICATED(Collection<SignUpRecordDTO> sign,Integer order) {
+        for (SignUpRecordDTO signUpRecordDTO : sign) {
+            if(Objects.equals(signUpRecordDTO.getOrder(), order)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -52,9 +69,22 @@ public class SignUpServiceImpl implements SignUpService  {
     }
 
     @Override
-    public IPage<SignUpRecordDTO> operate(Integer id, Integer operate) {
-        //TODO 若为录取则删除其他
-        if(operate==2){}
-        return null;
+    public void operate(Integer id, Integer operate) {
+        //TODO 若为录取则驳回其他志愿申请
+        switch (operate) {
+            //返回待审核状态
+            case 1:
+                signUpMapper.operate(id,operate);break;
+            //录取
+
+            case 2:
+                signUpMapper.recruit(id);break;
+            //驳回
+            case 3:
+                signUpMapper.operate(id,operate);break;
+            //其他
+            default:
+                throw new AppException(AppExceptionMsg.SIGN_UP_UNKNOW_COMMAND);
+        }
     }
 }
