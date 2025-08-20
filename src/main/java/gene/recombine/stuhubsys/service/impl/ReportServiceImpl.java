@@ -2,6 +2,7 @@ package gene.recombine.stuhubsys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import gene.recombine.stuhubsys.entity.Student;
+import gene.recombine.stuhubsys.mapper.SignUpMapper;
 import gene.recombine.stuhubsys.mapper.StudentMapper;
 import gene.recombine.stuhubsys.service.ReportService;
 import jakarta.annotation.Resource;
@@ -13,6 +14,8 @@ import java.util.Map;
 public class ReportServiceImpl implements ReportService {
     @Resource
     private StudentMapper studentMapper;
+    @Resource
+    private SignUpMapper signUpMapper;
 
     @Override
     public List<Map<String, Object>> getStuDistributionByColumn(String column) {
@@ -32,5 +35,10 @@ public class ReportServiceImpl implements ReportService {
             + " ELSE '无数据' END AS score_range";
         wrapper.select(scoreRange, "count(*) as count").groupBy("score_range");
         return studentMapper.selectMaps(wrapper);
+    }
+
+    @Override
+    public List<Map<String, Object>> getHotMajorList() {
+        return signUpMapper.getHotMajorSignUpList();
     }
 }

@@ -3,15 +3,12 @@ package gene.recombine.stuhubsys.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import gene.recombine.stuhubsys.common.result.CommonResult;
 import gene.recombine.stuhubsys.entity.EnrollLimit;
-import gene.recombine.stuhubsys.dto.EnrollmentPlanAddDTO;
 import gene.recombine.stuhubsys.dto.EnrollmentPlanDTO;
 import gene.recombine.stuhubsys.entity.EnrollmentPlan;
 import gene.recombine.stuhubsys.service.EnrollmentPlanService;
 import gene.recombine.stuhubsys.vo.EnrollmentPlanVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +23,7 @@ public class EnrollmentPlanController {
     private EnrollmentPlanService enrollmentPlanService;
 
     @GetMapping("{id}")
-    @Operation(summary = "查询招生计划(单条)")
+    @Operation(summary = "查询招生计划")
     @Parameter(name="id", description = "要查询的招生计划id")
     public CommonResult<EnrollmentPlan> getEnrollmentPlanList(@PathVariable("id") Integer id) {
         return CommonResult.success(enrollmentPlanService.getById(id));
@@ -34,13 +31,6 @@ public class EnrollmentPlanController {
 
     @PostMapping("add")
     @Operation(summary = "新增招生计划")
-    @io.swagger.v3.oas.annotations.parameters.RequestBody(
-        required = true,
-        content = @Content(
-            mediaType = "application/json",
-            schema = @Schema(implementation = EnrollmentPlanAddDTO.class)
-        )
-    )
     public CommonResult addPlan(@RequestBody EnrollmentPlan plan) {
         return CommonResult.success(enrollmentPlanService.save(plan));
     }
@@ -59,7 +49,7 @@ public class EnrollmentPlanController {
     }
 
     @PostMapping("plan-list")
-    @Operation(summary = "查询招生计划(条件)")
+    @Operation(summary = "查询招生计划(分页)")
     public CommonResult<IPage<EnrollmentPlanVO>> planList(@RequestBody EnrollmentPlanDTO enrollmentPlanDTO) {
         return CommonResult.success(enrollmentPlanService.getEnrollmentPlanPages(enrollmentPlanDTO));
     }

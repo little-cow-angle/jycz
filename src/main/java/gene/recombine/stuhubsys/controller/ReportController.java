@@ -20,7 +20,7 @@ public class ReportController {
 
     // TODO：获取各类招生数据
     @GetMapping("{column}")
-    @Operation(summary = "获取学生分布")
+    @Operation(summary = "获取学生分布", description = "可以根据性别、政治面貌、户口类型等条件获取学生分布情况")
     @Parameter(name = "column", description = "要获取分布的类型", example = "sex")
     public CommonResult<List<Map<String, Object>>> getStuDistribution(@PathVariable String column) {
         return CommonResult.success(reportService.getStuDistributionByColumn(column));
@@ -30,5 +30,11 @@ public class ReportController {
     @Operation(summary = "学生成绩分布")
     public CommonResult<List<Map<String, Object>>> getStuScoreDistribution() {
         return CommonResult.success(reportService.getStuDistributionByScore());
+    }
+
+    @GetMapping
+    @Operation(summary = "热门专业统计")
+    public CommonResult<List<Map<String, Object>>> getHotMajorList() {
+        return CommonResult.success(reportService.getHotMajorList());
     }
 }

@@ -6,6 +6,8 @@ import gene.recombine.stuhubsys.dto.SignUpRecordDTO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface SignUpMapper extends BaseMapper<SignUpRecordDTO> {
@@ -26,4 +28,6 @@ public interface SignUpMapper extends BaseMapper<SignUpRecordDTO> {
     @Update("update sign_up_record set status=#{operate} where id=#{id}")
     void operate(Integer id, Integer operate);
 
+    @MapKey("major_name")
+    List<Map<String, Object>> getHotMajorSignUpList();
 }

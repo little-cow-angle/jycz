@@ -18,4 +18,14 @@
         SELECT * FROM sign_up_record
         WHERE ep_id = #{epId}
     </select>
+
+    <select id="getHotMajorSignUpList" resultType="java.util.Map">
+        SELECT m.major_name, COUNT(s.ep_id) AS count
+        FROM sign_up_record s
+        JOIN enrollment_plan e ON s.ep_id = e.id
+        JOIN major m ON e.major_id = m.major_id
+        GROUP BY m.major_name
+        ORDER BY count DESC
+        LIMIT 10
+    </select>
 </mapper>

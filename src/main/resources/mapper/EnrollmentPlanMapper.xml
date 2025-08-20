@@ -5,31 +5,40 @@
 <mapper namespace="gene.recombine.stuhubsys.mapper.EnrollmentPlanMapper">
 
     <resultMap id="BaseResultMap" type="gene.recombine.stuhubsys.entity.EnrollmentPlan">
-            <id property="id" column="id" />
-            <result property="price" column="price" />
-            <result property="majorId" column="major_id" />
-            <result property="count" column="count" />
-            <result property="type" column="type" />
-            <result property="description" column="description" />
+        <id property="id" column="id" />
+        <result property="price" column="price" />
+        <result property="collegeId" column="college_id" />
+        <result property="majorId" column="major_id" />
+        <result property="limit" column="limit" />
+        <result property="count" column="count" />
+        <result property="type" column="type" />
+        <result property="description" column="description" />
     </resultMap>
 
     <resultMap id="EnrollmentVOMap" type="gene.recombine.stuhubsys.vo.EnrollmentPlanVO">
         <id property="id" column="id" />
         <result property="price" column="price" />
+        <result property="limit" column="limit" />
         <result property="count" column="count" />
         <result property="type" column="type" />
         <result property="description" column="description" />
         <result property="majorName" column="major_name" />
+        <result property="collegeName" column="college_name" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,price,major_id,count,type,description
+        id,price,college_id,major_id,limit,count,type,description
     </sql>
 
+    <update id="incrementCount">
+        UPDATE enrollment_plan SET `count` = `count` + 1 WHERE id = #{id}
+    </update>
+
     <select id="getEnrollmentPlans" resultMap="EnrollmentVOMap">
-        SELECT e.*, m.major_name
+        SELECT e.*, m.major_name, c.name AS college_name
         FROM enrollment_plan e
         LEFT JOIN major m ON m.major_id = e.major_id
+        LEFT JOIN college c ON c.id = e.college_id
         <where>
             ${ew.sqlSegment}
         </where>
