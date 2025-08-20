@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gene.recombine.stuhubsys.mapper.MenuMapper">
+
+    <resultMap id="BaseResultMap" type="gene.recombine.stuhubsys.entity.Menu">
+            <id property="menuId" column="menu_id" />
+            <result property="title" column="title" />
+            <result property="path" column="path" />
+            <result property="icon" column="icon" />
+            <result property="parentId" column="parent_id" />
+            <result property="userType" column="user_type" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        menu_id,title,path,icon,parent_id,user_type
+    </sql>
+
+    <select id="selectMenuByUserType" resultType="gene.recombine.stuhubsys.entity.Menu">
+        SELECT * FROM menu WHERE FIND_IN_SET(#{userType}, user_type)
+    </select>
+</mapper>

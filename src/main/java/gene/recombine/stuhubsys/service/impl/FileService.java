@@ -4,10 +4,12 @@ import gene.recombine.stuhubsys.common.exception.AppException;
 import gene.recombine.stuhubsys.utils.LinuxStorageUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
 
+@Service
 public class FileService {
     private static String base;
 
