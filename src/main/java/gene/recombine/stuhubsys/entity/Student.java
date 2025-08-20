@@ -31,7 +31,7 @@ public class Student {
     @Schema(description = "邮箱")
     private String email;
     @Schema(description = "性别")
-    private Integer sex;
+    private String sex;
     @Schema(description = "报名号")
     private String signUpCode;
     @Schema(description = "宿舍id")
