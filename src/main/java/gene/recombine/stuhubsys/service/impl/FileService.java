@@ -1,0 +1,37 @@
+package gene.recombine.stuhubsys.service.impl;
+
+import gene.recombine.stuhubsys.common.exception.AppException;
+import gene.recombine.stuhubsys.utils.LinuxStorageUtils;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
+
+import java.io.File;
+import java.io.IOException;
+
+public class FileService {
+    private static String base;
+
+    static {
+        String osName = System.getProperty("os.name", "").toLowerCase();
+
+        if (osName.startsWith("windows")) {
+            // Windows 路径，使用双反斜杠转义
+            base = "G:\\IdeaProjects\\attachment";
+        } else if (osName.contains("linux") || osName.contains("unix") || osName.contains("sunos")) {
+            // Linux/Unix 路径
+            base = "/usr/data/attachments";
+        }
+
+        // 确保路径以分隔符结尾
+        if (!base.endsWith(File.separator)) {
+            base += File.separator;
+        }
+    }
+    public void uploadFile(){
+
+    }
+    public ResponseEntity<Resource> downloadFile(String path) throws IOException {
+        return LinuxStorageUtils.download(base+path);
+
+    }
+}

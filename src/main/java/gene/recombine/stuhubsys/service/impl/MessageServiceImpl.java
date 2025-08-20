@@ -6,11 +6,15 @@ import gene.recombine.stuhubsys.dto.SignUpRecordDTO;
 import gene.recombine.stuhubsys.mapper.MessageMapper;
 import gene.recombine.stuhubsys.mapper.SignUpMapper;
 import gene.recombine.stuhubsys.service.MessageService;
+import gene.recombine.stuhubsys.utils.LinuxStorageUtils;
 import gene.recombine.stuhubsys.utils.UserContext;
 import gene.recombine.stuhubsys.vo.notice;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,6 +25,8 @@ public class MessageServiceImpl implements MessageService {
     private MessageMapper messageMapper;
     @Resource
     private SignUpMapper signUpMapper;
+    @Autowired
+    private FileService fileService;
     private static String waitForOperate="您的第{}志愿还在审核过程中，请耐心等待";
     private static String accept="恭喜你同学！你的第{}志愿已通过！";
     private static String reject="很遗憾，您的第{}志愿未通过。";
@@ -74,6 +80,11 @@ public class MessageServiceImpl implements MessageService {
         List<MessageDTO> notice=getStudentNotice();
         MessageList.addAll(notice);
         return MessageList;
+    }
+
+    @Override
+    public ResponseEntity<org.springframework.core.io.Resource> download(String path) throws IOException {
+        return fileService.downloadFile(path);
     }
 
     private List<MessageDTO> getAdminNotice() {

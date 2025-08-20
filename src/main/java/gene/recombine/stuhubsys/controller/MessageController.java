@@ -8,11 +8,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -32,4 +33,15 @@ public class MessageController {
     public CommonResult<List<MessageDTO>> getStudentMessage() {
         return CommonResult.success(messageService.getStudentMessage());
     }
+
+    @GetMapping("download")
+    @Operation(summary = "下载附件")
+    public ResponseEntity<Resource> downloadAttachment(@Parameter(description = "文件路径") String path) throws IOException {
+        return messageService.download(path);
+    }
+//TODO    @PostMapping("uploadFile")
+//    @Operation(summary = "上传附件")
+//    public CommonResult uploadAttachment(@Parameter(description = "附件") MultipartFile file,@Parameter(description = "")) throws IOException {
+//        return CommonResult.success();
+//    }
 }
