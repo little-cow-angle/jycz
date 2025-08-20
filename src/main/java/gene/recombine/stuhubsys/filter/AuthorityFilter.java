@@ -39,6 +39,7 @@ public class AuthorityFilter implements MyFilter {
         if( url.toLowerCase().contains("/course") ||
             url.toLowerCase().contains("/dormitory") ||
             url.toLowerCase().contains("/enrollment") ||
+            url.toLowerCase().contains("admin") ||
             url.toLowerCase().contains("/textbook/teacher")) {
             log.info("管理员方法");
             if(isAdmin()) {

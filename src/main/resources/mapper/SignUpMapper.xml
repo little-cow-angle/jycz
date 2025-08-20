@@ -10,7 +10,8 @@
         SET s1.status = CASE
                             WHEN s1.id = #{id} THEN 2
                             ELSE 3
-            END;
+            END,
+            update_time=now();
     </update>
 
 

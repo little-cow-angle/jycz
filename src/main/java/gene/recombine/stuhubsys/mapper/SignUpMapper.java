@@ -25,7 +25,7 @@ public interface SignUpMapper extends BaseMapper<SignUpRecordDTO> {
     IPage<SignUpRecordDTO> selectSignUpPage(IPage<SignUpRecordDTO> page, @Param("epId") Integer epId);
     void recruit(Integer id);
 
-    @Update("update sign_up_record set status=#{operate} where id=#{id}")
+    @Update("update sign_up_record set status=#{operate},update_time=NOW() where id=#{id}")
     void operate(Integer id, Integer operate);
 
     @MapKey("major_name")
