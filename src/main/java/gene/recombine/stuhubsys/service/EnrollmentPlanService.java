@@ -8,6 +8,7 @@ import gene.recombine.stuhubsys.entity.EnrollmentPlan;
 import gene.recombine.stuhubsys.vo.EnrollmentPlanVO;
 
 public interface EnrollmentPlanService extends IService<EnrollmentPlan> {
+    EnrollmentPlanVO getEnrollmentPlanById(Long id);
     String setEnrollLimit(EnrollLimit enrollLimit);
     EnrollLimit getEnrollLimit();
     IPage<EnrollmentPlanVO> getEnrollmentPlanPages(EnrollmentPlanDTO enrollmentPlanDTO);

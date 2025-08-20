@@ -28,12 +28,13 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public List<Map<String, Object>> getStuDistributionByScore() {
         QueryWrapper<Student> wrapper = new QueryWrapper<>();
-        String scoreRange = "CASE " + " WHEN gao_kao < 450 THEN '(0, 450)'"
-            + " WHEN gao_kao >= 450 AND gao_kao < 515 THEN '[450, 515)'"
-            + " WHEN gao_kao >= 515 AND gao_kao < 600 THEN '[515, 600)'"
-            + " WHEN gao_kao >= 600 THEN '[600, 750]'"
+        String scoreRange = "CASE " + " WHEN gao_kao < 535 THEN '(0, 535)'"
+            + " WHEN gao_kao >= 535 AND gao_kao < 555 THEN '[535, 555)'"
+            + " WHEN gao_kao >= 555 AND gao_kao < 575 THEN '[555, 575)'"
+            + " WHEN gao_kao >= 575 AND gao_kao < 595 THEN '[575, 595)'"
+            + " WHEN gao_kao >= 595 THEN '[595, 750)'"
             + " ELSE '无数据' END AS score_range";
-        wrapper.select(scoreRange, "count(*) as count").groupBy("score_range");
+        wrapper.select(scoreRange, "count(*) as count").groupBy("score_range").orderByAsc("MIN(gao_kao)");
         return studentMapper.selectMaps(wrapper);
     }
 

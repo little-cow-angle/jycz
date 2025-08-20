@@ -27,6 +27,13 @@ public class EnrollmentPlanServiceImpl extends ServiceImpl<EnrollmentPlanMapper,
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
+    @Autowired
+    private EnrollmentPlanMapper enrollmentPlanMapper;
+
+    @Override
+    public EnrollmentPlanVO getEnrollmentPlanById(Long id) {
+        return enrollmentPlanMapper.selectEnrollmentPlan(id);
+    }
 
     @Override
     public String setEnrollLimit(EnrollLimit enrollLimit) {
@@ -59,7 +66,7 @@ public class EnrollmentPlanServiceImpl extends ServiceImpl<EnrollmentPlanMapper,
     public IPage<EnrollmentPlanVO> getEnrollmentPlanPages(EnrollmentPlanDTO enrollmentPlanDTO) {
         QueryWrapper<EnrollmentPlan> queryWrapper = new QueryWrapper<>();
         queryWrapper
-            .like(StringUtils.isNotBlank(enrollmentPlanDTO.getMajorName()), "major_name", enrollmentPlanDTO.getMajorName())
+            .like(StringUtils.isNotBlank(enrollmentPlanDTO.getMajorName()), "m.major_name", enrollmentPlanDTO.getMajorName())
             .eq(null != enrollmentPlanDTO.getType(), "type", enrollmentPlanDTO.getType());
         Page<EnrollmentPlanVO> page = new Page<>(enrollmentPlanDTO.getPageNo(), enrollmentPlanDTO.getPageSize());
         return baseMapper.getEnrollmentPlans(page, queryWrapper);

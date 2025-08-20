@@ -23,10 +23,10 @@ public class EnrollmentPlanController {
     private EnrollmentPlanService enrollmentPlanService;
 
     @GetMapping("{id}")
-    @Operation(summary = "查询招生计划")
+    @Operation(summary = "查询招生计划", description = "根据id查询招生计划")
     @Parameter(name="id", description = "要查询的招生计划id")
-    public CommonResult<EnrollmentPlan> getEnrollmentPlanList(@PathVariable("id") Integer id) {
-        return CommonResult.success(enrollmentPlanService.getById(id));
+    public CommonResult<EnrollmentPlanVO> getEnrollmentPlanList(@PathVariable("id") Long id) {
+        return CommonResult.success(enrollmentPlanService.getEnrollmentPlanById(id));
     }
 
     @PostMapping("add")
@@ -49,7 +49,7 @@ public class EnrollmentPlanController {
     }
 
     @PostMapping("plan-list")
-    @Operation(summary = "查询招生计划(分页)")
+    @Operation(summary = "查询招生计划")
     public CommonResult<IPage<EnrollmentPlanVO>> planList(@RequestBody EnrollmentPlanDTO enrollmentPlanDTO) {
         return CommonResult.success(enrollmentPlanService.getEnrollmentPlanPages(enrollmentPlanDTO));
     }

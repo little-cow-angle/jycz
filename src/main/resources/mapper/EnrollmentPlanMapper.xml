@@ -43,4 +43,12 @@
             ${ew.sqlSegment}
         </where>
     </select>
+
+    <select id="selectEnrollmentPlan" resultMap="EnrollmentVOMap">
+        SELECT e.*, m.major_id, m.major_name, c.name AS college_name
+        FROM enrollment_plan e
+        LEFT JOIN major m ON m.major_id = e.major_id
+        LEFT JOIN college c ON c.id = e.college_id
+        WHERE e.id = #{id}
+    </select>
 </mapper>
