@@ -59,7 +59,7 @@ public class EnrollmentPlanServiceImpl extends ServiceImpl<EnrollmentPlanMapper,
     public IPage<EnrollmentPlanVO> getEnrollmentPlanPages(EnrollmentPlanDTO enrollmentPlanDTO) {
         QueryWrapper<EnrollmentPlan> queryWrapper = new QueryWrapper<>();
         queryWrapper
-            .like(StringUtils.isNotBlank(enrollmentPlanDTO.getMajorName()), "major_name", enrollmentPlanDTO.getMajorName())
+            .like(StringUtils.isNotBlank(enrollmentPlanDTO.getMajorName()), "m.major_name", enrollmentPlanDTO.getMajorName())
             .eq(null != enrollmentPlanDTO.getType(), "type", enrollmentPlanDTO.getType());
         Page<EnrollmentPlanVO> page = new Page<>(enrollmentPlanDTO.getPageNo(), enrollmentPlanDTO.getPageSize());
         return baseMapper.getEnrollmentPlans(page, queryWrapper);
