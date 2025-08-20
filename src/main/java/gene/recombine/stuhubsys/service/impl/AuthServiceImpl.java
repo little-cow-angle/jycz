@@ -28,11 +28,10 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-
     public String login(AuthLoginDTO auth) {
-        Map<String, String> result=authMapper.login(auth.getId(),auth.getPassword());
+        Map<String, String> result = authMapper.login(auth.getId(),auth.getPassword());
 
-        if (result == null||result.size() != 1) {
+        if (result == null || result.size() != 1) {
             throw new AppException(AppExceptionMsg.AUTH_PASSWORD_ERROR);
         }
 
@@ -51,8 +50,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserDTO getInfo() {
-        String id= (String) UserContext.get("userId");
-        String name=(String)UserContext.get("username");
+        String id = (String)UserContext.get("userId");
+        String name = (String)UserContext.get("username");
         return authMapper.getInfo(id,name);
     }
 
@@ -76,9 +75,9 @@ public class AuthServiceImpl implements AuthService {
         );
     }
     private boolean isAdmin() {
-        String id=(String) UserContext.get("userId");
-        String name=(String) UserContext.get("username");
-        Teacher admin=authMapper.getAdmin(id,name);
+        String id = (String) UserContext.get("userId");
+        String name = (String) UserContext.get("username");
+        Teacher admin = authMapper.getAdmin(id,name);
         return admin != null;
     }
 }
