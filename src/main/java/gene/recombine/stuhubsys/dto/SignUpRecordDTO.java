@@ -3,6 +3,8 @@ package gene.recombine.stuhubsys.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class SignUpRecordDTO {
     @Schema(hidden = true)
@@ -17,4 +19,6 @@ public class SignUpRecordDTO {
     private Integer status;
     @Schema(description = "志愿顺序")
     private Integer order;
+    @Schema(description = "更改时间")
+    private LocalDateTime updateTime;
 }

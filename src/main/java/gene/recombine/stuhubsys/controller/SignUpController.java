@@ -47,4 +47,5 @@ public class SignUpController {
         signUpService.operate(id,operate);
         return CommonResult.success();
     }
+
 }
