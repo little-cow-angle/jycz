@@ -27,6 +27,13 @@ public class EnrollmentPlanServiceImpl extends ServiceImpl<EnrollmentPlanMapper,
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
+    @Autowired
+    private EnrollmentPlanMapper enrollmentPlanMapper;
+
+    @Override
+    public EnrollmentPlanVO getEnrollmentPlanById(Long id) {
+        return enrollmentPlanMapper.selectEnrollmentPlan(id);
+    }
 
     @Override
     public String setEnrollLimit(EnrollLimit enrollLimit) {

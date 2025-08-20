@@ -21,7 +21,9 @@ public class EnrollmentPlan {
     @Schema(description = "专业id", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer majorId;
     @Schema(description = "计划人数")
+    @TableField(value = "`limit`")
     private Integer limit;
+    @TableField(value = "`count`")
     @Schema(description = "已报人数")
     private Integer count;
     @Schema(description = "计划类型", requiredMode = Schema.RequiredMode.REQUIRED)

@@ -9,6 +9,7 @@ import gene.recombine.stuhubsys.vo.EnrollmentPlanVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface EnrollmentPlanMapper extends BaseMapper<EnrollmentPlan> {
+    EnrollmentPlanVO selectEnrollmentPlan(@Param("id") Long id);
     int incrementCount(Long id);
     IPage<EnrollmentPlanVO> getEnrollmentPlans(Page<EnrollmentPlanVO> page, @Param("ew") QueryWrapper<EnrollmentPlan> ew);
 }
