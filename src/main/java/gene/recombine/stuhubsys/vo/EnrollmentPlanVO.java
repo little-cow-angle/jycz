@@ -11,6 +11,8 @@ public class EnrollmentPlanVO {
     private Integer price;
     @Schema(description = "学院名")
     private String collegeName;
+    @Schema(description = "专业id")
+    private Long majorId;
     @Schema(description = "专业名")
     private String majorName;
     @Schema(description = "计划人数")
