@@ -5,7 +5,6 @@ import gene.recombine.stuhubsys.entity.Menu;
 import gene.recombine.stuhubsys.service.MenuService;
 import gene.recombine.stuhubsys.mapper.MenuMapper;
 import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -44,5 +43,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu>
             }
         }
         return menuTree;
+    }
+
+    @Override
+    public List<Menu> getMenuByName(String menuName) {
+        return menuMapper.selectMenuByName(menuName);
     }
 }

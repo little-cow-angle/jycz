@@ -37,7 +37,7 @@
     </sql>
 
     <select id="getDormitoryList" resultMap="DormitoryResultMap">
-        SELECT s.*, d.dorm_id, CONCAT(park, building, floor, '楼', dorm_number, '号') AS dorm_info
+        SELECT s.*, d.dorm_id, CONCAT(park, '园', building, '栋', floor, '楼', dorm_number, '号') AS dorm_info
         FROM dormitory d
         LEFT JOIN student s ON s.dorm_id = d.dorm_id
         <where>

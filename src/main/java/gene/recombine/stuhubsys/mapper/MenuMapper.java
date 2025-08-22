@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface MenuMapper extends BaseMapper<Menu> {
     List<Menu> selectMenuByUserType(String userType);
+    List<Menu> selectMenuByName(String menuName);
 }

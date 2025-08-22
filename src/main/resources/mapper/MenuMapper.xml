@@ -17,7 +17,12 @@
         menu_id,title,path,icon,parent_id,user_type
     </sql>
 
+
     <select id="selectMenuByUserType" resultType="gene.recombine.stuhubsys.entity.Menu">
         SELECT * FROM menu WHERE FIND_IN_SET(#{userType}, user_type)
+    </select>
+
+    <select id="selectMenuByName" resultType="gene.recombine.stuhubsys.entity.Menu">
+        SELECT * FROM menu WHERE title LIKE CONCAT('%',#{menuName},'%')
     </select>
 </mapper>

@@ -9,54 +9,25 @@ import java.util.Date;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-/**
- * 
- * @TableName teacher
- */
 @TableName(value ="teacher")
 @Data
 public class Teacher {
-    /**
-     * 
-     */
     @TableId(type = IdType.AUTO)
     private Integer teacherId;
 
-    /**
-     * 
-     */
     private String name;
 
-    /**
-     * 
-     */
-    private Integer sex;
+    private String sex;
 
-    /**
-     * 
-     */
     private String phone;
 
-    /**
-     * 
-     */
     private Date birthday;
 
-    /**
-     * 
-     */
     private Integer age;
 
-    /**
-     * 
-     */
     private String email;
 
-    /**
-     * 
-     */
     private String address;
-
 
     private String position;
 
