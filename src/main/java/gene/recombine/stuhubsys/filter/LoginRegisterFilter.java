@@ -34,12 +34,10 @@ public class LoginRegisterFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String url = request.getRequestURI();
         log.info("url:{}",url);
-        if(
-                url.toLowerCase().contains("doc")||
-                url.toLowerCase().contains("favicon")||
-                url.toLowerCase().contains("login")||
-                url.toLowerCase().contains("webjars")
-                ){
+        if( url.toLowerCase().contains("doc") ||
+            url.toLowerCase().contains("favicon") ||
+            url.toLowerCase().contains("login") ||
+            url.toLowerCase().contains("webjars")){
 
             log.info("登录或注册请求请求，放行");
             filterChain.doFilter(request, response);

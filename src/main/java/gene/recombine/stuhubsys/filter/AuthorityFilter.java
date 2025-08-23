@@ -27,20 +27,20 @@ public class AuthorityFilter implements MyFilter {
     @Autowired
     private AuthMapper authMapper;
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+        throws IOException, ServletException {
         log.info("我是权限控制过滤器");
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         String url= request.getRequestURI();
         log.info("url:{}",url);
-        String method=request.getMethod();
-        //TODO 在这里添加老师相关的方法接口的路径
+        String method = request.getMethod();
+
         if( url.toLowerCase().contains("/course") ||
             url.toLowerCase().contains("/dormitory") ||
-            url.toLowerCase().contains("/enrollment/teacher") ||
-            url.toLowerCase().contains("admin") ||
-            url.toLowerCase().contains("/textbook/teacher")) {
+            url.toLowerCase().contains("teacher") ||
+            url.toLowerCase().contains("admin")) {
             log.info("管理员方法");
             if(isAdmin()) {
                 filterChain.doFilter(request, response);
@@ -49,6 +49,7 @@ public class AuthorityFilter implements MyFilter {
             }
             log.info("权限不足");
             CommonResult err = CommonResult.error(new AppException(AppExceptionMsg.AUTH_ADMIN_NOT_MATCHED));
+            response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(JSONObject.toJSONString(err));
             return;
         }
