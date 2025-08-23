@@ -29,19 +29,19 @@ public class EnrollmentPlanController {
         return CommonResult.success(enrollmentPlanService.getEnrollmentPlanById(id));
     }
 
-    @PostMapping("add")
+    @PostMapping("/teacher/add")
     @Operation(summary = "新增招生计划")
     public CommonResult addPlan(@RequestBody EnrollmentPlan plan) {
         return CommonResult.success(enrollmentPlanService.save(plan));
     }
 
-    @PutMapping("update")
+    @PutMapping("/teacher/update")
     @Operation(summary = "修改招生计划")
     public CommonResult updatePlan(@RequestBody EnrollmentPlan plan) {
         return CommonResult.success(enrollmentPlanService.updateById(plan));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/teacher/{id}")
     @Operation(summary = "删除招生计划")
     @Parameter(name="id", description = "要删除的招生计划id")
     public CommonResult deletePlan(@PathVariable("id") Integer id) {

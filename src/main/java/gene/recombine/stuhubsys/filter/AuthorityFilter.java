@@ -38,7 +38,7 @@ public class AuthorityFilter implements MyFilter {
         //TODO 在这里添加老师相关的方法接口的路径
         if( url.toLowerCase().contains("/course") ||
             url.toLowerCase().contains("/dormitory") ||
-            url.toLowerCase().contains("/enrollment") ||
+            url.toLowerCase().contains("/enrollment/teacher") ||
             url.toLowerCase().contains("admin") ||
             url.toLowerCase().contains("/textbook/teacher")) {
             log.info("管理员方法");
