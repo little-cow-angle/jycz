@@ -12,8 +12,6 @@ public class CourseAddDTO {
     private String courseName;
     @Schema(description = "授课教师", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer teacherId;
-    @Schema(description = "课时数")
-    private Integer courseLength;
     @Schema(description = "上课教室")
     private String courseClassroom;
     @Schema(description = "上课时间", example = "周五1、2节")

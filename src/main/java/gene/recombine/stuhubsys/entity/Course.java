@@ -23,8 +23,6 @@ public class Course {
     private String courseName;
     @Schema(description = "教师id", example = "1001", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer teacherId;
-    @Schema(description = "课时数", example = "48")
-    private Integer courseLength;
     @Schema(description = "上课教室", example = "E1A202")
     private String courseClassroom;
     @Schema(description = "上课时间", example = "周一-周五1、2节")
@@ -53,7 +51,6 @@ public class Course {
         return (this.getCourseId() == null ? other.getCourseId() == null : this.getCourseId().equals(other.getCourseId()))
             && (this.getCourseName() == null ? other.getCourseName() == null : this.getCourseName().equals(other.getCourseName()))
             && (this.getTeacherId() == null ? other.getTeacherId() == null : this.getTeacherId().equals(other.getTeacherId()))
-            && (this.getCourseLength() == null ? other.getCourseLength() == null : this.getCourseLength().equals(other.getCourseLength()))
             && (this.getCourseClassroom() == null ? other.getCourseClassroom() == null : this.getCourseClassroom().equals(other.getCourseClassroom()))
             && (this.getCourseTime() == null ? other.getCourseTime() == null : this.getCourseTime().equals(other.getCourseTime()))
             && (this.getMajorId() == null ? other.getMajorId() == null : this.getMajorId().equals(other.getMajorId()))
@@ -68,7 +65,6 @@ public class Course {
         result = prime * result + ((getCourseId() == null) ? 0 : getCourseId().hashCode());
         result = prime * result + ((getCourseName() == null) ? 0 : getCourseName().hashCode());
         result = prime * result + ((getTeacherId() == null) ? 0 : getTeacherId().hashCode());
-        result = prime * result + ((getCourseLength() == null) ? 0 : getCourseLength().hashCode());
         result = prime * result + ((getCourseClassroom() == null) ? 0 : getCourseClassroom().hashCode());
         result = prime * result + ((getCourseTime() == null) ? 0 : getCourseTime().hashCode());
         result = prime * result + ((getMajorId() == null) ? 0 : getMajorId().hashCode());
@@ -86,7 +82,6 @@ public class Course {
         sb.append(", courseId=").append(courseId);
         sb.append(", courseName=").append(courseName);
         sb.append(", teacherId=").append(teacherId);
-        sb.append(", courseLength=").append(courseLength);
         sb.append(", courseClassroom=").append(courseClassroom);
         sb.append(", courseTime=").append(courseTime);
         sb.append(", majorId=").append(majorId);

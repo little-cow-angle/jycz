@@ -18,10 +18,9 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
 
     @Override
     public List<Teacher> getTeacherListByName(String teacherName) {
+        if (teacherName == null || teacherName.isEmpty()) {
+            return teacherMapper.selectList(null);
+        }
         return teacherMapper.selectTeacherByTeacherName(teacherName);
     }
 }
-
-
-
-

@@ -24,7 +24,7 @@ public class TeacherController {
     @GetMapping
     @Operation(summary = "查询教师列表")
     @Parameter(name = "teacherName", description = "教师姓名(模糊查询)")
-    public CommonResult<List<Teacher>> getTeacherListByName(@RequestParam(name = "teacherName") String teacherName) {
+    public CommonResult<List<Teacher>> getTeacherListByName(@RequestParam(name = "teacherName", required = false) String teacherName) {
         return CommonResult.success(teacherService.getTeacherListByName(teacherName));
     }
 }
