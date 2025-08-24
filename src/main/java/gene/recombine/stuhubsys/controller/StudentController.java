@@ -29,4 +29,10 @@ public class StudentController {
     public CommonResult updateStudent(@RequestBody Student student) {
         return CommonResult.success(studentService.updateById(student));
     }
+
+    @GetMapping("{id}")
+    @Operation(summary = "获取学生信息(单条)")
+    public CommonResult<StudentVO> getStudentById(@PathVariable("id") Long id) {
+        return CommonResult.success(studentService.getStudentById(id));
+    }
 }

@@ -31,6 +31,11 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
             .eq(null != studentDTO.getMajorId(), "major_id", studentDTO.getMajorId());
         return baseMapper.getStudentPages(page, wrapper);
     }
+
+    @Override
+    public StudentVO getStudentById(Long id) {
+        return studentMapper.selectStudentById(id);
+    }
 }
 
 

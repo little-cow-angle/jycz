@@ -82,4 +82,13 @@
             #{id}
         </foreach>
     </select>
+    <select id="selectStudentById" resultType="gene.recombine.stuhubsys.vo.StudentVO">
+        SELECT s.*, c.name AS college_name, m.major_name,
+               CONCAT(d.park, d.building, d.floor, '楼', d.dorm_number, '号') AS dorm_info
+        FROM student s
+             LEFT JOIN college c ON c.id = s.college_id
+             LEFT JOIN major m ON m.major_id = s.major_id
+             LEFT JOIN dormitory d ON d.dorm_id = s.dorm_id
+        WHERE s.student_id = #{studentId}
+    </select>
 </mapper>

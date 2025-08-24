@@ -7,7 +7,6 @@ import java.util.Date;
 
 @Data
 public class StudentVO {
-
     @Schema(description = "学生id")
     private Long studentId;
     @Schema(description = "学生姓名")
@@ -44,5 +43,4 @@ public class StudentVO {
     private String majorName;
     @Schema(description = "宿舍信息")
     private String dormInfo;
-
 }
