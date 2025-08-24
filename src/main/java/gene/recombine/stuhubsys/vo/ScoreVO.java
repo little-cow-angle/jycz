@@ -17,8 +17,6 @@ public class ScoreVO {
     private String courseName;
     @Schema(description = "教师名")
     private String teacherName;
-    @Schema(description = "课时数", example = "48")
-    private Integer courseLength;
     @Schema(description = "上课教室", example = "E1A202")
     private String courseClassroom;
     @Schema(description = "上课时间", example = "周一-周五1、2节")
