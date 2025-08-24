@@ -8,7 +8,6 @@
         <id property="courseId" column="course_id" />
         <result property="courseName" column="course_name" />
         <result property="teacherId" column="teacher_id" />
-        <result property="courseLength" column="course_length" />
         <result property="courseClassroom" column="course_classroom" />
         <result property="courseTime" column="course_time" />
         <result property="majorId" column="major_id" />
@@ -20,7 +19,6 @@
         <id property="courseId" column="course_id" />
         <result property="courseName" column="course_name" />
         <result property="teacherId" column="teacher_id" />
-        <result property="courseLength" column="course_length" />
         <result property="courseClassroom" column="course_classroom" />
         <result property="courseTime" column="course_time" />
         <result property="majorId" column="major_id" />
@@ -31,14 +29,14 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        course_id,course_name,teacher_id,course_length,course_classroom,course_time,
+        course_id,course_name,teacher_id,course_classroom,course_time,
         major_id,course_type,textbook_id,credit
     </sql>
 
     <insert id="insertCourse" parameterType="gene.recombine.stuhubsys.dto.CourseAddDTO" useGeneratedKeys="true" keyProperty="courseId">
-        INSERT INTO course(course_name, teacher_id, course_length, course_classroom, course_time,
+        INSERT INTO course(course_name, teacher_id, course_classroom, course_time,
                            major_id, course_type, textbook_id, credit)
-        VALUES (#{courseName},#{teacherId},#{courseLength},#{courseClassroom},#{courseTime},#{majorId},
+        VALUES (#{courseName},#{teacherId},#{courseClassroom},#{courseTime},#{majorId},
                 #{courseType},#{textbook.textbookId},#{credit})
     </insert>
 
