@@ -13,8 +13,8 @@ public class SignUpRecordDTO {
     private Integer epId;
     @Schema(hidden = true)
     private String studentId;
-    @Schema(description = "志愿需要的信息，前端自定义，以JSON可是传输")
-    private String data;
+//    @Schema(description = "志愿需要的信息，前端自定义，以JSON可是传输")
+//    private String data;
     @Schema(description = "志愿状态：(1,待审核）（2，录取）（3，驳回）（4，其他）")
     private Integer status;
     @Schema(description = "志愿顺序")

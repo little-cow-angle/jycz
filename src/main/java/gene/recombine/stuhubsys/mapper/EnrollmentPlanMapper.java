@@ -8,10 +8,14 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import gene.recombine.stuhubsys.vo.EnrollmentPlanVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface EnrollmentPlanMapper extends BaseMapper<EnrollmentPlan> {
     EnrollmentPlanVO selectEnrollmentPlan(@Param("id") Long id);
     int incrementCount(Long id);
     IPage<EnrollmentPlanVO> getEnrollmentPlans(Page<EnrollmentPlanVO> page, @Param("ew") QueryWrapper<EnrollmentPlan> ew);
+    List<EnrollmentPlanVO> getEnrollmentPlanByMajorName(@Param("majorName") String majorName);
+    List<EnrollmentPlanVO> getAllEnrollmentPlan();
 }
 
 

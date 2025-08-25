@@ -5,6 +5,8 @@ import lombok.Data;
 
 @Data
 public class StudentDTO {
+    @Schema(description = "学生id")
+    private Long studentId;
     @Schema(description = "学生姓名")
     private String studentName;
     @Schema(description = "学生地址")
@@ -13,6 +15,8 @@ public class StudentDTO {
     private Long majorId;
     @Schema(description = "学院id")
     private Integer collegeId;
+    @Schema(description = "床位号")
+    private Integer bedNumber;
     @Schema(description = "当前页码", example = "1")
     private int pageNo = 1;
     @Schema(description = "分页大小", example = "10")

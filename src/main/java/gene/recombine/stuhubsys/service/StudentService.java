@@ -9,4 +9,5 @@ import gene.recombine.stuhubsys.vo.StudentVO;
 public interface StudentService extends IService<Student> {
     IPage<StudentVO> getStudentPages(StudentDTO studentDTO);
     StudentVO getStudentById(Long id);
+    int setStudentBedNumber(StudentDTO studentDTO);
 }

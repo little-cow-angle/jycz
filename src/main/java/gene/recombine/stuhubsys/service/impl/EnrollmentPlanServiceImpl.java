@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -71,8 +72,12 @@ public class EnrollmentPlanServiceImpl extends ServiceImpl<EnrollmentPlanMapper,
         Page<EnrollmentPlanVO> page = new Page<>(enrollmentPlanDTO.getPageNo(), enrollmentPlanDTO.getPageSize());
         return baseMapper.getEnrollmentPlans(page, queryWrapper);
     }
+
+    @Override
+    public List<EnrollmentPlanVO> getEnrollmentPlanListByMajorName(String majorName) {
+        if (majorName == null || majorName.trim().isEmpty()) {
+            return enrollmentPlanMapper.getAllEnrollmentPlan();
+        }
+        return enrollmentPlanMapper.getEnrollmentPlanByMajorName(majorName);
+    }
 }
-
-
-
-

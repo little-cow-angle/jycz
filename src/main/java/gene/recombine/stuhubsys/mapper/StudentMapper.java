@@ -2,6 +2,7 @@ package gene.recombine.stuhubsys.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import gene.recombine.stuhubsys.dto.StudentDTO;
 import gene.recombine.stuhubsys.entity.Student;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import gene.recombine.stuhubsys.vo.StudentDormVO;
@@ -15,4 +16,5 @@ public interface StudentMapper extends BaseMapper<Student> {
     StudentVO selectStudentById(@Param("studentId") Long studentId);
     List<StudentDormVO> selectStudentsByDormIds(@Param("dormIds") List<Long> dormIds);
     IPage<StudentVO> getStudentPages(IPage<StudentVO> page, @Param("ew") QueryWrapper<Student> ew);
+    int setBedNumber(StudentDTO studentDTO);
 }

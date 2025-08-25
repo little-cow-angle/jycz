@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("enrollment")
 @Tag(name="招生计划管理")
@@ -64,5 +66,11 @@ public class EnrollmentPlanController {
     @Operation(summary = "获取招生限制")
     public CommonResult<EnrollLimit> getEnrollLimit() {
         return CommonResult.success(enrollmentPlanService.getEnrollLimit());
+    }
+
+    @GetMapping("query-by-major")
+    @Operation(summary = "查询招生计划(专业名筛选)")
+    public CommonResult<List<EnrollmentPlanVO>> getEnrollmentPlanListByMajor(@RequestParam(value = "majorName", required = false) String majorName) {
+        return CommonResult.success(enrollmentPlanService.getEnrollmentPlanListByMajorName(majorName));
     }
 }

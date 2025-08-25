@@ -22,9 +22,9 @@ public class UserDTO {
     @Schema(description = "生日", example = "2003-12-06", requiredMode = Schema.RequiredMode.REQUIRED)
     private LocalDate birth;
     @Schema(description = "高考证号", example = "2003-12-06", requiredMode = Schema.RequiredMode.REQUIRED)
-    private LocalDate gaoKaoId;
+    private String gaoKaoId;
     @Schema(description = "高考成绩", example = "2003-12-06", requiredMode = Schema.RequiredMode.REQUIRED)
-    private LocalDate gaoKao;
+    private String gaoKao;
     @Schema(description = "电话", example = "11451411451", requiredMode = Schema.RequiredMode.REQUIRED)
     private String phone;
     @Schema(description = "邮箱", example = "zhangming04822@foxmail.com", requiredMode = Schema.RequiredMode.REQUIRED)

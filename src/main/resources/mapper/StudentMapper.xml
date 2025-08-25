@@ -52,9 +52,13 @@
         UPDATE student SET dorm_id = 0 WHERE dorm_id = #{dormId}
     </update>
 
+    <update id="setBedNumber">
+        UPDATE student SET bed_number = #{bedNumber} WHERE student_id = #{studentId}
+    </update>
+
     <select id="getStudentPages" resultType="gene.recombine.stuhubsys.vo.StudentVO">
         SELECT s.*, c.name AS college_name, m.major_name,
-               CONCAT(d.park, d.building, d.floor, '楼', d.dorm_number, '号') AS dorm_info
+               CONCAT(d.park, '园', d.building, '栋', d.floor, '楼', d.dorm_number, '号') AS dorm_info
         FROM student s
         LEFT JOIN college c ON c.id = s.college_id
         LEFT JOIN major m ON m.major_id = s.major_id
@@ -84,7 +88,7 @@
     </select>
     <select id="selectStudentById" resultType="gene.recombine.stuhubsys.vo.StudentVO">
         SELECT s.*, c.name AS college_name, m.major_name,
-               CONCAT(d.park, d.building, d.floor, '楼', d.dorm_number, '号') AS dorm_info
+               CONCAT(d.park, '园', d.building, '栋', d.floor, '楼', d.dorm_number, '号') AS dorm_info
         FROM student s
              LEFT JOIN college c ON c.id = s.college_id
              LEFT JOIN major m ON m.major_id = s.major_id

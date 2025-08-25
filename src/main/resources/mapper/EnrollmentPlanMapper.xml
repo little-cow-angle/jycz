@@ -51,4 +51,17 @@
         LEFT JOIN college c ON c.id = e.college_id
         WHERE e.id = #{id}
     </select>
+
+    <select id="getEnrollmentPlanByMajorName" resultType="gene.recombine.stuhubsys.vo.EnrollmentPlanVO">
+        SELECT e.*, m.major_name, c.name  FROM enrollment_plan e
+        LEFT JOIN major m ON e.major_id = m.major_id
+        LEFT JOIN college c ON e.college_id = c.id
+        WHERE m.major_name LIKE CONCAT('%',#{majorName},'%')
+    </select>
+
+    <select id="getAllEnrollmentPlan" resultType="gene.recombine.stuhubsys.vo.EnrollmentPlanVO">
+        SELECT e.*, m.major_name, c.name  FROM enrollment_plan e
+        LEFT JOIN major m ON e.major_id = m.major_id
+        LEFT JOIN college c ON e.college_id = c.id
+    </select>
 </mapper>
