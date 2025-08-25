@@ -13,7 +13,7 @@ import java.util.Map;
 public interface SignUpMapper extends BaseMapper<SignUpRecordDTO> {
     @Select("select * from sign_up_record where student_id = #{studentId}")
     Collection<SignUpRecordDTO> countByStudentId(String studentId);
-    @Insert("insert into sign_up_record (student_id, ep_id, order) values (#{studentId},#{epId},#{order})")
+    @Insert("insert into sign_up_record (student_id, ep_id, `order`) values (#{studentId},#{epId},#{order})")
     void add(SignUpRecordDTO record);
     @Select("select count(*) from student where student_id = #{studentId}")
     Integer isStudent(String studentId);
