@@ -37,8 +37,7 @@ public class AuthorityFilter implements MyFilter {
         log.info("url:{}",url);
         String method = request.getMethod();
 
-        if( url.toLowerCase().contains("/course") ||
-            url.toLowerCase().contains("/dormitory") ||
+        if( url.toLowerCase().contains("course") ||
             url.toLowerCase().contains("teacher") ||
             url.toLowerCase().contains("admin")) {
             log.info("管理员方法");

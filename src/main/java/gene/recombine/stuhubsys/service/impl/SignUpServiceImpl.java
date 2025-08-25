@@ -53,9 +53,8 @@ public class SignUpServiceImpl implements SignUpService  {
 
     @Override
     public Collection<SignUpRecordDTO> getOwnList() {
-        String studentId=(String) UserContext.get("userId");
-        Collection<SignUpRecordDTO> list=signUpMapper.getOwnList(studentId);
-        return list;
+        String studentId = (String) UserContext.get("userId");
+        return signUpMapper.getOwnList(studentId);
     }
 
     @Override
@@ -84,7 +83,7 @@ public class SignUpServiceImpl implements SignUpService  {
                 signUpMapper.operate(id,operate);break;
             //其他
             default:
-                throw new AppException(AppExceptionMsg.SIGN_UP_UNKNOW_COMMAND);
+                throw new AppException(AppExceptionMsg.SIGN_UP_UNKNOWN_COMMAND);
         }
     }
 }

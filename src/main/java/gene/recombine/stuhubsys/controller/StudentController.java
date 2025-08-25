@@ -29,4 +29,18 @@ public class StudentController {
     public CommonResult updateStudent(@RequestBody Student student) {
         return CommonResult.success(studentService.updateById(student));
     }
+
+    @GetMapping("{id}")
+    @Operation(summary = "获取学生信息(单条)")
+    public CommonResult<StudentVO> getStudentById(@PathVariable("id") Long id) {
+        return CommonResult.success(studentService.getStudentById(id));
+    }
+
+    // TODO: 选择床位
+    // ???
+    @PostMapping("select-bed")
+    @Operation(summary = "选择床位")
+    public CommonResult selectBedNumber(@RequestBody StudentDTO studentDTO) {
+        return CommonResult.success(studentService.setStudentBedNumber(studentDTO));
+    }
 }
