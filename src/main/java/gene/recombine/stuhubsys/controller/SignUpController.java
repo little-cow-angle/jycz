@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("SignUp/")
@@ -18,18 +19,21 @@ import java.util.Collection;
 public class SignUpController {
     @Autowired
     SignUpService signUpService;
-    @PostMapping()
+
+    @PostMapping
     @Operation(summary = "添加志愿")
-    public CommonResult add(@RequestBody SignUpRecordDTO record) {
-        signUpService.add(record);
+    public CommonResult add(@RequestBody List<SignUpRecordDTO> records) {
+        signUpService.add(records);
         return CommonResult.success();
     }
-    @GetMapping()
+
+    @GetMapping
     @Operation(summary = "查看个人志愿")
     public CommonResult getOwnList() {
         Collection<SignUpRecordDTO> sign=signUpService.getOwnList();
         return CommonResult.success(sign);
     }
+
     @GetMapping("admin")
     @Operation(summary = "分页条件查询所有人的志愿")
     public CommonResult list(@Parameter(required = false,description = "可更具志愿类型来查询") Integer epId,
@@ -42,10 +46,9 @@ public class SignUpController {
     @PutMapping("admin/operate")
     @Operation(summary = "志愿操作")
     public CommonResult operate(
-                             @Parameter(required = true,description = "志愿编号") Integer id,
-                             @Parameter(required = true,description = "操作码(1,待审核）（2，录取）（3，驳回）（4，其他）") Integer operate) {
+        @Parameter(required = true,description = "志愿编号") Integer id,
+        @Parameter(required = true,description = "操作码(1,待审核)(2，录取)(3，驳回)(4，其他)") Integer operate) {
         signUpService.operate(id,operate);
         return CommonResult.success();
     }
-
 }
