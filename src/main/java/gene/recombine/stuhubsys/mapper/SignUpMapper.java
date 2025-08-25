@@ -11,21 +11,21 @@ import java.util.Map;
 
 @Mapper
 public interface SignUpMapper extends BaseMapper<SignUpRecordDTO> {
-    @Select("select * from sign_up_record where student_id=#{studentId}")
+    @Select("select * from sign_up_record where student_id = #{studentId}")
     Collection<SignUpRecordDTO> countByStudentId(String studentId);
-    @Insert("insert into sign_up_record (student_id, ep_id, data) values (#{studentId},#{epId},#{data})")
+    @Insert("insert into sign_up_record (student_id, ep_id, order) values (#{studentId},#{epId},#{order})")
     void add(SignUpRecordDTO record);
-    @Select("select count(*) from student where student_id=#{studentId}")
+    @Select("select count(*) from student where student_id = #{studentId}")
     Integer isStudent(String studentId);
-    @Select("select * from sign_up_record where student_id=#{studentId}")
+    @Select("select * from sign_up_record where student_id = #{studentId}")
     Collection<SignUpRecordDTO> getOwnList(String studentId);
-    @Update("update enrollment_plan set count=count+1 where id=#{epId}")
+    @Update("update enrollment_plan set count = count + 1 where id = #{epId}")
     void addCount(Integer epId);
     // 方式2：使用 Lambda 表达式（更推荐）
     IPage<SignUpRecordDTO> selectSignUpPage(IPage<SignUpRecordDTO> page, @Param("epId") Integer epId);
-    void recruit(Integer id);
 
-    @Update("update sign_up_record set status=#{operate},update_time=NOW() where id=#{id}")
+    void recruit(Integer id);
+    @Update("update sign_up_record set status = #{operate},update_time = NOW() where id=#{id}")
     void operate(Integer id, Integer operate);
 
     @MapKey("major_name")
