@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gene.recombine.stuhubsys.mapper.MessageMapper">
+    <insert id="releaseNotice" parameterType="gene.recombine.stuhubsys.vo.notice" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO notice ( create_time, payload, head, teacher_id)
+        values (#{createTime},#{payload},#{head},#{teacherId})
+    </insert>
+</mapper>

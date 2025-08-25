@@ -1,6 +1,8 @@
 package gene.recombine.stuhubsys.service.impl;
 
 import gene.recombine.stuhubsys.common.enums.MessageType;
+import gene.recombine.stuhubsys.common.result.CommonResult;
+import gene.recombine.stuhubsys.dto.AttachmentDTO;
 import gene.recombine.stuhubsys.dto.MessageDTO;
 import gene.recombine.stuhubsys.dto.SignUpRecordDTO;
 import gene.recombine.stuhubsys.mapper.MessageMapper;
@@ -13,8 +15,10 @@ import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,7 +29,7 @@ public class MessageServiceImpl implements MessageService {
     private MessageMapper messageMapper;
     @Resource
     private SignUpMapper signUpMapper;
-    @Autowired
+    @Resource
     private FileService fileService;
     private static String waitForOperate="您的第{}志愿还在审核过程中，请耐心等待";
     private static String accept="恭喜你同学！你的第{}志愿已通过！";
@@ -83,8 +87,61 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public ResponseEntity<org.springframework.core.io.Resource> download(String path) throws IOException {
-        return fileService.downloadFile(path);
+    public ResponseEntity<org.springframework.core.io.Resource> download(Integer id) throws IOException {
+        return fileService.downloadFile(messageMapper.getPathById(id));
+    }
+
+    @Override
+    public List<AttachmentDTO> getAttachment(Integer id) {
+        return messageMapper.getAttachment(id);
+    }
+
+    @Override
+    public void uploadAttachment(MultipartFile file, Integer id) {
+        String name=file.getOriginalFilename();
+        String type=file.getContentType();
+        String path = fileService.uploadFile(file);
+        messageMapper.addAttacment(name,type,path,id);
+
+    }
+
+    @Override
+    public Integer release(String head, String payload) {
+        notice notice=new notice();
+        notice.setHead(head);
+        notice.setPayload(payload);
+        notice.setCreateTime(LocalDateTime.now());
+        notice.setTeacherId((String)UserContext.get("userId"));
+        Integer id= messageMapper.releaseNotice( notice);
+        return id;
+    }
+
+    @Override
+    public void delete(Integer id) {
+        List<String> list = messageMapper.getAttachmentPath(id);
+        //删除附件
+        for (String path : list) {
+            fileService.delete(path);
+        }
+        //删除消息记录
+        messageMapper.delete(id);
+        messageMapper.deleteFile(id);
+    }
+
+    @Override
+    public void update(Integer id, String head, String payload) {
+        messageMapper.updateNotice(id,head,payload);
+    }
+
+    @Override
+    public List<MessageDTO> get() {
+        List<notice> list= messageMapper.getNoticeByTeacherID((String)UserContext.get("userId"));
+        List<MessageDTO> result = convertoMessage(list);
+        int index=0;
+        for (notice notice : list) {
+            result.get(index++).setFiles(messageMapper.getAttachment( notice.getId()));
+        }
+        return result;
     }
 
     private List<MessageDTO> getAdminNotice() {
@@ -102,10 +159,10 @@ public class MessageServiceImpl implements MessageService {
         for (notice notice : list) {
             MessageDTO messageDTO = new MessageDTO();
             messageDTO.setHead(notice.getHead());
-            messageDTO.setFiles(messageMapper.getFiles(notice.getId()));
             messageDTO.setType(MessageType.NOTICE);
             messageDTO.setMessage(notice.getPayload());
             messageDTO.setCreateTime(notice.getCreateTime());
+            messageDTO.setNotice_id(notice.getId());
             MessageList.add(messageDTO);
         }
         return MessageList;

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 @Data
 public class MessageDTO {
-    @Schema(description = "通知类型")
+    @Schema(description = "消息类型")
     private MessageType type;
     @Schema(description = "预览")
     private String head;
@@ -18,5 +18,7 @@ public class MessageDTO {
     @Schema(description="消息主体")
     private LocalDateTime createTime;
     @Schema(description="附件路径")
-    private List<String> files;
+    private List<AttachmentDTO> files;
+    @Schema(description="若类型为通知公告，则有通知的id")
+    private Integer notice_id;
 }

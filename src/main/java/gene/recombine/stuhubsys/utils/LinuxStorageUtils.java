@@ -23,7 +23,8 @@ import java.util.UUID;
 public class LinuxStorageUtils {
 
     public static String upLoad(String BasePath, MultipartFile file) {
-        String Path = BasePath + UUID.randomUUID().toString()+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        String relativePath = UUID.randomUUID().toString() + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        String Path = BasePath +relativePath;
         try {
             // 检查文件是否为空
             if (file.isEmpty()) {
@@ -32,7 +33,7 @@ public class LinuxStorageUtils {
             File dest = new File(Path);
             // 保存文件到指定路径
             file.transferTo(dest);
-            return Path;
+            return relativePath;
         } catch (IOException e) {
             e.printStackTrace();
             return null;

@@ -5,6 +5,7 @@ import gene.recombine.stuhubsys.utils.LinuxStorageUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,11 +30,14 @@ public class FileService {
             base += File.separator;
         }
     }
-    public void uploadFile(){
-
+    public String uploadFile(MultipartFile file){
+        return LinuxStorageUtils.upLoad(base,file);
     }
     public ResponseEntity<Resource> downloadFile(String path) throws IOException {
         return LinuxStorageUtils.download(base+path);
+    }
 
+    public void delete(String path) {
+        LinuxStorageUtils.delete(base+path);
     }
 }

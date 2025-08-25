@@ -17,4 +17,5 @@ public class notice {
     private LocalDateTime createTime;
     private LocalDateTime expiredTime;
     private Short status;
+    private String teacherId;
 }
