@@ -40,7 +40,7 @@ public class MessageServiceImpl implements MessageService {
             //1.代办申请
             MessageDTO needOperate = new MessageDTO();
             needOperate.setType(MessageType.WORK);
-            needOperate.setHead("您有"+count.toString()+"学生申请待处理！");
+            needOperate.setHead("您有"+count.toString()+"条学生申请待处理！");
             needOperate.setCreateTime(LocalDateTime.now());
             MessageList.add(needOperate);
         }
@@ -54,7 +54,7 @@ public class MessageServiceImpl implements MessageService {
     public List<MessageDTO> getStudentMessage() {
         List<MessageDTO> MessageList = new ArrayList<>();
         //1.志愿状态消息
-        Collection<SignUpRecordDTO> signUpList = signUpMapper.getOwnList((String) UserContext.get("userID"));
+        Collection<SignUpRecordDTO> signUpList = signUpMapper.getOwnList((String) UserContext.get("userId"));
         if(!signUpList.isEmpty()){
             for (SignUpRecordDTO item : signUpList) {
                 MessageDTO message = new MessageDTO();
@@ -98,7 +98,6 @@ public class MessageServiceImpl implements MessageService {
         String type=file.getContentType();
         String path = fileService.uploadFile(file);
         messageMapper.addAttacment(name,type,path,id);
-
     }
 
     @Override
