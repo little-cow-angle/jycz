@@ -50,7 +50,7 @@
         ORDER BY sr.`order` ASC
     </select>
 
-    <select id="getSignUpList" resultType="gene.recombine.stuhubsys.vo.StudentVolunteerVO">
+    <select id="getSignUpList" resultMap="StudentVolunteerVOMap">
         SELECT DISTINCT s.student_id, s.student_name, s.sex, s.gao_kao_id, s.gao_kao, s.student_address,
                         s.phone, s.city_countryside, c.name AS college_name
         FROM sign_up_record sr
