@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import gene.recombine.stuhubsys.dto.ScoreDTO;
 import gene.recombine.stuhubsys.dto.TextbookDTO;
-import gene.recombine.stuhubsys.entity.Course;
 import gene.recombine.stuhubsys.entity.Textbook;
 import gene.recombine.stuhubsys.mapper.CourseMapper;
 import gene.recombine.stuhubsys.service.ScoreService;
@@ -45,7 +44,6 @@ public class TextbookServiceImpl extends ServiceImpl<TextbookMapper, Textbook>
             textbookDTO.setTextbookId(scoreVO.getTextbookId());
             textbookDTOList.add(textbookDTO);
         }
-
         return textbookMapper.getTextbookListByStudentId(textbookDTOList);
     }
 
@@ -80,11 +78,6 @@ public class TextbookServiceImpl extends ServiceImpl<TextbookMapper, Textbook>
         if (newCourseId != null && !newCourseId.equals(oldCourseId)) {
             courseMapper.updateCourseTextbookId(textbook.getCourseId(), textbook.getTextbookId());
         }
-
         return i;
     }
 }
-
-
-
-

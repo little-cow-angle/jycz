@@ -46,14 +46,17 @@
 
     <select id="getAvailableCourseList" resultMap="SelectedCourseVOMap">
         SELECT c.course_id, c.course_name, t.name AS teacher_name, c.course_classroom,
-               c.course_time, c.course_type, c.textbook_id, c.credit, s.student_id, s.student_name
+        c.course_time, c.course_type, c.textbook_id, c.credit, s.student_id, s.student_name
         FROM course c
         LEFT JOIN teacher t ON c.teacher_id = t.teacher_id
         LEFT JOIN student s ON s.student_id = #{studentId} AND s.major_id = c.major_id
         WHERE c.major_id = (SELECT major_id FROM student WHERE student_id = #{studentId})
-          AND c.course_id NOT IN
-          <foreach collection="selectedCourseIds" item="id" open="(" separator="," close=")">
-              #{id}
-          </foreach>
+        <if test="selectedCourseIds != null and selectedCourseIds.size() > 0">
+            AND c.course_id NOT IN
+            <foreach collection="selectedCourseIds" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </if>
     </select>
+
 </mapper>
