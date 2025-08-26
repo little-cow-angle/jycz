@@ -3,6 +3,7 @@ package gene.recombine.stuhubsys.aop;
 import com.alibaba.fastjson.JSON;
 
 import gene.recombine.stuhubsys.utils.RedisUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,14 +17,20 @@ import org.springframework.stereotype.Component;
 import java.util.Base64;
 @Component
 @Aspect
-
+@Slf4j
 public class RedisAspect {
     @Autowired
     private RedisUtils redisUtils;
     @Around("@annotation(gene.recombine.stuhubsys.aop.RedisByteBase64Storage)")
     public ResponseEntity<byte[]> byteBase64Storage(ProceedingJoinPoint joinPoint) throws Throwable {
         String key = getKey(joinPoint);
-        String base64Data = redisUtils.getString(key);
+        String base64Data = "";
+        try {
+            base64Data = redisUtils.getString(key);
+        }catch (Exception e){
+            log.info(e.getMessage());
+            log.info("redis连接异常，无法读取缓存数据");
+        }
         byte[] decode;
         if(base64Data!=null&& !base64Data.isEmpty()){
             decode = Base64.getDecoder().decode(base64Data);
@@ -36,7 +43,11 @@ public class RedisAspect {
         decode = result.getBody();
         if(decode!=null&& decode.length>0){
             base64Data = Base64.getEncoder().encodeToString(decode);
-            redisUtils.setString(key,base64Data);
+            try {
+                redisUtils.setString(key,base64Data);
+            }catch (Exception e){
+                log.info("redis异常，缓存失效");
+            }
         }
         return result;
     }

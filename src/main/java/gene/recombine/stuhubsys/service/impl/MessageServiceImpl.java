@@ -1,5 +1,6 @@
 package gene.recombine.stuhubsys.service.impl;
 
+import gene.recombine.stuhubsys.aop.RedisByteBase64Storage;
 import gene.recombine.stuhubsys.common.enums.MessageType;
 import gene.recombine.stuhubsys.dto.AttachmentDTO;
 import gene.recombine.stuhubsys.dto.MessageDTO;
@@ -83,7 +84,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public ResponseEntity<org.springframework.core.io.Resource> download(Integer id) throws IOException {
+    @RedisByteBase64Storage
+    public ResponseEntity<byte[]> download(Integer id) throws IOException {
         return fileService.downloadFile(messageMapper.getPathById(id));
     }
 

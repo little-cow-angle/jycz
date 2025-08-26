@@ -47,7 +47,7 @@ public class MessageController {
     }
     @GetMapping("download")
     @Operation(summary = "下载附件")
-    public ResponseEntity<Resource> downloadAttachment(@Parameter(description = "附件ID") Integer Id) throws IOException {
+    public ResponseEntity<byte[]> downloadAttachment(@Parameter(description = "附件ID") Integer Id) throws IOException {
         return messageService.download(Id);
     }
 

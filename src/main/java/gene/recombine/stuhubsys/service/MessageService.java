@@ -16,7 +16,7 @@ public interface MessageService {
 
     List<MessageDTO> getStudentMessage();
 
-    ResponseEntity<Resource> download(Integer Id) throws IOException;
+    ResponseEntity<byte[]> download(Integer Id) throws IOException;
 
     List<AttachmentDTO> getAttachment(Integer id);
 

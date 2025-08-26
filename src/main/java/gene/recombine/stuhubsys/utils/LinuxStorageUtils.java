@@ -39,7 +39,7 @@ public class LinuxStorageUtils {
             return null;
         }
     }
-    public static ResponseEntity<Resource> download(String filePath) throws IOException {
+    public static ResponseEntity<byte[]> download(String filePath) throws IOException {
         // 1. 参数校验
         if (filePath == null || filePath.trim().isEmpty()) {
             throw new IllegalArgumentException("文件路径不能为空");
@@ -48,9 +48,10 @@ public class LinuxStorageUtils {
         // 2. 规范化路径并检查文件
         Path normalizedPath = Paths.get(filePath).normalize();
         Resource resource;
-
+        byte[] data;
         try {
             resource = new UrlResource(normalizedPath.toUri());
+            data = resource.getInputStream().readAllBytes();
         } catch (MalformedURLException e) {
             throw new IOException("无效的文件路径: " + filePath, e);
         }
@@ -88,7 +89,7 @@ public class LinuxStorageUtils {
         // 5. 构建响应
         return ResponseEntity.ok()
                 .headers(headers)
-                .body(resource);
+                .body(data);
     }
 
     // 根据文件扩展名确定Content-Type

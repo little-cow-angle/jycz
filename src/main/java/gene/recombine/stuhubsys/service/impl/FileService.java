@@ -33,7 +33,7 @@ public class FileService {
     public String uploadFile(MultipartFile file){
         return LinuxStorageUtils.upLoad(base,file);
     }
-    public ResponseEntity<Resource> downloadFile(String path) throws IOException {
+    public ResponseEntity<byte[]> downloadFile(String path) throws IOException {
         return LinuxStorageUtils.download(base+path);
     }
 
