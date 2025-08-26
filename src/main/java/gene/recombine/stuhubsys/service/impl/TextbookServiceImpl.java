@@ -3,6 +3,8 @@ package gene.recombine.stuhubsys.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import gene.recombine.stuhubsys.common.exception.AppException;
+import gene.recombine.stuhubsys.common.exception.AppExceptionMsg;
 import gene.recombine.stuhubsys.dto.ScoreDTO;
 import gene.recombine.stuhubsys.dto.TextbookDTO;
 import gene.recombine.stuhubsys.entity.Textbook;
@@ -37,6 +39,9 @@ public class TextbookServiceImpl extends ServiceImpl<TextbookMapper, Textbook>
         scoreDTO.setPageSize(999);
         IPage<ScoreVO> scorePage = scoreService.getSelectedCourses(scoreDTO);
         List<ScoreVO> scoreVOList = scorePage.getRecords();
+        if (scoreVOList == null || scoreVOList.isEmpty()) {
+            throw new AppException(AppExceptionMsg.NO_SCORE_RECORD);
+        }
         List<TextbookDTO> textbookDTOList = new ArrayList<>();
         for (ScoreVO scoreVO : scoreVOList) {
             TextbookDTO textbookDTO = new TextbookDTO();

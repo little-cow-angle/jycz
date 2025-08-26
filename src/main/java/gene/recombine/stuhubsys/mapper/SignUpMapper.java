@@ -3,7 +3,7 @@ package gene.recombine.stuhubsys.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import gene.recombine.stuhubsys.dto.SignUpRecordDTO;
-import gene.recombine.stuhubsys.vo.SignUpRecordVO;
+import gene.recombine.stuhubsys.vo.StudentVolunteerVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.Collection;
@@ -33,4 +33,6 @@ public interface SignUpMapper extends BaseMapper<SignUpRecordDTO> {
 
     @MapKey("major_name")
     List<Map<String, Object>> getHotMajorSignUpList();
+
+    IPage<StudentVolunteerVO> getSignUpList(IPage<StudentVolunteerVO> page);
 }

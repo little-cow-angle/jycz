@@ -9,6 +9,7 @@ import gene.recombine.stuhubsys.service.SignUpService;
 import gene.recombine.stuhubsys.utils.UserContext;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import gene.recombine.stuhubsys.vo.SignUpRecordVO;
+import gene.recombine.stuhubsys.vo.StudentVolunteerVO;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -104,5 +105,15 @@ public class SignUpServiceImpl implements SignUpService  {
             default:
                 throw new AppException(AppExceptionMsg.SIGN_UP_UNKNOWN_COMMAND);
         }
+    }
+
+    @Override
+    public IPage<StudentVolunteerVO> getVolunteerList(Integer page, Integer size) {
+        IPage<StudentVolunteerVO> volunteerPage = new Page<>(page, size);
+        volunteerPage = signUpMapper.getSignUpList(volunteerPage);
+        for (StudentVolunteerVO vo : volunteerPage.getRecords()) {
+            vo.setSignUpRecord(getStudentVolunteer(vo.getStudentId()));
+        }
+        return volunteerPage;
     }
 }

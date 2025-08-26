@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import gene.recombine.stuhubsys.common.result.CommonResult;
 import gene.recombine.stuhubsys.dto.SignUpRecordDTO;
 import gene.recombine.stuhubsys.service.SignUpService;
+import gene.recombine.stuhubsys.vo.StudentVolunteerVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,12 +35,12 @@ public class SignUpController {
         return CommonResult.success(signUpService.getStudentVolunteer(id));
     }
 
-    @GetMapping("admin")
-    @Operation(summary = "分页条件查询所有人的志愿")
-    public CommonResult list(@Parameter(required = false,description = "可更具志愿类型来查询") Integer epId,
-                             @Parameter(required = true,description = "页码") Integer page,
-                             @Parameter(required = true,description = "每页展示数") Integer size) {
-        IPage<SignUpRecordDTO> sign=signUpService.list(epId,page,size);
+    @PostMapping("admin")
+    @Operation(summary = "分页条件查询志愿")
+    @Parameter(required = true, description = "页码")
+    @Parameter(required = true, description = "每页展示数")
+    public CommonResult<IPage<StudentVolunteerVO>> list(Integer page, Integer size) {
+        IPage<StudentVolunteerVO> sign = signUpService.getVolunteerList(page,size);
         return CommonResult.success(sign);
     }
 

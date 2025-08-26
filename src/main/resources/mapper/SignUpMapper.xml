@@ -3,6 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gene.recombine.stuhubsys.mapper.SignUpMapper">
+    <resultMap id="StudentVolunteerVOMap" type="gene.recombine.stuhubsys.vo.StudentVolunteerVO">
+        <id property="studentId" column="student_id" />
+        <result property="studentName" column="student_name" />
+        <result property="sex" column="sex" />
+        <result property="gao_kao_id" column="gao_kao_id" />
+        <result property="gao_kao" column="gao_kao" />
+        <result property="address" column="student_address" />
+        <result property="phone" column="phone" />
+        <result property="huKou" column="city_countryside" />
+        <result property="collegeName" column="college_name" />
+    </resultMap>
+
     <update id="recruit">
         UPDATE sign_up_record s1
             JOIN (SELECT student_id FROM sign_up_record WHERE id = #{id}) s2
@@ -13,7 +25,6 @@
             END,
             update_time=now();
     </update>
-
 
     <select id="selectSignUpPage" resultType="gene.recombine.stuhubsys.dto.SignUpRecordDTO">
         SELECT * FROM sign_up_record
@@ -37,6 +48,17 @@
                  LEFT JOIN major m ON m.major_id = e.major_id
         WHERE sr.student_id = #{studentId}
         ORDER BY sr.`order` ASC
+    </select>
+
+    <select id="getSignUpList" resultType="gene.recombine.stuhubsys.vo.StudentVolunteerVO">
+        SELECT DISTINCT s.student_id, s.student_name, s.sex, s.gao_kao_id, s.gao_kao, s.student_address,
+                        s.phone, s.city_countryside, c.name AS college_name
+        FROM sign_up_record sr
+                 LEFT JOIN student s ON s.student_id = sr.student_id
+                 LEFT JOIN enrollment_plan e ON e.id = sr.ep_id
+                 LEFT JOIN college c ON c.id = e.college_id
+        WHERE sr.`order` = 1
+        ORDER BY s.student_id
     </select>
 
 </mapper>

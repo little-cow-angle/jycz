@@ -22,7 +22,8 @@ public enum AppExceptionMsg {
     //服务端异常
     SERVER_ERROR(500,"服务器异常"),
     //其他异常
-    TRANSACTION_BED_NUMBER_HAS_EXISTED(800, "该床位已被选择！");
+    TRANSACTION_BED_NUMBER_HAS_EXISTED(800, "该床位已被选择！"),
+    NO_SCORE_RECORD(801, "没有已选课程信息，请先选课！");
 
     private int code;
     private String msg;

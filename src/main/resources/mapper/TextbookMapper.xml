@@ -21,9 +21,9 @@
         FROM textbook t
         JOIN course c ON c.textbook_id = t.textbook_id
         WHERE t.textbook_id IN
-            <foreach collection="textbookDTOList" item="dto" open="(" separator="," close=")">
-                #{dto.textbookId}
-            </foreach>
+        <foreach collection="textbookDTOList" item="dto" open="(" separator="," close=")">
+            #{dto.textbookId}
+        </foreach>
     </select>
 
     <select id="getAllTextbooks" resultType="gene.recombine.stuhubsys.vo.TextbookVO">
