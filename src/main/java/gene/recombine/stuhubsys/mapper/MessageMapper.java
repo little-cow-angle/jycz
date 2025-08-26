@@ -22,7 +22,7 @@ public interface MessageMapper{
     @Insert("INSERT INTO notice_file ( notice_id, path, type, name) values (#{id},#{path},#{type},#{name})")
     void addAttacment(String name, String type, String path, Integer id);
 
-    Integer releaseNotice(Notice notice);
+    int releaseNotice(Notice notice);
     @Delete("delete from notice where id=#{id}")
     void delete(Integer id);
     @Select("select path from notice_file where notice_id=#{id}")

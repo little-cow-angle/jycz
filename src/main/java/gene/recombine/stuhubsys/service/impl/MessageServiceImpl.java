@@ -103,15 +103,17 @@ public class MessageServiceImpl implements MessageService {
         messageMapper.addAttacment(name,type,path,id);
     }
 
+
     @Override
-    public Integer release(String head, String payload) {
+    public Integer release(String head, String payload, Integer type) {
         Notice notice = new Notice();
         notice.setHead(head);
         notice.setPayload(payload);
         notice.setCreateTime(LocalDateTime.now());
         notice.setTeacherId((String)UserContext.get("userId"));
-        Integer id = messageMapper.releaseNotice( notice);
-        return id;
+        notice.setType(type.shortValue());
+        messageMapper.releaseNotice( notice);
+        return notice.getId();
     }
 
     @Override

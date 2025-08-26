@@ -55,9 +55,10 @@ public class MessageController {
     @Operation(summary = "发布公告")
     public CommonResult uploadAttachment(
                                          @Parameter(description = "标题"          ) String head,
-                                         @Parameter(description = "内容(JSON!!!)"       ) String payload          ) throws IOException {
+                                         @Parameter(description = "内容(JSON!!!)"       ) String payload,
+                                         @Parameter(description = "公告对哪些人可见，可用类型:（1,所有人）（2,仅学生）（3,仅老师）"       ) Integer type) throws IOException {
 
-        Integer id  =messageService.release(head,payload);
+        Integer id  =messageService.release(head,payload,type);
         return CommonResult.success(id);
     }
     @DeleteMapping("notice")

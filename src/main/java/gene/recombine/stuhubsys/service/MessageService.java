@@ -22,7 +22,7 @@ public interface MessageService {
 
     void uploadAttachment(MultipartFile file, Integer id);
 
-    Integer release(String head, String payload);
+    Integer release(String head, String payload,Integer type);
 
     void delete(Integer id);
 

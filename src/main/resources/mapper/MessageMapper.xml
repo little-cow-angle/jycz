@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gene.recombine.stuhubsys.mapper.MessageMapper">
     <insert id="releaseNotice" parameterType="gene.recombine.stuhubsys.entity.Notice" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO notice ( create_time, payload, head, teacher_id)
-        values (#{createTime},#{payload},#{head},#{teacherId})
+        INSERT INTO notice ( create_time, payload, head, teacher_id,type)
+        values (#{createTime},#{payload},#{head},#{teacherId},#{type})
     </insert>
 </mapper>
