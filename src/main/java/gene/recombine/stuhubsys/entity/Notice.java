@@ -1,4 +1,4 @@
-package gene.recombine.stuhubsys.vo;
+package gene.recombine.stuhubsys.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class notice {
+public class Notice {
     private int id;
     private Short type;
     private String head;

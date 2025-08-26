@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
-import java.util.Map;
 
 @Slf4j
 @Component
@@ -65,10 +64,10 @@ public class LoginRegisterFilter implements Filter {
 
             log.info("解析成功");
 
-            String username=claims.get("username",String.class);
-            String userId=claims.get("userId",String.class);
-            UserContext.set("username",username);
-            UserContext.set("userId",userId);
+            String username = claims.get("username", String.class);
+            String userId = claims.get("userId", String.class);
+            UserContext.set("username", username);
+            UserContext.set("userId", userId);
         } catch (Exception e) {
             log.info("令牌不合法");
             CommonResult err = CommonResult.error(new AppException(AppExceptionMsg.AUTH_NOT_LOGIN));
@@ -80,5 +79,4 @@ public class LoginRegisterFilter implements Filter {
 
         filterChain.doFilter(request, response);
     }
-
 }

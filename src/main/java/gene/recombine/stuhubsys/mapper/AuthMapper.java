@@ -25,7 +25,7 @@ public interface AuthMapper {
                    @Param("phone") String phone,
                    @Param("email") String email,
                    @Param("major") String major,
-                   @Param("collegeName") String collegeName,
+                   @Param("collegeId") Integer collegeId,
                    @Param("workAddress") String workAddress,
                    @Param("position") String position);
 }

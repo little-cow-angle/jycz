@@ -18,7 +18,6 @@ public class ReportController {
     @Autowired
     private ReportService reportService;
 
-    // TODO：获取各类招生数据
     @GetMapping("{column}")
     @Operation(summary = "获取学生分布", description = "可以根据性别、政治面貌、户口类型等条件获取学生分布情况")
     @Parameter(name = "column", description = "要获取分布的类型", example = "sex")

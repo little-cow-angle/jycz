@@ -15,8 +15,8 @@
                         <if test="birth != null">birthday = #{birth},</if>
                         <if test="phone != null">phone = #{phone},</if>
                         <if test="email != null">email = #{email},</if>
-                        <if test="collegeName != null">
-                            college_id = (SELECT id FROM college WHERE name = #{collegeName}),
+                        <if test="collegeId != null">
+                            college_id = #{collegeId},
                         </if>
                         <if test="workAddress != null">work_address = #{workAddress},</if>
                         <if test="position != null">position = #{position},</if>
@@ -37,8 +37,8 @@
                         <if test="major != null">
                             major_id = (SELECT major_id FROM major WHERE major_name = #{major}),
                         </if>
-                        <if test="collegeName != null">
-                            college_id = (SELECT id FROM college WHERE name = #{collegeName}),
+                        <if test="collegeId != null">
+                            college_id = #{collegeId},
                         </if>
                     </set>
                     WHERE student_id = #{id}
@@ -69,6 +69,7 @@
                 LIMIT 1
             ) END AS teacher_info
     </select>
+
     <select id="getInfo" resultType="gene.recombine.stuhubsys.dto.UserDTO">
         SELECT
             result.*

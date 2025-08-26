@@ -1,5 +1,6 @@
 package gene.recombine.stuhubsys.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import gene.recombine.stuhubsys.common.exception.AppException;
 import gene.recombine.stuhubsys.common.exception.AppExceptionMsg;
 import gene.recombine.stuhubsys.dto.AuthLoginDTO;
@@ -15,10 +16,12 @@ import gene.recombine.stuhubsys.vo.LoginUserVO;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
@@ -27,6 +30,8 @@ public class AuthServiceImpl implements AuthService {
     AuthMapper authMapper;
     @Autowired
     MenuService menuService;
+    @Resource
+    StringRedisTemplate stringRedisTemplate;
 
     @Override
     public CourseVO findCourseById(long id) {
@@ -59,6 +64,9 @@ public class AuthServiceImpl implements AuthService {
         loginUserVO.setToken(JWTUtils.GenerateJWTCode(map));
         loginUserVO.setMenus(menuService.getMenuByUserType(info[2]));
 
+        String token = loginUserVO.getToken();
+        stringRedisTemplate.opsForValue().set("token::" + token, JSON.toJSONString(loginUserVO), 2, TimeUnit.DAYS);
+
         return loginUserVO;
     }
 
@@ -83,7 +91,7 @@ public class AuthServiceImpl implements AuthService {
                 user.getPhone(), // 电话
                 user.getEmail(), // 邮箱
                 user.getMajor(), // 专业
-                user.getCollegeName(), // 所属学院
+                user.getCollegeId(), // 所属学院
                 user.getWorkAddress(), // 办公室地址
                 user.getPosition() // 职位
         );

@@ -1,24 +1,20 @@
 package gene.recombine.stuhubsys.service.impl;
 
 import gene.recombine.stuhubsys.common.enums.MessageType;
-import gene.recombine.stuhubsys.common.result.CommonResult;
 import gene.recombine.stuhubsys.dto.AttachmentDTO;
 import gene.recombine.stuhubsys.dto.MessageDTO;
 import gene.recombine.stuhubsys.dto.SignUpRecordDTO;
 import gene.recombine.stuhubsys.mapper.MessageMapper;
 import gene.recombine.stuhubsys.mapper.SignUpMapper;
 import gene.recombine.stuhubsys.service.MessageService;
-import gene.recombine.stuhubsys.utils.LinuxStorageUtils;
 import gene.recombine.stuhubsys.utils.UserContext;
-import gene.recombine.stuhubsys.vo.notice;
+import gene.recombine.stuhubsys.entity.Notice;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,10 +27,10 @@ public class MessageServiceImpl implements MessageService {
     private SignUpMapper signUpMapper;
     @Resource
     private FileService fileService;
-    private static String waitForOperate="您的第{}志愿还在审核过程中，请耐心等待";
-    private static String accept="恭喜你同学！你的第{}志愿已通过！";
-    private static String reject="很遗憾，您的第{}志愿未通过。";
-    private static String errorStatus="您的第{}志愿状态异常，请联系老师进行处理！";
+    private static String waitForOperate = "您的第{}志愿还在审核过程中，请耐心等待";
+    private static String accept = "恭喜你同学！你的第{}志愿已通过！";
+    private static String reject ="很遗憾，您的第{}志愿未通过。";
+    private static String errorStatus = "您的第{}志愿状态异常，请联系老师进行处理！";
     @Override
     public List<MessageDTO> getAdminMessage() {
         List<MessageDTO> MessageList = new ArrayList<>();
@@ -107,7 +103,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Integer release(String head, String payload) {
-        notice notice=new notice();
+        Notice notice=new Notice();
         notice.setHead(head);
         notice.setPayload(payload);
         notice.setCreateTime(LocalDateTime.now());
@@ -135,28 +131,28 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<MessageDTO> get() {
-        List<notice> list= messageMapper.getNoticeByTeacherID((String)UserContext.get("userId"));
+        List<Notice> list= messageMapper.getNoticeByTeacherID((String)UserContext.get("userId"));
         List<MessageDTO> result = convertoMessage(list);
         int index=0;
-        for (notice notice : list) {
+        for (Notice notice : list) {
             result.get(index++).setFiles(messageMapper.getAttachment( notice.getId()));
         }
         return result;
     }
 
     private List<MessageDTO> getAdminNotice() {
-        List<notice> list =messageMapper.getNotice(3);
+        List<Notice> list =messageMapper.getNotice(3);
        return convertoMessage(list);
     }
     private List<MessageDTO> getStudentNotice() {
-        List<notice> list =messageMapper.getNotice(2);
+        List<Notice> list =messageMapper.getNotice(2);
         return convertoMessage(list);
     }
 
-    private List<MessageDTO> convertoMessage(List<notice> list) {
+    private List<MessageDTO> convertoMessage(List<Notice> list) {
 
         List<MessageDTO> MessageList = new ArrayList<>();
-        for (notice notice : list) {
+        for (Notice notice : list) {
             MessageDTO messageDTO = new MessageDTO();
             messageDTO.setHead(notice.getHead());
             messageDTO.setType(MessageType.NOTICE);

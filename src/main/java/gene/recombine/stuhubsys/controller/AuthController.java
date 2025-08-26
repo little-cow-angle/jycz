@@ -36,9 +36,4 @@ public class AuthController {
         return CommonResult.success();
     }
 
-    @GetMapping("test/auth")
-    @Operation(summary = "测试权限")
-    public CommonResult login() {
-        return CommonResult.success("我是管理员");
-    }
 }
