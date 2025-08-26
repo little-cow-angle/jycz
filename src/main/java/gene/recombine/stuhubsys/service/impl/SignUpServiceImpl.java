@@ -8,13 +8,12 @@ import gene.recombine.stuhubsys.mapper.SignUpMapper;
 import gene.recombine.stuhubsys.service.SignUpService;
 import gene.recombine.stuhubsys.utils.UserContext;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import gene.recombine.stuhubsys.vo.SignUpRecordVO;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -60,6 +59,24 @@ public class SignUpServiceImpl implements SignUpService  {
     public Collection<SignUpRecordDTO> getOwnList() {
         String studentId = (String) UserContext.get("userId");
         return signUpMapper.getOwnList(studentId);
+    }
+
+    @Override
+    public SignUpRecordVO getStudentVolunteer(Long id) {
+        Map<Integer, Object> volunteerMap = signUpMapper.selectByStudentId(id);
+        Map<Integer, String> orderMajorMap = new HashMap<>();
+        volunteerMap.forEach((order, volunteerObj) -> {
+            Map<String, Object> volunteerObjMap = (Map<String, Object>) volunteerObj;
+            String majorName = volunteerObjMap.getOrDefault("volunteerMajor", "未填报").toString();
+            orderMajorMap.put(order, majorName);
+        });
+
+        SignUpRecordVO vo = new SignUpRecordVO();
+        vo.setFirstVolunteer(orderMajorMap.getOrDefault(1, "未填报"));
+        vo.setSecondVolunteer(orderMajorMap.getOrDefault(2, "未填报"));
+        vo.setThirdVolunteer(orderMajorMap.getOrDefault(3, "未填报"));
+
+        return vo;
     }
 
     @Override

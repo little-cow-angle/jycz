@@ -29,4 +29,14 @@
         ORDER BY count DESC
         LIMIT 10
     </select>
+
+    <select id="selectByStudentId" resultType="java.util.Map">
+        SELECT m.major_name AS volunteerMajor, sr.`order` AS volunteerOrder
+        FROM sign_up_record sr
+                 LEFT JOIN enrollment_plan e ON e.id = sr.ep_id
+                 LEFT JOIN major m ON m.major_id = e.major_id
+        WHERE sr.student_id = #{studentId}
+        ORDER BY sr.`order` ASC
+    </select>
+
 </mapper>

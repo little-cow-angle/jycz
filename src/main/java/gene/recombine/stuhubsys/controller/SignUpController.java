@@ -27,11 +27,11 @@ public class SignUpController {
         return CommonResult.success();
     }
 
-    @GetMapping
+    @GetMapping("{id}")
     @Operation(summary = "查看个人志愿")
-    public CommonResult getOwnList() {
-        Collection<SignUpRecordDTO> sign=signUpService.getOwnList();
-        return CommonResult.success(sign);
+    @Parameter(name = "id", description = "学生id")
+    public CommonResult getOwnList(@PathVariable("id") Long id) {
+        return CommonResult.success(signUpService.getStudentVolunteer(id));
     }
 
     @GetMapping("admin")
