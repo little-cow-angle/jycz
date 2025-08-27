@@ -7,10 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-/**
- * 
- * @TableName dormitory
- */
 @TableName(value ="dormitory")
 @Data
 public class Dormitory {
@@ -26,8 +22,6 @@ public class Dormitory {
     private Integer floor;
     @Schema(description = "宿舍号", example = "206", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer dormNumber;
-    @Schema(description = "当前居住人数")
-    private Integer currentNum;
 
     @Override
     public boolean equals(Object that) {
@@ -45,8 +39,7 @@ public class Dormitory {
             && (this.getPark() == null ? other.getPark() == null : this.getPark().equals(other.getPark()))
             && (this.getBuilding() == null ? other.getBuilding() == null : this.getBuilding().equals(other.getBuilding()))
             && (this.getFloor() == null ? other.getFloor() == null : this.getFloor().equals(other.getFloor()))
-            && (this.getDormNumber() == null ? other.getDormNumber() == null : this.getDormNumber().equals(other.getDormNumber()))
-            && (this.getCurrentNum() == null ? other.getCurrentNum() == null : this.getCurrentNum().equals(other.getCurrentNum()));
+            && (this.getDormNumber() == null ? other.getDormNumber() == null : this.getDormNumber().equals(other.getDormNumber()));
     }
 
     @Override
@@ -58,7 +51,6 @@ public class Dormitory {
         result = prime * result + ((getBuilding() == null) ? 0 : getBuilding().hashCode());
         result = prime * result + ((getFloor() == null) ? 0 : getFloor().hashCode());
         result = prime * result + ((getDormNumber() == null) ? 0 : getDormNumber().hashCode());
-        result = prime * result + ((getCurrentNum() == null) ? 0 : getCurrentNum().hashCode());
         return result;
     }
 
@@ -73,7 +65,6 @@ public class Dormitory {
         sb.append(", building=").append(building);
         sb.append(", floor=").append(floor);
         sb.append(", dormNumber=").append(dormNumber);
-        sb.append(", currentNum=").append(currentNum);
         sb.append("]");
         return sb.toString();
     }

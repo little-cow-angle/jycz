@@ -5,12 +5,11 @@
 <mapper namespace="gene.recombine.stuhubsys.mapper.DormitoryMapper">
 
     <resultMap id="BaseResultMap" type="gene.recombine.stuhubsys.entity.Dormitory">
-            <id property="dormId" column="dorm_id" />
-            <result property="park" column="park" />
-            <result property="building" column="building" />
-            <result property="floor" column="floor" />
-            <result property="dormNumber" column="dorm_number" />
-            <result property="currentNum" column="current_num" />
+        <id property="dormId" column="dorm_id" />
+        <result property="park" column="park" />
+        <result property="building" column="building" />
+        <result property="floor" column="floor" />
+        <result property="dormNumber" column="dorm_number" />
     </resultMap>
 
     <resultMap id="DormitoryResultMap" type="gene.recombine.stuhubsys.vo.DormitoryVO">
@@ -55,6 +54,10 @@
 
     <select id="getFloorList" resultType="java.lang.Integer">
         SELECT DISTINCT floor FROM dormitory WHERE park = #{park} AND building = #{building}
+    </select>
+
+    <select id="getRoomList" resultType="java.lang.Integer">
+        SELECT DISTINCT dorm_number FROM dormitory WHERE park = #{park} AND building = #{building} AND floor = #{floor}
     </select>
 
 </mapper>

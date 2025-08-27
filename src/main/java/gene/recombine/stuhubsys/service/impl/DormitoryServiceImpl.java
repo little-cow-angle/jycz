@@ -45,6 +45,11 @@ public class DormitoryServiceImpl extends ServiceImpl<DormitoryMapper, Dormitory
     }
 
     @Override
+    public List<Integer> getRoomList(String park, String building, Integer floor) {
+        return dormitoryMapper.getRoomList(park, building, floor);
+    }
+
+    @Override
     @Transactional
     public int deleteDormitory(Long dormId) {
         studentMapper.updateStudentDormToNull(dormId);

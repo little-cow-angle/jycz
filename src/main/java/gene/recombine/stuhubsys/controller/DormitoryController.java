@@ -62,4 +62,16 @@ public class DormitoryController {
         return CommonResult.success(dormitoryService.getFloorList(park, building));
     }
 
+    @GetMapping("room")
+    @Operation(summary = "获取房间列表")
+    @Parameter(name = "park", description = "园区名", in = ParameterIn.QUERY, required = true)
+    @Parameter(name = "building", description = "楼栋号", in = ParameterIn.QUERY, required = true)
+    @Parameter(name = "floor", description = "楼层", in = ParameterIn.QUERY, required = true)
+    public CommonResult<List<Integer>> getRoomList(
+        @RequestParam("park") String park,
+        @RequestParam("building") String building,
+        @RequestParam("floor") Integer floor) {
+        return CommonResult.success(dormitoryService.getRoomList(park, building, floor));
+    }
+
 }

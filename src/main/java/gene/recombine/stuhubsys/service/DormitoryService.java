@@ -12,6 +12,7 @@ public interface DormitoryService extends IService<Dormitory> {
     List<String> getParkList();
     List<String> getBuildingList(String park);
     List<Integer> getFloorList(String park, String building);
+    List<Integer> getRoomList(String park, String building, Integer floor);
     int deleteDormitory(Long dormId);
     IPage<DormitoryVO> getDormitoryList(DormitoryDTO dormitoryDTO);
 }
