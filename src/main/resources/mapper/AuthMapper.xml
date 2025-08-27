@@ -11,7 +11,7 @@
                     UPDATE teacher
                     <set>
                         <if test="entryDate != null">entry_date = #{entryDate},</if>
-                        <if test="sex != null">sex = CASE #{sex} WHEN '男' THEN 1 WHEN '女' THEN 2 ELSE 0 END,</if>
+                        <if test="sex != null">sex = #{sex},</if>
                         <if test="birth != null">birthday = #{birth},</if>
                         <if test="phone != null">phone = #{phone},</if>
                         <if test="email != null">email = #{email},</if>
@@ -28,7 +28,7 @@
                     UPDATE student
                     <set>
                         <if test="entryDate != null">entry_date = #{entryDate},</if>
-                        <if test="sex != null">sex = CASE #{sex} WHEN '男' THEN 1 WHEN '女' THEN 2 ELSE 0 END,</if>
+                        <if test="sex != null">sex = #{sex},</if>
                         <if test="birth != null">birth = #{birth},</if>
                         <if test="gaoKaoId != null">gao_kao_id = #{gaoKaoId},</if>
                         <if test="gaoKao != null">gao_kao = #{gaoKao},</if>
@@ -80,11 +80,7 @@
                      s.student_id AS username,
                      s.entry_date AS entryDate,
                      s.student_name AS name,
-                     CASE
-                         WHEN s.sex = 1 THEN '男'
-                         WHEN s.sex = 2 THEN '女'
-                         ELSE '未知'
-                         END AS sex,
+                     s.sex AS sex,
                      s.birth,
                      s.gao_kao_id AS gaoKaoId,
                      s.gao_kao AS gaoKao,
@@ -113,11 +109,7 @@
                      s.teacher_id AS username,
                      s.entry_date AS entryDate,
                      s.name AS name,
-                     CASE
-                         WHEN s.sex = 1 THEN '男'
-                         WHEN s.sex = 2 THEN '女'
-                         ELSE '未知'
-                         END AS sex,
+                     s.sex AS sex,
                      s.birthday AS birth,
                      NULL AS gaoKaoId,
                      NULL AS gaoKao,

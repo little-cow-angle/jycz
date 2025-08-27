@@ -80,10 +80,12 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void setInfo(UserDTO user) {
         boolean flag = isAdmin();
+        log.info("id:{}", UserContext.get("userId"));
+        log.info("name:{}", UserContext.get("username"));
         authMapper.setInfo(
                 flag,
                 user.getEntryDate(), // 入学年份
-                (String)UserContext.get("userId"),
+                (String) UserContext.get("userId"),
                 user.getSex(), // 性别
                 user.getBirth(), // 生日
                 user.getGaoKaoId(), // 高考证号

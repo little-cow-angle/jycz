@@ -29,8 +29,10 @@ public class UserDTO {
     private String email;
     @Schema(description = "专业", example = "软件工程", requiredMode = Schema.RequiredMode.REQUIRED)
     private String major;
-    @Schema(description = "所属学院", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "所属学院id", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer collegeId;
+    @Schema(description = "学院名")
+    private String collegeName;
     @Schema(description = "办公室地址", example = "厕所", requiredMode = Schema.RequiredMode.REQUIRED)
     private String workAddress;
     @Schema(description = "职位", example = "辅导员", requiredMode = Schema.RequiredMode.REQUIRED)
