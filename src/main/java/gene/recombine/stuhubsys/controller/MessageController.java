@@ -34,7 +34,7 @@ public class MessageController {
     public CommonResult<List<MessageDTO>> getStudentMessage() {
         return CommonResult.success(messageService.getStudentMessage());
     }
-    @PostMapping("uploadFile")
+    @PostMapping("admin/uploadFile")
     @Operation(summary = "上传附件")
     public CommonResult uploadAttachment(@Parameter(description = "附件") MultipartFile file,@Parameter(description = "附件所属消息Id") Integer id) throws IOException {
         messageService.uploadAttachment(file,id);

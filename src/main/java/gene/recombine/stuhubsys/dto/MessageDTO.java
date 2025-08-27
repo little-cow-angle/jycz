@@ -21,4 +21,6 @@ public class MessageDTO {
     private List<AttachmentDTO> files;
     @Schema(description="若类型为通知公告，则有通知的id")
     private Integer notice_id;
+    @Schema(description="若该项不为null，则为学生志愿状态消息通知.志愿状态：(1,待审核）（2，录取）（3，驳回）（4，其他）")
+    private Integer status;
 }

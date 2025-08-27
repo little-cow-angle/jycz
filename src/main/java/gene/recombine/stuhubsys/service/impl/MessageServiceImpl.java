@@ -75,6 +75,7 @@ public class MessageServiceImpl implements MessageService {
                     default:
                         message.setHead(errorStatus.replace("{}",item.getOrder().toString()));
                 }
+                message.setStatus(item.getStatus());
                 MessageList.add(message);
             }
         }

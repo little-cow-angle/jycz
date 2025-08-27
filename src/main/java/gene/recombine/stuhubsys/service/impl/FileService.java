@@ -19,7 +19,7 @@ public class FileService {
 
         if (osName.startsWith("windows")) {
             // Windows 路径，使用双反斜杠转义
-            base = "G:\\IdeaProjects\\attachment";
+            base = "D:\\IdeaProjects\\attachment";
         } else if (osName.contains("linux") || osName.contains("unix") || osName.contains("sunos")) {
             // Linux/Unix 路径
             base = "/usr/data/attachments";
