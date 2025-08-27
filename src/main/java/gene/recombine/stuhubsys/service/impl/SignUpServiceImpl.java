@@ -116,4 +116,11 @@ public class SignUpServiceImpl implements SignUpService  {
         }
         return volunteerPage;
     }
+
+    @Override
+    public IPage<SignUpRecordDTO> getVolunteerList1(Integer page, Integer size, Integer collegeId) {
+        IPage<SignUpRecordDTO> volunteerPage = new Page<>(page, size);
+        volunteerPage = signUpMapper.getSignUpList1(volunteerPage,collegeId);
+        return volunteerPage;
+    }
 }

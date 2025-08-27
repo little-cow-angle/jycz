@@ -43,6 +43,15 @@ public class SignUpController {
         IPage<StudentVolunteerVO> sign = signUpService.getVolunteerList(page,size);
         return CommonResult.success(sign);
     }
+    @GetMapping("admin2")
+    @Operation(summary = "分页条件查询志愿2")
+    @Parameter(name = "page", required = true, description = "页码")
+    @Parameter(name = "size", required = true, description = "每页展示数")
+    @Parameter(name = "collegeId", required = true, description = "学院ID")
+    public CommonResult<IPage<SignUpRecordDTO>> list1(Integer page, Integer size,Integer collegeId) {
+        IPage<SignUpRecordDTO> sign = signUpService.getVolunteerList1(page,size,collegeId);
+        return CommonResult.success(sign);
+    }
 
     @PutMapping("admin/operate")
     @Operation(summary = "志愿操作")

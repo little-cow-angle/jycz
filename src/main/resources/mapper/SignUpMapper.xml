@@ -61,5 +61,10 @@
         WHERE sr.`order` = 1
         ORDER BY s.student_id
     </select>
+    <select id="getSignUpList1" resultType="gene.recombine.stuhubsys.dto.SignUpRecordDTO">
+        select s.id ,s.student_id,s.data,s.status,s.`order`,s.update_time,s.ep_id
+        from sign_up_record s ,enrollment_plan,college
+                 where s.ep_id=enrollment_plan.id and enrollment_plan.college_id=college.id and enrollment_plan.college_id=#{collegeId}
+    </select>
 
 </mapper>

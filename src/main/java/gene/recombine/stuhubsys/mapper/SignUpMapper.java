@@ -35,4 +35,6 @@ public interface SignUpMapper extends BaseMapper<SignUpRecordDTO> {
     List<Map<String, Object>> getHotMajorSignUpList();
 
     IPage<StudentVolunteerVO> getSignUpList(IPage<StudentVolunteerVO> page);
+
+    IPage<SignUpRecordDTO> getSignUpList1(IPage<SignUpRecordDTO> volunteerPage, Integer collegeId);
 }

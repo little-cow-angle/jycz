@@ -15,4 +15,6 @@ public interface SignUpService {
     IPage<SignUpRecordDTO> list(Integer epId, Integer page, Integer size);
     void operate(Integer id, Integer operate);
     IPage<StudentVolunteerVO> getVolunteerList(Integer page, Integer size);
+
+    IPage<SignUpRecordDTO> getVolunteerList1(Integer page, Integer size, Integer collegeId);
 }
