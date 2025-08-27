@@ -95,4 +95,8 @@
              LEFT JOIN dormitory d ON d.dorm_id = s.dorm_id
         WHERE s.student_id = #{studentId}
     </select>
+
+    <select id="countBedNumber" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM student WHERE dorm_id = #{dormId} AND bed_number = #{bedNumber} AND student_id != #{studentId}
+    </select>
 </mapper>

@@ -14,6 +14,7 @@ import java.util.List;
 public interface StudentMapper extends BaseMapper<Student> {
     int updateStudentDormToNull(@Param("dormId") Long dormId);
     StudentVO selectStudentById(@Param("studentId") Long studentId);
+    int countBedNumber(@Param("studentId") Long studentId, @Param("dormId") Long dormId, @Param("bedNumber") Integer bedNumber);
     List<StudentDormVO> selectStudentsByDormIds(@Param("dormIds") List<Long> dormIds);
     IPage<StudentVO> getStudentPages(IPage<StudentVO> page, @Param("ew") QueryWrapper<Student> ew);
     int setBedNumber(StudentDTO studentDTO);

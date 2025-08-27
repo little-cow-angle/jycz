@@ -7,12 +7,13 @@
         <id property="studentId" column="student_id" />
         <result property="studentName" column="student_name" />
         <result property="sex" column="sex" />
-        <result property="gao_kao_id" column="gao_kao_id" />
-        <result property="gao_kao" column="gao_kao" />
+        <result property="gaoKaoId" column="gao_kao_id" />
+        <result property="gaoKao" column="gao_kao" />
         <result property="address" column="student_address" />
         <result property="phone" column="phone" />
         <result property="huKou" column="city_countryside" />
         <result property="collegeName" column="college_name" />
+        <result property="status" column="status" />
     </resultMap>
 
     <update id="recruit">
@@ -52,7 +53,7 @@
 
     <select id="getSignUpList" resultMap="StudentVolunteerVOMap">
         SELECT DISTINCT s.student_id, s.student_name, s.sex, s.gao_kao_id, s.gao_kao, s.student_address,
-                        s.phone, s.city_countryside, c.name AS college_name
+                        s.phone, s.city_countryside, sr.status, c.name AS college_name
         FROM sign_up_record sr
                  LEFT JOIN student s ON s.student_id = sr.student_id
                  LEFT JOIN enrollment_plan e ON e.id = sr.ep_id

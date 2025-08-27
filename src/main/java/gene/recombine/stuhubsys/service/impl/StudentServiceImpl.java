@@ -40,18 +40,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student>
     }
 
     @Override
-    public int setStudentBedNumber(StudentDTO studentDTO) {
-        int result;
+    public void setStudentBedNumber(StudentDTO studentDTO) {
         Student student = studentMapper.selectById(studentDTO.getStudentId());
-        if (null == student) {
-            throw new AppException(AppExceptionMsg.SERVER_ERROR);
-        }
-
-        if (student.getBedNumber() == null || student.getBedNumber() == 0) {
-            result = studentMapper.setBedNumber(studentDTO);
-        } else {
+        int count = studentMapper.countBedNumber(student.getStudentId(), student.getDormId(), studentDTO.getBedNumber());
+        if (count > 0) {
             throw new AppException(AppExceptionMsg.TRANSACTION_BED_NUMBER_HAS_EXISTED);
         }
-        return result;
+        studentMapper.setBedNumber(studentDTO);
     }
 }
