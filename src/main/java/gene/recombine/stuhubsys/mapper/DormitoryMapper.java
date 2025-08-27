@@ -13,6 +13,7 @@ public interface DormitoryMapper extends BaseMapper<Dormitory> {
     List<String> getParkList();
     List<String> getBuildingList(String park);
     List<Integer> getFloorList(String park, String building);
+    List<Integer> getRoomList(String park, String building, Integer floor);
     IPage<DormitoryVO> getDormitoryList(IPage<DormitoryVO> page, @Param("ew") QueryWrapper<Dormitory> queryWrapper);
 }
 
