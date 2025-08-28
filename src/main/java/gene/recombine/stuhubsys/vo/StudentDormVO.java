@@ -21,4 +21,6 @@ public class StudentDormVO {
     private String collegeName;
     @Schema(description = "宿舍id", hidden = true)
     private Long dormId;
+    @Schema(description = "宿舍信息")
+    private String dormInfo;
 }

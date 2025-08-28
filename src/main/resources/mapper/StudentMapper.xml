@@ -42,6 +42,17 @@
         <result property="phone" column="phone" />
     </resultMap>
 
+    <resultMap id="StudentDormVOMap" type="gene.recombine.stuhubsys.vo.StudentDormVO">
+        <result column="student_id" property="studentId"/>
+        <result column="student_name" property="studentName"/>
+        <result column="major_id" property="majorId"/>
+        <result column="major_name" property="majorName"/>
+        <result column="id" property="collegeId"/>
+        <result column="name" property="collegeName"/>
+        <result column="dorm_id" property="dormId"/>
+        <result column="dorm_info" property="dormInfo"/>
+    </resultMap>
+
     <sql id="Base_Column_List">
         student_id,student_name,birth,student_address,student_no,class_id,
         student_age,major_id,email,sex,sign_up_code,dorm_id,bed_number,password,
@@ -98,5 +109,47 @@
 
     <select id="countBedNumber" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM student WHERE dorm_id = #{dormId} AND bed_number = #{bedNumber} AND student_id != #{studentId}
+    </select>
+
+    <select id="getStudentDormVOs" resultType="gene.recombine.stuhubsys.vo.StudentDormVO">
+        SELECT s.student_id AS studentId,
+               s.student_name AS studentName,
+               m.major_id AS majorId, m.major_name AS majorName,
+               c.id AS collegeId, c.name AS collegeName,
+               d.dorm_id AS dormId,
+               CONCAT(d.park, '园', d.building, '栋', d.floor, '楼', d.dorm_number, '号') AS dorm_info
+        FROM student s
+                 LEFT JOIN dormitory d ON s.dorm_id = d.dorm_id
+                 LEFT JOIN major m ON s.major_id = m.major_id
+                 LEFT JOIN college c ON s.college_id = c.id
+        <where>
+            <if test="dormitoryDTO.park != null and dormitoryDTO.park != ''">AND d.park = #{dormitoryDTO.park}</if>
+            <if test="dormitoryDTO.building != null and dormitoryDTO.building != ''">AND d.building = #{dormitoryDTO.building}</if>
+            <if test="dormitoryDTO.floor != null and dormitoryDTO.floor != ''">AND d.floor = #{dormitoryDTO.floor}</if>
+            <if test="dormitoryDTO.dormNumber != null and dormitoryDTO.dormNumber != ''">AND d.dorm_number = #{dormitoryDTO.dormNumber}</if>
+            <if test="dormitoryDTO.studentName != null and dormitoryDTO.studentName != ''">AND s.student_name LIKE CONCAT('%',#{dormitoryDTO.studentName},'%')</if>
+            <if test="dormitoryDTO.studentId != null and dormitoryDTO.studentId != ''">AND s.student_id = #{dormitoryDTO.studentId}</if>
+            <if test="dormitoryDTO.collegeId != null and dormitoryDTO.collegeId != ''">AND c.id = #{dormitoryDTO.collegeId}</if>
+            <if test="dormitoryDTO.majorId != null and dormitoryDTO.majorId != ''">AND m.major_id = #{dormitoryDTO.majorId}</if>
+        </where>
+        ORDER BY s.student_id
+        LIMIT #{offset}, #{dormitoryDTO.pageSize}
+    </select>
+
+    <select id="selectStudentDormPage" resultMap="StudentDormVOMap">
+        SELECT
+            s.student_id,
+            s.student_name,
+            m.major_id,
+            m.major_name,
+            c.id,
+            c.name,
+            d.dorm_id,
+            CONCAT(d.park, '园', d.building, '栋', d.floor, '楼', d.dorm_number, '号') AS dorm_info
+        FROM student s
+                 LEFT JOIN dormitory d ON s.dorm_id = d.dorm_id
+                 LEFT JOIN major m ON s.major_id = m.major_id
+                 LEFT JOIN college c ON s.college_id = c.id
+            ${ew.customSqlSegment}
     </select>
 </mapper>
