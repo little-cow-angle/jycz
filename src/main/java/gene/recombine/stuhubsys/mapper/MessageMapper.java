@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 public interface MessageMapper{
-    @Select("select count(*) from sign_up_record where status=1")
+    @Select("select count(DISTINCT student_id) from sign_up_record where status=1")
     Integer countNeedOperate();
     @Select("select *from notice where (type=#{type} or type=1) and status=1 and expired_time > NOW()")
     List<Notice> getNotice(Integer type);
